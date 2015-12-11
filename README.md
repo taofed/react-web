@@ -1,2 +1,2 @@
-# react-web
-A framework for building web apps with React.
+# React Web
+> A framework for building web apps with React.
