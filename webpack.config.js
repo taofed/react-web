@@ -28,12 +28,6 @@ var mergeCommon = merge.bind(null, {
   },
   module: {
     loaders: [{
-      test: /\.css$/,
-      loaders: ['style', 'css'],
-    }, {
-      test: /\.md$/,
-      loaders: ['html', 'highlight', 'markdown'],
-    }, {
       test: /\.png$/,
       loader: 'url?limit=100000&mimetype=image/png',
       include: config.paths.demo,
@@ -106,7 +100,6 @@ if (NODE_ENV === 'demo') {
       movies: './Examples/Movies/MoviesApp.web',
       tictactoe: './Examples/TicTacToe/TicTacToeApp',
       uiexplorer: './Examples/UIExplorer/UIExplorerApp.web',
-
     },
     output: {
       path: './pages',
