@@ -8,11 +8,16 @@
 
 ![Examples](http://img2.tbcdn.cn/L1/461/1/0d463dbae33dcb28ffb732c60abe28856e55109f.png)
 
+### Web Examples
+> Open with mobile device or emulate mobile in developer tools
+
 * [UIExplorer](https://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
 * [Movies](https://rawgit.com/taobaofed/react-web/master/pages/movies.html)
 * [TicTacToe](https://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
 * [Game2048](https://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
 
+### Example Source
+* [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
 
 ## Install
 
@@ -24,9 +29,9 @@ npm install react-web --save
 
 ### Webpack configuration
 
-Inside your webpack configuration, alias the `react-native` package to the `react-web` package, then install and add `haste-resolver-webpack-plugin` plugin.
+Inside your webpack configuration, alias the `react-native` package to the `react-web` package, then install and add [haste-resolver-webpack-plugin](https://github.com/yuanyan/haste-resolver-webpack-plugin) plugin.
 
-```
+```js
 // webpack.config.js
 var HasteResolverPlugin = require('haste-resolver-webpack-plugin');
 
@@ -44,6 +49,8 @@ module.exports = {
   ]
 }
 ```
+
+> See more detail of the `webpack.config.js` from [React Native Web Example](https://github.com/yuanyan/react-native-web-example/blob/master/web/webpack-dev-server.config.js)
 
 #### What does HasteResolverPlugin do?
 
