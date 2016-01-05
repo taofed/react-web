@@ -15,7 +15,7 @@ StyleSheet.extendCreateElement(React);
 var ReactWeb = {
   // Components
   get ActivityIndicatorIOS() { return require('ReactActivityIndicator'); },
-  get ART() { return require('ReactART'); },
+  get ART() { return require('react-art'); },
   get DatePickerIOS() { return null; },
   get DrawerLayoutAndroid() { return require('ReactDrawerLayout'); },
   get Image() { return require('ReactImage'); },
