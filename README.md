@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      nodeModules: 'react-web'
+      nodeModules: ['react-web']
     })
   ]
 }
