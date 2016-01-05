@@ -1,6 +1,6 @@
 ![react-web](https://cloud.githubusercontent.com/assets/677114/12007136/b5bf2230-ac31-11e5-9f6a-06f2f135411a.png)
 
-# React Web
+# React Web [![npm version](https://badge.fury.io/js/react-web.svg)](http://badge.fury.io/js/react-web)
 
 > A framework for building web apps with React.
 
@@ -8,11 +8,16 @@
 
 ![Examples](http://img2.tbcdn.cn/L1/461/1/0d463dbae33dcb28ffb732c60abe28856e55109f.png)
 
+### Web Examples
+> Open with mobile device or emulate mobile in developer tools
+
 * [UIExplorer](https://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
 * [Movies](https://rawgit.com/taobaofed/react-web/master/pages/movies.html)
 * [TicTacToe](https://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
 * [Game2048](https://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
 
+### Example Source
+* [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
 
 ## Install
 
@@ -24,9 +29,9 @@ npm install react-web --save
 
 ### Webpack configuration
 
-Inside your webpack configuration, alias the `react-native` package to the `react-web` package, then install and add `haste-resolver-webpack-plugin` plugin.
+Inside your webpack configuration, alias the `react-native` package to the `react-web` package, then install and add [haste-resolver-webpack-plugin](https://github.com/yuanyan/haste-resolver-webpack-plugin) plugin.
 
-```
+```js
 // webpack.config.js
 var HasteResolverPlugin = require('haste-resolver-webpack-plugin');
 
@@ -38,11 +43,14 @@ module.exports = {
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'web'
+      platform: 'web',
+      nodeModules: ['react-web']
     })
   ]
 }
 ```
+
+> See more detail of the `webpack.config.js` from [React Native Web Example](https://github.com/yuanyan/react-native-web-example/blob/master/web/webpack-dev-server.config.js)
 
 #### What does HasteResolverPlugin do?
 
@@ -75,25 +83,11 @@ var {
 This reference method looks like we're in the way of using the native react-native way:
 
 Like the require module in Node.js, and through [Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment), allows some components to be referenced in the scope of the current file.
-That is to say, if we do so, each application component can be directly:
 
-```js
-var styles = StyleSheet.create({
- //your code
-});
-```
+But in fact it is quite different in React Web.
+When `require('react-native')`, in the construction of the webpack will be renamed, equivalent to `require('react-web')`.
 
-rather than:
-
-```js
-var styles = React.StyleSheet.create({
- //your code
-});
-```
-
-But in fact it is quite different in react-web.
-We `require('react-native')`, in the construction of the react-web will be renamed, equivalent to `require('ReactReact')`.
-At the same time, this form of writing will put all the components into at one time, including ReactAppRegistry/ReactView/... And so on, even some components did not apply to.
+At the same time, this form of writing will put all the components into at one time, including `ReactAppRegistry` `ReactView` and so on, even some components the you did not use.
 
 #### The Haste way
 
@@ -104,8 +98,10 @@ var Text = require('ReactText');
 var Platform = require('ReactPlatform');
 ```
 
-In this way, we load our components  on demand, such as ReactAppRegistry or ReactView and so on.
+In this way, we load our components on demand, such as `ReactAppRegistry` or `ReactView` and so on.
+
 Packaged components so that we no longer need to care about the differences between the platform.
+
 As mentioned above, the HasteResolverPlugin plugin will help webpack to compile and package the code.
 
 ### Fix platform differences
