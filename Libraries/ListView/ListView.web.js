@@ -298,6 +298,9 @@ var ListView = React.createClass({
 
     assign(props, {
       onScroll: this._onScroll,
+
+      onMoveShouldSetResponderCapture: this.scrollResponderHandleMoveShouldSetResponderCapture,
+
       stickyHeaderIndices: sectionHeaderIndices,
 
       // Do not pass these events downstream to ScrollView since they will be
