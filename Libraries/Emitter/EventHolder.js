@@ -71,7 +71,7 @@ class EventHolder {
       return;
     }
     var origEventKey = this._currentEventKey;
-    eventsOfType.forEach((/*?array*/ eventHeld, /*number*/ index) => {
+    eventsOfType.forEach((/* ?array */ eventHeld, /* number */ index) => {
       if (!eventHeld) {
         return;
       }

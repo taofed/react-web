@@ -115,7 +115,7 @@
     "space-infix-ops": 2,
     "space-return-throw-case": 2,
     "spaced-comment": [
-      1,
+      2,
       "always",
       {
         "exceptions": ["*!+-"]

@@ -43,7 +43,7 @@ var mergeCommon = merge.bind(null, {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      blacklist: ['node_modules/react-native', 'pages', 'lib']
+      blacklist: ['pages', 'lib'],
     }),
   ]
 });
@@ -82,7 +82,7 @@ if (NODE_ENV === 'local') {
       }],
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot', 'babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
       }, ]
     }
@@ -148,7 +148,7 @@ if (NODE_ENV === 'demo') {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loaders: ['babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
       }]
     }

@@ -71,9 +71,9 @@ var NavigatorNavigationBar = React.createClass({
   },
 
   _getReusableProps: function(
-    /*string*/componentName,
-    /*number*/index
-  ) /*object*/ {
+    /* string */componentName,
+    /* number */index
+  ) /* object */ {
     if (!this._reusableProps) {
       this._reusableProps = {};
     }
@@ -89,10 +89,10 @@ var NavigatorNavigationBar = React.createClass({
   },
 
   _updateIndexProgress: function(
-    /*number*/progress,
-    /*number*/index,
-    /*number*/fromIndex,
-    /*number*/toIndex
+    /* number */progress,
+    /* number */index,
+    /* number */fromIndex,
+    /* number */toIndex
   ) {
     var amount = toIndex > fromIndex ? progress : (1 - progress);
     var oldDistToCenter = index - fromIndex;
@@ -120,9 +120,9 @@ var NavigatorNavigationBar = React.createClass({
   },
 
   updateProgress: function(
-    /*number*/progress,
-    /*number*/fromIndex,
-    /*number*/toIndex
+    /* number */progress,
+    /* number */fromIndex,
+    /* number */toIndex
   ) {
     var max = Math.max(fromIndex, toIndex);
     var min = Math.min(fromIndex, toIndex);
@@ -150,10 +150,10 @@ var NavigatorNavigationBar = React.createClass({
   },
 
   _getComponent: function(
-    /*string*/componentName,
-    /*object*/route,
-    /*number*/index
-  ) /*?Object*/ {
+    /* string */componentName,
+    /* object */route,
+    /* number */index
+  ) /* ?Object */ {
     if (this._descriptors[componentName].includes(route)) {
       return this._descriptors[componentName].get(route);
     }
