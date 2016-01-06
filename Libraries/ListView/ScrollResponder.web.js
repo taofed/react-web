@@ -241,14 +241,14 @@ var ScrollResponderMixin = {
 
     // By default scroll views will unfocus a textField
     // if another touch occurs outside of it
-    //var currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
+    // var currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
     if (!this.props.keyboardShouldPersistTaps &&
-      //currentlyFocusedTextInput != null && e.target !== currentlyFocusedTextInput &&
+      // currentlyFocusedTextInput != null && e.target !== currentlyFocusedTextInput &&
       !this.state.observedScrollSinceBecomingResponder &&
       !this.state.becameResponderWhileAnimating) {
       this.props.onScrollResponderKeyboardDismissed &&
         this.props.onScrollResponderKeyboardDismissed(e);
-      //TextInputState.blurTextInput(currentlyFocusedTextInput);
+      // TextInputState.blurTextInput(currentlyFocusedTextInput);
     }
   },
 
