@@ -100,7 +100,7 @@ var DrawerLayout = React.createClass({
     let animatedDrawerStyles = {transform: [{translateX: drawerTranslateX}]};
 
     /* Overlay styles */
-    //let opacityOutputRange;
+    // let opacityOutputRange;
 
     let overlayOpacity = openValue.interpolate({
       inputRange: [0, 1],
@@ -213,7 +213,7 @@ var DrawerLayout = React.createClass({
 
   _panResponderRelease(e, {moveX, vx}) {
     let { drawerPosition } = this.props;
-    //let { openValue } = this.state;
+    // let { openValue } = this.state;
     let previouslyOpen = this._isClosing;
     let isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 
