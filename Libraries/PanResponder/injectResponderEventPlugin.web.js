@@ -11,12 +11,22 @@ import EventConstants from 'react/lib/EventConstants';
 import ResponderTouchHistoryStore from 'react/lib/ResponderTouchHistoryStore';
 
 var topLevelTypes = EventConstants.topLevelTypes;
-var dependencies = [
-  topLevelTypes.topTouchStart,
-  topLevelTypes.topTouchCancel,
-  topLevelTypes.topTouchEnd,
-  topLevelTypes.topTouchMove
-];
+var dependencies;
+
+if ('ontouchstart' in window) {
+  dependencies = [
+    topLevelTypes.topTouchStart,
+    topLevelTypes.topTouchCancel,
+    topLevelTypes.topTouchEnd,
+    topLevelTypes.topTouchMove
+  ];
+} else {
+  // TODO: support move event
+  dependencies = [
+    topLevelTypes.topMouseDown,
+    topLevelTypes.topMouseUp
+  ];
+}
 
 for (var eventType in ResponderEventPlugin.eventTypes) {
   ResponderEventPlugin.eventTypes[eventType].dependencies = dependencies;
