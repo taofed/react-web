@@ -23,7 +23,7 @@ var Image = React.createClass({
   render: function() {
 
     var props = {...this.props};
-    props.src = props.source.uri;
+    props.src = typeof props.source === 'string' ? props.source : props.source.uri;
 
     // TODO: lazyload image when not in viewport
 
