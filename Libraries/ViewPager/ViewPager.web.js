@@ -7,16 +7,15 @@
  */
 'use strict';
 
-import React, {cloneElement} from 'react';
+import React, { PropTypes, cloneElement } from 'react';
 import assign from 'object-assign';
+import View from 'ReactView';
 import Animated from 'ReactAnimated';
 import Dimensions from 'ReactDimensions';
 import PanResponder from 'ReactPanResponder';
 import dismissKeyboard from 'ReactDismissKeyboard';
 
 const deviceSize = Dimensions.get('window');
-const PropTypes = React.PropTypes;
-
 const VIEWPAGER_REF = 'viewpager';
 
 var ViewPager = React.createClass({
@@ -131,7 +130,7 @@ var ViewPager = React.createClass({
       extrapolate: 'clamp'
     });
 
-    return (<div ref={VIEWPAGER_REF}
+    return (<View ref={VIEWPAGER_REF}
       style={this.props.style}
       {...this._panResponder.panHandlers}
     >
@@ -145,7 +144,7 @@ var ViewPager = React.createClass({
       }}>
         {children}
       </Animated.View>
-    </div>);
+    </View>);
   },
 
   _onPageScroll: function(event) {

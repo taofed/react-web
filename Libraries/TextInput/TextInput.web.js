@@ -10,6 +10,7 @@
 
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import View from 'ReactView';
 
 var typeMap = {
   'default': 'text',
@@ -352,10 +353,10 @@ var TextInput = React.createClass({
 
     if (this.props.children) {
       return (
-        <div>
+        <View>
           {input}
           {this.props.children}
-        </div>
+        </View>
       );
     } else {
       return input;

@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react';
+import View from 'ReactView';
 import TabBarItem from './TabBarItem.web';
 import TabBarContents from './TabBarContents.web';
 import assign from 'object-assign';
@@ -104,12 +105,12 @@ var TabBar = React.createClass({
     });
 
     return (
-      <div style={styles.container}>
-        <div style={styles.content}>{tabContent}</div>
+      <View style={styles.container}>
+        <View style={styles.content}>{tabContent}</View>
         <ul style={barStyle}>
           {tabs}
         </ul>
-      </div>
+      </View>
     );
   }
 });

@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react';
+import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
 
@@ -38,9 +39,9 @@ var Image = React.createClass({
       containerStyles.backgroundPosition = '50%';
 
       return (
-        <div style={containerStyles} data-src={props.src}>
+        <View style={containerStyles} data-src={props.src}>
           {this.props.children}
-        </div>
+        </View>
       );
     } else {
       return (

@@ -9,6 +9,7 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import StyleSheet from 'ReactStyleSheet';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 
 var View = React.createClass({
@@ -92,7 +93,7 @@ var View = React.createClass({
 
   render: function() {
     return (
-      <div {...this.props}>
+      <div className={StyleSheet.viewClassName} {...this.props}>
         {this.props.children}
       </div>
     );
