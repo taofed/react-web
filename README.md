@@ -50,7 +50,7 @@ module.exports = {
 }
 ```
 
-> See more detail of the `webpack.config.js` from [React Native Web Example](https://github.com/yuanyan/react-native-web-example/blob/master/web/webpack-dev-server.config.js)
+> See more detail of the `webpack.config.js` from [React Native Web Example](https://github.com/yuanyan/react-native-web-example/blob/master/web/webpack.config.js)
 
 #### What does HasteResolverPlugin do?
 
