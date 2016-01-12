@@ -11,10 +11,10 @@
 ### Web Examples
 > Open with mobile device or emulate mobile in developer tools
 
-* [UIExplorer](https://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
-* [Movies](https://rawgit.com/taobaofed/react-web/master/pages/movies.html)
-* [TicTacToe](https://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
-* [Game2048](https://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
+* [UIExplorer](http://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
+* [Movies](http://rawgit.com/taobaofed/react-web/master/pages/movies.html)
+* [TicTacToe](http://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
+* [Game2048](http://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
 
 ### Example Source
 * [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
