@@ -18,6 +18,7 @@
 
 ### Example Source
 * [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
+* [React Native Web Exploding Hearts](https://github.com/yuanyan/react-native-web-exploding-hearts/)
 
 ## Install
 
