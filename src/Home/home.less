@@ -1,0 +1,38 @@
+.react-root div{
+	position: relative;
+	box-sizing: border-box;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	flex-shrink: 0;
+}
+
+.intro {
+	.left:hover{
+		opacity: 0.9!important;
+	}
+
+	.right:hover{
+		opacity: 0.9!important;
+	}
+
+	@media (max-width: 650px) {
+		bottom: -20px!important;
+
+		.demo{
+			display: none;
+		}
+		.content{
+			text-align: center!important;
+			padding-top: 120px!important;
+		}
+	}
+}
+
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
