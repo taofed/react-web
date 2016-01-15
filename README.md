@@ -24,7 +24,7 @@
 
 ### Install
 
-```
+```sh
 npm install react-web --save
 ```
 
@@ -66,8 +66,6 @@ When using components of `react-web`, just `require('ReactActivityIndicator')`, 
 You can find something like `@providesModule ReactActivityIndicator` on `react-web` component's comment, yes, it's for `HasteResolverPlugin`.
 
 ### Require modules
-
-Two ways to require modules.
 
 #### The CommonJS way
 
@@ -146,21 +144,13 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
   })
   ```
 
-5. Without `LayoutAnimation` on web platform
+5. Without some APIs like `LayoutAnimation` on web platform
   ```js
   var LayoutAnimation = require('ReactLayoutAnimation')
   if(Platform.OS !== 'web'){
     LayoutAnimation.configureNext(...)
   }
   ```
-
-### Adding web to an existing React Native project
-
-If you already have a React Native project and want to add web support, you need to execute the following commands in your existing project directory:
-
-1. Execute `npm install react-web --save` that install `react-web` to your project dependency
-2. Install `npm install react-web-cli -g`
-3. Execute `react-web init` that make a web directory under your project
 
 ### React Native compatible
 
