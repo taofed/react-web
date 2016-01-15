@@ -11,8 +11,8 @@
 import React from 'react';
 import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
-import TouchableWithoutFeedback from 'ReactTouchable';
-import { Mixin as TouchableMixin } from 'ReactTouchableMixin';
+import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
+import { Mixin as TouchableMixin } from 'ReactTouchable';
 import StyleSheet from 'ReactStyleSheet';
 
 type Event = Object;

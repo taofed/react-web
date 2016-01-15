@@ -33,11 +33,10 @@ var ReactWeb = {
   get Text() { return require('ReactText'); },
   get TextInput() { return require('ReactTextInput'); },
   get ToastAndroid() { return require('ReactToast'); },
-  get Touchable() { return require('ReactTouchableMixin'); },
+  get Touchable() { return require('ReactTouchable'); },
   get TouchableHighlight() { return require('ReactTouchableHighlight'); },
-  get TouchableNativeFeedback() { return require('ReactTouchable'); },
   get TouchableOpacity() { return require('ReactTouchableOpacity'); },
-  get TouchableWithoutFeedback() { return require('ReactTouchable'); },
+  get TouchableWithoutFeedback() { return require('ReactTouchableWithoutFeedback'); },
   get View() { return require('ReactView'); },
   get ViewPagerAndroid() { return require('ReactViewPager'); },
 

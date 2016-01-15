@@ -10,7 +10,7 @@
 
 import Animated from 'ReactAnimated';
 import React from 'react';
-import { Mixin as TouchableMixin } from 'ReactTouchableMixin';
+import { Mixin as TouchableMixin } from 'ReactTouchable';
 
 type Event = Object;
 type State = {

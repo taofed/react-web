@@ -11,8 +11,8 @@
 import Animated from 'ReactAnimated';
 import React from 'react';
 import TimerMixin from 'react-timer-mixin';
-import { Mixin as TouchableMixin } from 'ReactTouchableMixin';
-import TouchableWithoutFeedback from 'ReactTouchable';
+import { Mixin as TouchableMixin } from 'ReactTouchable';
+import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 
 // var ensurePositiveDelayProps = require('ensurePositiveDelayProps');
 var flattenStyle = require('ReactFlattenStyle');

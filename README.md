@@ -1,8 +1,8 @@
 ![react-web](https://cloud.githubusercontent.com/assets/677114/12007136/b5bf2230-ac31-11e5-9f6a-06f2f135411a.png)
 
-# React Web [中文](https://github.com/taobaofed/react-web/blob/master/README-zh.md) [![npm version](https://badge.fury.io/js/react-web.svg)](http://badge.fury.io/js/react-web) 
+# React Web [中文](https://github.com/taobaofed/react-web/blob/master/README-zh.md) [![npm version](https://badge.fury.io/js/react-web.svg)](http://badge.fury.io/js/react-web)
 
-> A framework for building web apps with React.
+> A framework for building web apps with React Native compatible API.
 
 ## Examples
 
@@ -20,15 +20,15 @@
 * [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
 * [React Native Web Exploding Hearts](https://github.com/yuanyan/react-native-web-exploding-hearts/)
 
-## Install
+## Quick start
+
+### Install
 
 ```
 npm install react-web --save
 ```
 
-## Usage
-
-### Webpack configuration
+### Add Webpack configuration
 
 Inside your webpack configuration, alias the `react-native` package to the `react-web` package, then install and add [haste-resolver-webpack-plugin](https://github.com/yuanyan/haste-resolver-webpack-plugin) plugin.
 
@@ -61,7 +61,7 @@ When using components of `react-web`, just `require('ReactActivityIndicator')`, 
 
 1. Walk over all components and check out the `@providesModule` info.
 2. When webpack build bundle, it makes your components recognised rather than throwing an error.
-3. It will help webpack build bundle with correct file depending on the target platform.
+3. It will help webpack build bundle with correct file depending on the tar* platform.
 
 You can find something like `@providesModule ReactActivityIndicator` on `react-web` component's comment, yes, it's for `HasteResolverPlugin`.
 
@@ -153,6 +153,64 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
     LayoutAnimation.configureNext(...)
   }
   ```
+
+### Adding web to an existing React Native project
+
+If you already have a React Native project and want to add web support, you need to execute the following commands in your existing project directory:
+
+1. Execute `npm install react-web --save` that install `react-web` to your project dependency
+2. Install `npm install react-web-cli -g`
+3. Execute `react-web init` that make a web directory under your project
+
+### React Native compatible
+
+#### Components
+
+* ActivityIndicatorIOS - ReactActivityIndicator
+* DatePickerIOS - ReactDatePicker *TODO*
+* DrawerLayoutAndroid - ReactDrawerLayout
+* Image - ReactImage
+* ListView - ReactListView
+* Modal - ReactModal
+* Navigator - ReactNavigator
+* PickerIOS ReactPicker
+* ProgressViewIOS - ReactProgressView
+* ScrollView - ReactScrollView
+* SegmentedControlIOS - ReactSegmentedControl
+* SliderIOS - ReactSlider
+* Switch - ReactSwitch
+* SwitchAndroid - ReactSwitch
+* SwitchIOS - ReactSwitch
+* TabBarIOS - ReactTabBar
+* Text - ReactText
+* TextInput - ReactTextInput
+* ToastAndroid - ReactToast
+* Touchable - ReactTouchable
+* TouchableHighlight - ReactTouchableHighlight
+* TouchableOpacity - ReactTouchableOpacity
+* TouchableWithoutFeedback - ReactTouchableWithoutFeedback
+* View - ReactView
+* ViewPagerAndroid - ReactViewPager
+
+#### APIs
+
+* Alert - ReactAlert
+* AlertIOS - ReactAlert
+* Animated - ReactAnimated
+* AppRegistry - ReactAppRegistry
+* AsyncStorage - ReactAsyncStorage
+* Dimensions - ReactDimensions
+* Easing - ReactEasing
+* InteractionManager - ReactInteractionManager
+* PanResponder - ReactPanResponder
+* PixelRatio - ReactPixelRatio
+* StyleSheet - ReactStyleSheet
+
+#### Plugins
+
+* NativeModules - ReactNativeModules
+* Platform - ReactPlatform
+* processColor - ReactProcessColor
 
 ## Scripts
 

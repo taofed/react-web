@@ -9,7 +9,7 @@
 'use strict';
 
 import React from 'react';
-import { Mixin as TouchableMixin } from 'ReactTouchableMixin';
+import { Mixin as TouchableMixin } from 'ReactTouchable';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 
 /**
