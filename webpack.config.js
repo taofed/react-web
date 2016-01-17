@@ -14,8 +14,7 @@ var config = {
     src: path.join(ROOT_PATH, 'Libraries'),
     demo: path.join(ROOT_PATH, DEMO_DIR),
     demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
-  },
-  library: 'StyleSheet',
+  }
 };
 
 var mergeCommon = merge.bind(null, {
