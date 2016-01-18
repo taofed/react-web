@@ -17,8 +17,8 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint . --ext .js --ext .jsx",
-    "start": "NODE_ENV=local node scripts/start.js",
-    "demo": "NODE_ENV=demo webpack --colors",
+    "start": "node local-cli/cli.js start webpack.config.js",
+    "demo": "node local-cli/cli.js bundle webpack.config.js",
     "prepublish": "babel ./Libraries --out-dir ./lib --stage 1",
     "postpublish": "rm -rf ./lib"
   },
@@ -44,9 +44,11 @@
     "react-dom": "~0.14.0"
   },
   "dependencies": {
+    "chalk": "1.1.1",
     "core-js": "1.2.3",
     "domkit": "0.0.1",
     "fbjs": "0.2.1",
+    "graceful-fs": "4.1.2",
     "history": "1.12.6",
     "immutable": "3.7.5",
     "object-assign": "3.0.0",

@@ -15,6 +15,9 @@ var WebpackDevServer = require('webpack-dev-server');
  * Starts the React Web Server.
  */
 function server(argv, config) {
+
+  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
   return new Promise((resolve, reject) => {
     _server(argv, config, resolve, reject);
   });
@@ -44,21 +47,21 @@ function _server(argv, config, resolve, reject) {
     }
     process.exit(1);
   });
-  
-  var webpackConfig = require(config.getWebpackConfig());
+
+  var webpackConfig = require(config.getWebpackConfig(argv[1]));
   new WebpackDevServer(webpack(webpackConfig), {
-    publicPath: config.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
     hot: true,
     historyApiFallback: true,
     stats: {
       colors: true
     },
-  }).listen(config.port, config.ip, function(err) {
+  }).listen(webpackConfig.port, webpackConfig.ip, function(err) {
     if (err) {
       return console.log(err);
     }
 
-    console.log('Listening at ' + config.ip + ':' + config.port);
+    console.log('Listening at ' + webpackConfig.ip + ':' + webpackConfig.port);
   });
 }
 

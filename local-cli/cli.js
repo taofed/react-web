@@ -10,6 +10,10 @@
  */
 'use strict';
 
+require("babel-core/register")({
+  only: /local-cli/,
+});
+
 var server = require('./server');
 var bundle = require('./bundle');
 var defaultConfig = require('./defaultConfig');

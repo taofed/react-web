@@ -16,28 +16,26 @@ const WEBPACK_CONFIG = 'web/webpack.config.js';
  * to tweak.
  */
 var config = {
-  getRoot,
+  getRoot() {
+    if (__dirname.match(/node_modules[\/\\]react-web[\/\\]local-cli$/)) {
+      // CLI is running from node_modules.
+      // This is the default case for all projects created using 'react-web init'.
+      return path.resolve(__dirname, '../../..');
+    } else {
+      return path.resolve(__dirname, '..');
+    }
+  },
 
-  getWebpackConfig() {
-    var webpackConfig = path.join(getRoot(), WEBPACK_CONFIG);
+  getWebpackConfig(customConfig) {
+    var webpackConfig = path.join(this.getRoot(), customConfig || WEBPACK_CONFIG);
     if(!fs.existsSync(webpackConfig)) {
       throw new Error(
         'Can\'t find webpack config file at "' +
         webpackConfig + '"'
       );
     }
-    return WEBPACK_CONFIG
+    return webpackConfig
   }
 };
-
-function getRoot() {
-  if (__dirname.match(/node_modules[\/\\]react-web[\/\\]local-cli$/)) {
-    // CLI is running from node_modules.
-    // This is the default case for all projects created using 'react-web init'.
-    return path.resolve(__dirname, '../../..');
-  } else {
-    return path.resolve(__dirname, '..');
-  }
-}
 
 module.exports = config;
