@@ -14,8 +14,7 @@ var config = {
     src: path.join(ROOT_PATH, 'Libraries'),
     demo: path.join(ROOT_PATH, DEMO_DIR),
     demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
-  },
-  library: 'StyleSheet',
+  }
 };
 
 var mergeCommon = merge.bind(null, {
@@ -48,7 +47,7 @@ var mergeCommon = merge.bind(null, {
   ]
 });
 
-if (NODE_ENV === 'local') {
+if (NODE_ENV === 'development') {
   var IP = '0.0.0.0';
   var PORT = 3000;
   module.exports = mergeCommon({
@@ -89,7 +88,7 @@ if (NODE_ENV === 'local') {
   });
 }
 
-if (NODE_ENV === 'demo') {
+if (NODE_ENV === 'production') {
 
   module.exports = mergeCommon({
     devtool: 'source-map',
