@@ -10,12 +10,13 @@ var spawn = require('child_process').spawn;
 var easyfile = require('easyfile');
 var packageJson = require('../../package.json');
 
-function installDevVerbose(projectDir) {
+function installDev(projectDir, verbose) {
   var proc = spawn('npm', [
     'install',
-    '--verbose',
+    verbose? '--verbose': '',
     '--save-dev',
     'webpack@' + packageJson.dependencies.webpack,
+    'webpack-dev-server@' + packageJson.dependencies['webpack-dev-server'],
     'babel-loader@5.1.3',
     'json-loader@0.5.2',
     'react-hot-loader@1.2.7',
@@ -29,7 +30,7 @@ function installDevVerbose(projectDir) {
       return;
     } else {
       console.log(chalk.white.bold('To run your app on browser:'));
-      this.log(chalk.white('   cd ' + projectDir));
+      console.log(chalk.white('   cd ' + projectDir));
       console.log(chalk.white('   react-web start'));
     }
   });
