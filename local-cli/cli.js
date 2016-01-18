@@ -14,6 +14,7 @@ require("babel-core/register")({
   only: /local-cli/,
 });
 
+var generateWeb = require('./generator-web');
 var server = require('./server');
 var bundle = require('./bundle');
 var defaultConfig = require('./defaultConfig');
@@ -96,6 +97,8 @@ function init(projectDir, argsOrName) {
   var args = Array.isArray(argsOrName)
     ? argsOrName
     : [argsOrName].concat(process.argv.slice(4));
+
+  generateWeb(projectDir, defaultConfig);
 
 }
 
