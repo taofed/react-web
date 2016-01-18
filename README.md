@@ -20,7 +20,16 @@
 * [React Native Web Example](https://github.com/yuanyan/react-native-web-example/)
 * [React Native Web Exploding Hearts](https://github.com/yuanyan/react-native-web-exploding-hearts/)
 
-## Quick start
+## Adding web to an existing React Native project
+
+If you already have a React Native project and want to add web support, you need to execute the following commands in your existing project directory:
+
+1. Install `npm install react-web-cli -g`
+2. Execute `react-web init <ExistedProjectDir>` that install `react-web` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project
+3. Execute `react-web start` that starts the web dev server
+4. Execute `react-web bundle` that builds the output
+
+## Getting Started
 
 ### Install
 
