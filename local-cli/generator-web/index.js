@@ -48,5 +48,5 @@ module.exports = function(projectDir, config) {
   });
 
   process.chdir(root);
-  installDevVerbose(projectDir);
+  installDev(projectDir);
 }
