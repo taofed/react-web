@@ -10,7 +10,7 @@ function extendCreateElement(React, processor) {
   React.createElement = function(type, props) {
     var args = arguments;
 
-    if (type.displayName !== 'AnimatedComponent' && props && props.style && (Array.isArray(props.style) || typeof props.style === 'object')) {
+    if (type && type.displayName !== 'AnimatedComponent' && props && props.style && (Array.isArray(props.style) || typeof props.style === 'object')) {
       var style = processor(props.style);
       // should copy it, props is read only
       var target = {};
