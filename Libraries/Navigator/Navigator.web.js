@@ -866,6 +866,11 @@ var Navigator = React.createClass({
     this._enableScene(destIndex);
     this._emitWillFocus(this.state.routeStack[destIndex]);
     this._transitionTo(destIndex);
+    if (n > 0) {
+      history.pushState({ index: destIndex }, '/scene_' + getRouteID(this.state.routeStack[destIndex]));
+    } else {
+      history.go(n);
+    }
   },
 
   jumpTo: function(route) {
@@ -900,6 +905,7 @@ var Navigator = React.createClass({
       routeStack: nextStack,
       sceneConfigStack: nextAnimationConfigStack,
     }, () => {
+      history.pushState({ index: destIndex }, '/scene_' + getRouteID(route));
       this._enableScene(destIndex);
       this._transitionTo(destIndex);
     });
@@ -921,6 +927,7 @@ var Navigator = React.createClass({
       null, // default velocity
       null, // no spring jumping
       () => {
+        history.go(-n);
         this._cleanScenesPastIndex(popIndex);
       }
     );
@@ -1047,9 +1054,6 @@ var Navigator = React.createClass({
       disabledSceneStyle = styles.disabledScene;
       disabledScenePointerEvents = 'none';
     }
-
-    // Push a new entry onto the history stack.
-    history.pushState({ i: i }, '/scene_' + getRouteID(route));
 
     return (
       <View
