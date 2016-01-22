@@ -317,7 +317,7 @@ var Navigator = React.createClass({
     });
     this._interactionHandle = null;
     this._emitWillFocus(this.state.routeStack[this.state.presentedIndex]);
-
+    this.hashChanged = false;
   },
 
   componentDidMount: function() {
@@ -327,9 +327,14 @@ var Navigator = React.createClass({
     // NOTE: Listen for changes to the current location. The
     // listener is called once immediately.
     _unlisten = history.listen(function(location) {
-      var destIndex = parseInt(location.pathname.replace('/scene_', ''));
-      if (destIndex < this.state.presentedIndex) {
+      var destIndex = 0;
+      if (location.pathname.indexOf('/scene_') != -1) {
+        destIndex = parseInt(location.pathname.replace('/scene_', ''));
+      } 
+      if (destIndex < this.state.routeStack.length && destIndex != this.state.routeStack.length) {
+        this.hashChanged = true;
         this._jumpN(destIndex - this.state.presentedIndex);
+        this.hashChanged = false;
       }
     }.bind(this));
   },
@@ -866,6 +871,13 @@ var Navigator = React.createClass({
     this._enableScene(destIndex);
     this._emitWillFocus(this.state.routeStack[destIndex]);
     this._transitionTo(destIndex);
+    if (!this.hashChanged) {
+      if (n > 0) {
+        history.pushState({ index: destIndex }, '/scene_' + getRouteID(this.state.routeStack[destIndex]));
+      } else {
+        history.go(n);
+      }
+    }
   },
 
   jumpTo: function(route) {
@@ -900,6 +912,7 @@ var Navigator = React.createClass({
       routeStack: nextStack,
       sceneConfigStack: nextAnimationConfigStack,
     }, () => {
+      history.pushState({ index: destIndex }, '/scene_' + getRouteID(route));
       this._enableScene(destIndex);
       this._transitionTo(destIndex);
     });
@@ -921,6 +934,7 @@ var Navigator = React.createClass({
       null, // default velocity
       null, // no spring jumping
       () => {
+        history.go(-n);
         this._cleanScenesPastIndex(popIndex);
       }
     );
@@ -1047,9 +1061,6 @@ var Navigator = React.createClass({
       disabledSceneStyle = styles.disabledScene;
       disabledScenePointerEvents = 'none';
     }
-
-    // Push a new entry onto the history stack.
-    history.pushState({ i: i }, '/scene_' + getRouteID(route));
 
     return (
       <View
