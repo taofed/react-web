@@ -327,12 +327,6 @@ if(Platform.OS == 'web'){
   AppRegistry.runApplication('TicTacToeApp', {
     rootTag: app
   });
-
-}else if(Platform.OS == 'weex'){
-
-  AppRegistry.runApplication('TicTacToeApp', {
-    rootTag: __hack__weexApp
-  });
 }
 
 module.exports = TicTacToeApp;
