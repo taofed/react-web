@@ -5,12 +5,14 @@
  */
 'use strict';
 
-function extendCreateElement(React, processor) {
+function extendCreateElement(React, processor, nativeComponents) {
   var originalCreateElement = React.createElement;
   React.createElement = function(type, props) {
     var args = arguments;
 
-    if (type && type.displayName !== 'AnimatedComponent' && props && props.style && (Array.isArray(props.style) || typeof props.style === 'object')) {
+    if (props && props.style &&
+      (Array.isArray(props.style) || typeof props.style === 'object') &&
+      nativeComponents.indexOf(type) !== -1) {
       var style = processor(props.style);
       // should copy it, props is read only
       var target = {};

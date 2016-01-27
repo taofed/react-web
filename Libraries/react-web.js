@@ -10,7 +10,31 @@ import React from 'react';
 import StyleSheet from 'ReactStyleSheet';
 
 // proxy origin react createElement
-StyleSheet.extendCreateElement(React);
+StyleSheet.extendCreateElement(React, [
+  // whitelist all Native Components (to only override `style` of these)
+  require('ReactActivityIndicator'),
+  require('ReactDrawerLayout'),
+  require('ReactImage'),
+  require('ReactListView'),
+  require('ReactModal'),
+  require('ReactNavigator'),
+  require('ReactPicker'),
+  require('ReactProgressView'),
+  require('ReactScrollView'),
+  require('ReactSegmentedControl'),
+  require('ReactSlider'),
+  require('ReactSwitch'),
+  require('ReactTabBar'),
+  require('ReactText'),
+  require('ReactTextInput'),
+  require('ReactToast'),
+  require('ReactTouchable'),
+  require('ReactTouchableHighlight'),
+  require('ReactTouchableOpacity'),
+  require('ReactTouchableWithoutFeedback'),
+  require('ReactView'),
+  require('ReactViewPager')
+]);
 
 var ReactWeb = {
   // Components

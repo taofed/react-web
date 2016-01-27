@@ -22,7 +22,7 @@ var StyleSheet = {
   create: function(styles) {
     return styles;
   },
-  extendCreateElement: function(React) {
+  extendCreateElement: function(React, nativeComponents) {
     extendCreateElement(React, function(style) {
       if (!inited) {
         inited = true;
@@ -34,7 +34,7 @@ var StyleSheet = {
       }
 
       return flattenStyle(style, extendProperties);
-    });
+    }, nativeComponents);
   },
   setReferenceWidth: reference.setWidth,
   rootClassName: ROOT_CLASS_NAME,
