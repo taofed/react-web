@@ -16,7 +16,6 @@
 'use strict';
 
 var React = require('react-native');
-var setNativeProps = require('ReactSetNativeProps')
 var {
   PanResponder,
   StyleSheet,
@@ -82,43 +81,24 @@ var PanResponderExample = React.createClass({
 
   _highlight: function() {
 
-    // this.circle && this.circle.setNativeProps({
-    //   style: {
-    //     backgroundColor: processColor(CIRCLE_HIGHLIGHT_COLOR)
-    //   }
-    // });
+    this.circle && this.circle.setNativeProps({
+      style: {
+        backgroundColor: processColor(CIRCLE_HIGHLIGHT_COLOR)
+      }
+    });
 
-    if (this.circle) {
-      setNativeProps(this.circle, {
-        style: {
-          backgroundColor: processColor(CIRCLE_HIGHLIGHT_COLOR)
-        }
-      })
-    }
   },
 
   _unHighlight: function() {
-    // this.circle && this.circle.setNativeProps({
-    //   style: {
-    //     backgroundColor: processColor(CIRCLE_COLOR)
-    //   }
-    // });
-
-    if (this.circle) {
-      setNativeProps(this.circle, {
-        style: {
-          backgroundColor: processColor(CIRCLE_COLOR)
-        }
-      })
-    }
+    this.circle && this.circle.setNativeProps({
+      style: {
+        backgroundColor: processColor(CIRCLE_COLOR)
+      }
+    });
   },
 
   _updatePosition: function() {
-    // this.circle && this.circle.setNativeProps(this._circleStyles);
-
-    if (this.circle) {
-      setNativeProps(this.circle, this._circleStyles)
-    }
+    this.circle && this.circle.setNativeProps(this._circleStyles);
 
   },
 
