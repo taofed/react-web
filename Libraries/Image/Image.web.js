@@ -10,13 +10,14 @@ import React from 'react';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var Image = React.createClass({
   statics: {
     resizeMode: ImageResizeMode,
   },
 
-  mixins: [LayoutMixin],
+  mixins: [LayoutMixin, NativeMethodsMixin],
 
   contextTypes: {
     isInAParentText: React.PropTypes.bool

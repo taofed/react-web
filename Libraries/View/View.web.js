@@ -11,9 +11,10 @@
 import React, { PropTypes } from 'react';
 import StyleSheet from 'ReactStyleSheet';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var View = React.createClass({
-  mixins: [LayoutMixin],
+  mixins: [LayoutMixin, NativeMethodsMixin],
 
   propTypes: {
     /**

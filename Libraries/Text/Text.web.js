@@ -11,6 +11,7 @@
 import React from 'react';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 /**
  * A React component for displaying text which supports nesting,
@@ -47,7 +48,7 @@ import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 
 var Text = React.createClass({
 
-  mixins: [LayoutMixin, TouchableMixin],
+  mixins: [LayoutMixin, TouchableMixin, NativeMethodsMixin],
 
   propTypes: {
     /**

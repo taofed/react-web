@@ -13,6 +13,7 @@ import React from 'react';
 import TimerMixin from 'react-timer-mixin';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 // var ensurePositiveDelayProps = require('ensurePositiveDelayProps');
 var flattenStyle = require('ReactFlattenStyle');
@@ -42,7 +43,7 @@ type Event = Object;
  */
 
 var TouchableOpacity = React.createClass({
-  mixins: [TimerMixin, TouchableMixin],
+  mixins: [TimerMixin, TouchableMixin, NativeMethodsMixin],
 
   propTypes: {
     ...TouchableWithoutFeedback.propTypes,

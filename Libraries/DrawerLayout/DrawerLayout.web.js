@@ -12,6 +12,7 @@ import View from 'ReactView';
 import Animated from 'ReactAnimated';
 import PanResponder from 'ReactPanResponder';
 import Dimensions from 'ReactDimensions';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -22,6 +23,7 @@ const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
 var DrawerLayout = React.createClass({
+  mixins: [NativeMethodsMixin],
 
   statics: {
     positions: {
