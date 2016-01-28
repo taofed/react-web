@@ -904,25 +904,41 @@ class AnimatedTransform extends AnimatedWithChildren {
   }
 
   __getValue(): Array<Object> {
-
-    // Note(yuanyan): transform process in StyleSheet
-    return this._transforms;
+    return this._transforms.map(transform => {
+      var result = '';
+      for (var key in transform) {
+        var value = transform[key];
+        if (value instanceof Animated) {
+          result += key + '(' + value.__getValue() + ')';
+        } else {
+          result += key + '(' + value.join(',') + ')';
+        }
+      }
+      return result;
+    }).join(' ');
   }
 
   __getAnimatedValue(): Array<Object> {
     return this._transforms.map(transform => {
-      var result = {};
+      var result = '';
       for (var key in transform) {
+
         var value = transform[key];
         if (value instanceof Animated) {
-          result[key] = value.__getAnimatedValue();
+          value = value.__getValue();
         } else {
           // All transform components needed to recompose matrix
-          result[key] = value;
+          value = value.join(',');
         }
+
+        if ( typeof(value) === 'number' && (key === 'translateX' || key === 'translateY' || key === 'translateZ')) {
+          value += 'px';
+        }
+
+        result += key + '(' + value + ') ';
       }
       return result;
-    });
+    }).join('').trim();
   }
 
   __attach(): void {
@@ -1102,19 +1118,13 @@ function createAnimatedComponent(Component: any): any {
       // forceUpdate.
       var callback = () => {
 
-        // N.B. the current setNativeProps implementation is not reliable:
-        // it doesn't support the same props/style as when setting a prop
-        // so we disable Animated setNativeProps call and just do forceUpdate()
-        /*
         if (this.refs[refName].setNativeProps) {
           var value = this._propsAnimated.__getAnimatedValue();
           this.refs[refName].setNativeProps(value);
         } else {
-        */
-        this.forceUpdate();
-        /*
+          this.forceUpdate();
         }
-        */
+
       };
 
       this._propsAnimated = new AnimatedProps(

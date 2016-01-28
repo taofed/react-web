@@ -16,7 +16,6 @@ import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIO
 import Platform from 'ReactPlatform';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
-import setNativeProps from 'ReactSetNativeProps';
 import { Map } from 'immutable';
 import invariant from 'fbjs/lib/invariant';
 
@@ -117,7 +116,7 @@ var NavigatorBreadcrumbNavigationBar = React.createClass({
     var right = this.refs['right_' + index];
     if (right &&
         interpolate.RightItem(RIGHT_BUTTON_PROPS[index].style, amount)) {
-      setNativeProps(right, RIGHT_BUTTON_PROPS[index])
+      right.setNativeProps(RIGHT_BUTTON_PROPS[index])
     }
   },
 
@@ -244,8 +243,7 @@ var NavigatorBreadcrumbNavigationBar = React.createClass({
 
   _setPropsIfExists: function(ref, props) {
     var ref = this.refs[ref];
-    // ref && ref.setNativeProps(props);
-    ref && setNativeProps(ref, props);
+    ref && ref.setNativeProps(props);
   },
 });
 
