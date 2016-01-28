@@ -143,17 +143,7 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
   var fetch = Platform.OS === 'web'? require('ReactJsonp'): require('ReactFetch');
   ```
 
-4. Component without setNativeProps method on web platform
-  ```js
-  var setNativeProps = require('ReactSetNativeProps')
-  setNativeProps(this.refs.foo, {
-    style: {
-      top: 0
-    }
-  })
-  ```
-
-5. Without some APIs like `LayoutAnimation` on web platform
+4. Without some APIs like `LayoutAnimation` on web platform
   ```js
   var LayoutAnimation = require('ReactLayoutAnimation')
   if(Platform.OS !== 'web'){

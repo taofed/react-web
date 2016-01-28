@@ -15,7 +15,6 @@ import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIO
 import Platform from 'ReactStyleSheet';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
-import setNativeProps from 'ReactSetNativeProps';
 import { Map } from 'immutable';
 
 var COMPONENT_NAMES = ['Title', 'LeftButton', 'RightButton'];
@@ -114,7 +113,7 @@ var NavigatorNavigationBar = React.createClass({
       var component = this._components[componentName].get(this.props.navState.routeStack[index]);
       var props = this._getReusableProps(componentName, index);
       if (component && interpolate[componentName](props.style, amount)) {
-        setNativeProps(component, props);
+        component.setNativeProps(props);
       }
     }, this);
   },

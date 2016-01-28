@@ -9,8 +9,7 @@
 import UIManager from 'UIManager';
 
 import ReactDOM from 'react-dom';
-import setNativeProps from 'ReactSetNativeProps';
-
+import setNativeProps from './setNativeProps.web';
 
 var NativeMethodsMixin = {
   /**

@@ -26,7 +26,6 @@ import clamp from './polyfills/clamp';
 import flattenStyle from 'ReactFlattenStyle';
 import invariant from 'fbjs/lib/invariant';
 import rebound from 'rebound';
-import setNativeProps from 'ReactSetNativeProps';
 import createHistory from 'history/lib/createHashHistory';
 
 let history = createHistory();
@@ -330,7 +329,7 @@ var Navigator = React.createClass({
       var destIndex = 0;
       if (location.pathname.indexOf('/scene_') != -1) {
         destIndex = parseInt(location.pathname.replace('/scene_', ''));
-      } 
+      }
       if (destIndex < this.state.routeStack.length && destIndex != this.state.routeStack.length) {
         this.hashChanged = true;
         this._jumpN(destIndex - this.state.presentedIndex);
@@ -524,7 +523,7 @@ var Navigator = React.createClass({
    */
   _disableScene: function(sceneIndex) {
     this.refs['scene_' + sceneIndex] &&
-      setNativeProps(this.refs['scene_' + sceneIndex], SCENE_DISABLED_NATIVE_PROPS);
+    this.refs['scene_' + sceneIndex].setNativeProps(SCENE_DISABLED_NATIVE_PROPS);
   },
 
   /**
@@ -548,7 +547,7 @@ var Navigator = React.createClass({
       enabledSceneNativeProps.style.opacity = 0;
     }
     this.refs['scene_' + sceneIndex] &&
-      setNativeProps(this.refs['scene_' + sceneIndex], enabledSceneNativeProps);
+    this.refs['scene_' + sceneIndex].setNativeProps(enabledSceneNativeProps);
   },
 
   _onAnimationStart: function() {
@@ -584,7 +583,7 @@ var Navigator = React.createClass({
     if (viewAtIndex === null || viewAtIndex === undefined) {
       return;
     }
-    setNativeProps(viewAtIndex, {renderToHardwareTextureAndroid: shouldRenderToHardwareTexture});
+    viewAtIndex.setNativeProps( {renderToHardwareTextureAndroid: shouldRenderToHardwareTexture});
   },
 
   _handleTouchStart: function() {
@@ -834,7 +833,7 @@ var Navigator = React.createClass({
     var directionAdjustedProgress = fromIndex < toIndex ? progress : 1 - progress;
     var didChange = useFn(styleToUse, directionAdjustedProgress);
     if (didChange) {
-      setNativeProps(viewAtIndex, {style: styleToUse});
+      viewAtIndex.setNativeProps({style: styleToUse});
     }
   },
 

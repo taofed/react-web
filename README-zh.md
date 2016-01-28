@@ -141,17 +141,7 @@ var Platform = require('ReactPlatform');
   var fetch = Platform.OS === 'web'? require('ReactJsonp'): require('ReactFetch');
   ```
 
-4. Web 端的组件没有 setNativeProps 方法
-  ```js
-  var setNativeProps = require('ReactSetNativeProps')
-  setNativeProps(this.refs.foo, {
-    style: {
-      top: 0
-    }
-  })
-  ```
-
-5. Web 端没有 LayoutAnimation
+4. Web 端没有 LayoutAnimation
   ```js
   var LayoutAnimation = require('ReactLayoutAnimation')
   if(Platform.OS !== 'web'){
