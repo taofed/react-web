@@ -11,6 +11,7 @@ import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
 import assign from 'domkit/appendVendorPrefix';
 import insertKeyframesRule from 'domkit/insertKeyframesRule';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 const keyframes = {
   '50%': {
@@ -26,6 +27,7 @@ const GRAY = '#999999';
 var animationName = insertKeyframesRule(keyframes);
 
 var ActivityIndicator = React.createClass({
+  mixins: [NativeMethodsMixin],
 
   propTypes: {
     /**

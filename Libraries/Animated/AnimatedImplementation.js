@@ -1044,12 +1044,20 @@ function createAnimatedComponent(Component: any): any {
       // need to re-render it. In this case, we have a fallback that uses
       // forceUpdate.
       var callback = () => {
+
+        // N.B. the current setNativeProps implementation is not reliable:
+        // it doesn't support the same props/style as when setting a prop
+        // so we disable Animated setNativeProps call and just do forceUpdate()
+        /*
         if (this.refs[refName].setNativeProps) {
           var value = this._propsAnimated.__getAnimatedValue();
           this.refs[refName].setNativeProps(value);
         } else {
-          this.forceUpdate();
+        */
+        this.forceUpdate();
+        /*
         }
+        */
       };
 
       this._propsAnimated = new AnimatedProps(

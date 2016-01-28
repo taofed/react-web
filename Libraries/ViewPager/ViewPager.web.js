@@ -14,11 +14,14 @@ import Animated from 'ReactAnimated';
 import Dimensions from 'ReactDimensions';
 import PanResponder from 'ReactPanResponder';
 import dismissKeyboard from 'ReactDismissKeyboard';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 const deviceSize = Dimensions.get('window');
 const VIEWPAGER_REF = 'viewpager';
 
 var ViewPager = React.createClass({
+  mixins: [NativeMethodsMixin],
+
   propTypes: {
     /**
      * Index of initial page that should be selected. Use `setPage` method to

@@ -12,8 +12,11 @@ import React, { PropTypes } from 'react';
 import View from 'ReactView';
 import Text from 'ReactText';
 import StyleSheet from 'ReactStyleSheet';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var SegmentedControl = React.createClass({
+  mixins: [NativeMethodsMixin],
+
   propTypes: {
     /**
      * The labels for the control's segment buttons, in order.

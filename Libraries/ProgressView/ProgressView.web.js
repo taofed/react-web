@@ -9,8 +9,10 @@
 import React from 'react';
 import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var ProgressView = React.createClass({
+  mixins: [NativeMethodsMixin],
   render: function() {
 
     var specificStyle = {

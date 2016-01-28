@@ -13,6 +13,7 @@ import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import StyleSheet from 'ReactStyleSheet';
 
 type Event = Object;
@@ -55,7 +56,7 @@ var TouchableHighlight = React.createClass({
     onHideUnderlay: React.PropTypes.func,
   },
 
-  mixins: [TimerMixin, TouchableMixin],
+  mixins: [TimerMixin, TouchableMixin, NativeMethodsMixin],
 
   getDefaultProps: () => DEFAULT_PROPS,
 
