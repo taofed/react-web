@@ -10,14 +10,16 @@
 'use strict';
 
 import Easing from 'ReactEasing';
-import React from 'react';
 import InteractionManager from 'ReactInteractionManager';
 import Interpolation from './Interpolation';
+import React from 'react';
 import Set from 'core-js/library/fn/set';
 import SpringConfig from './SpringConfig';
+
 import flattenStyle from 'ReactFlattenStyle';
 import invariant from 'fbjs/lib/invariant';
 import requestAnimationFrame from './polyfills/requestAnimationFrame';
+
 import type { InterpolationConfigType } from './Interpolation';
 
 type EndResult = {finished: bool};
@@ -29,21 +31,22 @@ class Animated {
   __attach(): void {}
   __detach(): void {}
   __getValue(): any {}
-  __getAnimatedValue(): any {
-    return this.__getValue();
-  }
+  __getAnimatedValue(): any { return this.__getValue(); }
   __addChild(child: Animated) {}
   __removeChild(child: Animated) {}
-  __getChildren(): Array<Animated> {
-    return [];
-  }
+  __getChildren(): Array<Animated> { return []; }
 }
+
+type AnimationConfig = {
+  isInteraction?: bool;
+};
 
 // Important note: start() and stop() will only be called at most once.
 // Once an animation has been stopped or finished its course, it will
 // not be reused.
 class Animation {
   __active: bool;
+  __isInteraction: bool;
   __onEnd: ?EndCallback;
   start(
     fromValue: number,
@@ -127,14 +130,14 @@ function _flush(rootNode: AnimatedValue): void {
   animatedStyles.forEach(animatedStyle => animatedStyle.update());
 }
 
-type TimingAnimationConfig = {
+type TimingAnimationConfig =  AnimationConfig & {
   toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
   easing?: (value: number) => number;
   duration?: number;
   delay?: number;
 };
 
-type TimingAnimationConfigSingle = {
+type TimingAnimationConfigSingle = AnimationConfig & {
   toValue: number | AnimatedValue;
   easing?: (value: number) => number;
   duration?: number;
@@ -162,6 +165,7 @@ class TimingAnimation extends Animation {
     this._easing = config.easing || easeInOut;
     this._duration = config.duration !== undefined ? config.duration : 500;
     this._delay = config.delay || 0;
+    this.__isInteraction = config.isInteraction !== undefined ? config.isInteraction : true;
   }
 
   start(
@@ -222,12 +226,12 @@ class TimingAnimation extends Animation {
   }
 }
 
-type DecayAnimationConfig = {
+type DecayAnimationConfig = AnimationConfig & {
   velocity: number | {x: number, y: number};
   deceleration?: number;
 };
 
-type DecayAnimationConfigSingle = {
+type DecayAnimationConfigSingle = AnimationConfig & {
   velocity: number;
   deceleration?: number;
 };
@@ -247,6 +251,7 @@ class DecayAnimation extends Animation {
     super();
     this._deceleration = config.deceleration || 0.998;
     this._velocity = config.velocity;
+    this.__isInteraction = config.isInteraction !== undefined ? config.isInteraction : true;
   }
 
   start(
@@ -290,7 +295,7 @@ class DecayAnimation extends Animation {
   }
 }
 
-type SpringAnimationConfig = {
+type SpringAnimationConfig = AnimationConfig & {
   toValue: number | AnimatedValue | {x: number, y: number} | AnimatedValueXY;
   overshootClamping?: bool;
   restDisplacementThreshold?: number;
@@ -302,7 +307,7 @@ type SpringAnimationConfig = {
   friction?: number;
 };
 
-type SpringAnimationConfigSingle = {
+type SpringAnimationConfigSingle = AnimationConfig & {
   toValue: number | AnimatedValue;
   overshootClamping?: bool;
   restDisplacementThreshold?: number;
@@ -348,6 +353,7 @@ class SpringAnimation extends Animation {
     this._initialVelocity = config.velocity;
     this._lastVelocity = withDefault(config.velocity, 0);
     this._toValue = config.toValue;
+    this.__isInteraction = config.isInteraction !== undefined ? config.isInteraction : true;
 
     var springConfig;
     if (config.bounciness !== undefined || config.speed !== undefined) {
@@ -538,7 +544,7 @@ class AnimatedValue extends AnimatedWithChildren {
 
   /**
    * Directly set the value.  This will stop any animations running on the value
-   * and udpate all the bound properties.
+   * and update all the bound properties.
    */
   setValue(value: number): void {
     if (this._animation) {
@@ -568,8 +574,8 @@ class AnimatedValue extends AnimatedWithChildren {
 
   /**
    * Adds an asynchronous listener to the value so you can observe updates from
-   * animations or whathaveyou.  This is useful because there is no way to
-   * syncronously read the value because it might be driven natively.
+   * animations.  This is useful because there is no way to
+   * synchronously read the value because it might be driven natively.
    */
   addListener(callback: ValueListenerCallback): string {
     var id = String(_uniqueId++);
@@ -610,7 +616,10 @@ class AnimatedValue extends AnimatedWithChildren {
    * class.
    */
   animate(animation: Animation, callback: ?EndCallback): void {
-    var handle = InteractionManager.createInteractionHandle();
+    var handle = null;
+    if (animation.__isInteraction) {
+      handle = InteractionManager.createInteractionHandle();
+    }
     var previousAnimation = this._animation;
     this._animation && this._animation.stop();
     this._animation = animation;
@@ -621,7 +630,9 @@ class AnimatedValue extends AnimatedWithChildren {
       },
       (result) => {
         this._animation = null;
-        InteractionManager.clearInteractionHandle(handle);
+        if (handle !== null) {
+          InteractionManager.clearInteractionHandle(handle);
+        }
         callback && callback(result);
       },
       previousAnimation,
@@ -826,6 +837,64 @@ class AnimatedInterpolation extends AnimatedWithChildren {
   }
 }
 
+class AnimatedAddition extends AnimatedWithChildren {
+  _a: Animated;
+  _b: Animated;
+
+  constructor(a: Animated, b: Animated) {
+    super();
+    this._a = a;
+    this._b = b;
+  }
+
+  __getValue(): number {
+    return this._a.__getValue() + this._b.__getValue();
+  }
+
+  interpolate(config: InterpolationConfigType): AnimatedInterpolation {
+    return new AnimatedInterpolation(this, Interpolation.create(config));
+  }
+
+  __attach(): void {
+    this._a.__addChild(this);
+    this._b.__addChild(this);
+  }
+
+  __detach(): void {
+    this._a.__removeChild(this);
+    this._b.__removeChild(this);
+  }
+}
+
+class AnimatedMultiplication extends AnimatedWithChildren {
+  _a: Animated;
+  _b: Animated;
+
+  constructor(a: Animated, b: Animated) {
+    super();
+    this._a = a;
+    this._b = b;
+  }
+
+  __getValue(): number {
+    return this._a.__getValue() * this._b.__getValue();
+  }
+
+  interpolate(config: InterpolationConfigType): AnimatedInterpolation {
+    return new AnimatedInterpolation(this, Interpolation.create(config));
+  }
+
+  __attach(): void {
+    this._a.__addChild(this);
+    this._b.__addChild(this);
+  }
+
+  __detach(): void {
+    this._a.__removeChild(this);
+    this._b.__removeChild(this);
+  }
+}
+
 class AnimatedTransform extends AnimatedWithChildren {
   _transforms: Array<Object>;
 
@@ -835,20 +904,8 @@ class AnimatedTransform extends AnimatedWithChildren {
   }
 
   __getValue(): Array<Object> {
-    // return this._transforms.map(transform => {
-    //   var result = {};
-    //   for (var key in transform) {
-    //     var value = transform[key];
-    //     if (value instanceof Animated) {
-    //       result[key] = value.__getValue();
-    //     } else {
-    //       result[key] = value;
-    //     }
-    //   }
-    //   return result;
-    // });
 
-    // NOTE: transform的处理在StyleSheet中
+    // Note(yuanyan): transform process in StyleSheet
     return this._transforms;
   }
 
@@ -1089,21 +1146,11 @@ function createAnimatedComponent(Component: any): any {
       );
     }
   }
-
-  // NOTE: added for type check
-  AnimatedComponent.displayName = 'AnimatedComponent';
-
   AnimatedComponent.propTypes = {
     style: function(props, propName, componentName) {
-      // for (var key in ViewStylePropTypes) {
-      //   if (!Component.propTypes[key] && props[key] !== undefined) {
-      //     console.error(
-      //       'You are setting the style `{ ' + key + ': ... }` as a prop. You ' +
-      //       'should nest it in a style object. ' +
-      //       'E.g. `{ style: { ' + key + ': ... } }`'
-      //     );
-      //   }
-      // }
+      if (!Component.propTypes) {
+        return;
+      }
     }
   };
 
@@ -1156,6 +1203,20 @@ class AnimatedTracking extends Animated {
 type CompositeAnimation = {
   start: (callback?: ?EndCallback) => void;
   stop: () => void;
+};
+
+var add = function(
+  a: Animated,
+  b: Animated
+): AnimatedAddition {
+  return new AnimatedAddition(a, b);
+};
+
+var multiply = function(
+  a: Animated,
+  b: Animated
+): AnimatedMultiplication {
+  return new AnimatedMultiplication(a, b);
 };
 
 var maybeVectorAnim = function(
@@ -1410,7 +1471,7 @@ var event = function(
  * The simplest workflow is to create an `Animated.Value`, hook it up to one or
  * more style attributes of an animated component, and then drive updates either
  * via animations, such as `Animated.timing`, or by hooking into gestures like
- * panning or scolling via `Animated.event`.  `Animated.Value` can also bind to
+ * panning or scrolling via `Animated.event`.  `Animated.Value` can also bind to
  * props other than style, and can be interpolated as well.  Here is a basic
  * example of a container view that will fade in when it's mounted:
  *
@@ -1442,7 +1503,7 @@ var event = function(
  * Note that only animatable components can be animated.  `View`, `Text`, and
  * `Image` are already provided, and you can create custom ones with
  * `createAnimatedComponent`.  These special components do the magic of binding
- * the animated values to the properties, and do targetted native updates to
+ * the animated values to the properties, and do targeted native updates to
  * avoid the cost of the react render and reconciliation process on every frame.
  * They also handle cleanup on unmount so they are safe by default.
  *
@@ -1484,7 +1545,7 @@ var event = function(
  * Animation App, and [Animations documentation guide](http://facebook.github.io/react-native/docs/animations.html).
  *
  * Note that `Animated` is designed to be fully serializable so that animations
- * can be run in a high performace way, independent of the normal JavaScript
+ * can be run in a high performance way, independent of the normal JavaScript
  * event loop. This does influence the API, so keep that in mind when it seems a
  * little trickier to do something compared to a fully synchronous system.
  * Checkout `Animated.Value.addListener` as a way to work around some of these
@@ -1519,6 +1580,17 @@ module.exports = {
   spring,
 
   /**
+   * Creates a new Animated value composed from two Animated values added
+   * together.
+   */
+  add,
+  /**
+   * Creates a new Animated value composed from two Animated values multiplied
+   * together.
+   */
+  multiply,
+
+  /**
    * Starts an animation after the given delay.
    */
   delay,
@@ -1545,12 +1617,12 @@ module.exports = {
    *  then calls `setValue` on the mapped outputs.  e.g.
    *
    *```javascript
-   *  onScroll={this.AnimatedEvent(
+   *  onScroll={Animated.event(
    *    [{nativeEvent: {contentOffset: {x: this._scrollX}}}]
    *    {listener},          // Optional async listener
    *  )
    *  ...
-   *  onPanResponderMove: this.AnimatedEvent([
+   *  onPanResponderMove: Animated.event([
    *    null,                // raw event arg ignored
    *    {dx: this._panX},    // gestureState arg
    *  ]),
