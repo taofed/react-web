@@ -24,16 +24,18 @@ function server(argv, config) {
 }
 
 function _server(argv, config, resolve, reject) {
+  var webpackConfig = require(config.getWebpackConfig(argv[1]));
+  var port = webpackConfig.port;
 
   process.on('uncaughtException', error => {
     if (error.code === 'EADDRINUSE') {
       console.log(
         chalk.bgRed.bold(' ERROR '),
-        chalk.red('Server can\'t listen on port', chalk.bold(args.port))
+        chalk.red('Server can\'t listen on port', chalk.bold(port))
       );
       console.log('Most likely another process is already using this port');
       console.log('Run the following command to find out which process:');
-      console.log('\n  ', chalk.bold('lsof -n -i4TCP:' + args.port), '\n');
+      console.log('\n  ', chalk.bold('lsof -n -i4TCP:' + port), '\n');
       console.log('You can either shut down the other process:');
       console.log('\n  ', chalk.bold('kill -9 <PID>'), '\n');
       console.log('or run packager on different port.');
@@ -48,7 +50,7 @@ function _server(argv, config, resolve, reject) {
     process.exit(1);
   });
 
-  var webpackConfig = require(config.getWebpackConfig(argv[1]));
+
   new WebpackDevServer(webpack(webpackConfig), {
     publicPath: webpackConfig.output.publicPath,
     hot: true,
@@ -56,12 +58,12 @@ function _server(argv, config, resolve, reject) {
     stats: {
       colors: true
     },
-  }).listen(webpackConfig.port, webpackConfig.ip, function(err) {
+  }).listen(port, webpackConfig.ip, function(err) {
     if (err) {
       return console.log(err);
     }
 
-    console.log('Listening at ' + webpackConfig.ip + ':' + webpackConfig.port);
+    console.log('Listening at ' + webpackConfig.ip + ':' + port);
   });
 }
 
