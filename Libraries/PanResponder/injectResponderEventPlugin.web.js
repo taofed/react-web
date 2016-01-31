@@ -11,26 +11,44 @@ import EventConstants from 'react/lib/EventConstants';
 import ResponderTouchHistoryStore from 'react/lib/ResponderTouchHistoryStore';
 
 var topLevelTypes = EventConstants.topLevelTypes;
-var dependencies;
 
-if ('ontouchstart' in window) {
-  dependencies = [
-    topLevelTypes.topTouchStart,
-    topLevelTypes.topTouchCancel,
-    topLevelTypes.topTouchEnd,
-    topLevelTypes.topTouchMove
-  ];
-} else {
-  // TODO: support move event
-  dependencies = [
-    topLevelTypes.topMouseDown,
-    topLevelTypes.topMouseUp
-  ];
-}
+var eventTypes = ResponderEventPlugin.eventTypes;
+eventTypes.startShouldSetResponder.dependencies = [
+  topLevelTypes.topTouchStart,
+];
 
-for (var eventType in ResponderEventPlugin.eventTypes) {
-  ResponderEventPlugin.eventTypes[eventType].dependencies = dependencies;
-}
+eventTypes.scrollShouldSetResponder.dependencies = [
+  topLevelTypes.topScroll,
+];
+
+eventTypes.selectionChangeShouldSetResponder.dependencies = [
+  topLevelTypes.topSelectionChange,
+];
+
+eventTypes.moveShouldSetResponder.dependencies = [
+  topLevelTypes.topTouchMove,
+];
+
+['responderStart', 'responderMove', 'responderEnd', 'responderRelease',
+'responderTerminationRequest', 'responderGrant', 'responderReject', 'responderTerminate'].forEach(function(type) {
+  var dependencies;
+  if ('ontouchstart' in window) {
+    dependencies = [
+      topLevelTypes.topTouchStart,
+      topLevelTypes.topTouchCancel,
+      topLevelTypes.topTouchEnd,
+      topLevelTypes.topTouchMove
+    ];
+  } else {
+    // TODO: support move event
+    dependencies = [
+      topLevelTypes.topMouseDown,
+      topLevelTypes.topMouseUp
+    ];
+  }
+
+  eventTypes[type].dependencies = dependencies;
+});
 
 function toArray(collection) {
   return collection && Array.prototype.slice.call(collection);
