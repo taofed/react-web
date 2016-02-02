@@ -51,25 +51,47 @@ eventTypes.moveShouldSetResponder.dependencies = [
 });
 
 function toArray(collection) {
-  return collection && Array.prototype.slice.call(collection);
+  return collection && Array.prototype.slice.call(collection) || [];
 }
 
-var argumentTimestamp = function(timestamp, touch) {
-  touch.timestamp = timestamp;
+function fixIdentifier(identifier) {
+  // Safari identifier is a large number
+  if (identifier > 20) {
+    return identifier % 20;
+  }
+
+  return identifier;
+}
+
+var normalizeTouches = function(touches, nativeEvent) {
+  var timestamp = nativeEvent.timestamp || nativeEvent.timeStamp;
+
+  return toArray(touches).map(function(touch) {
+    // Cloned touch
+    return {
+      clientX: touch.clientX,
+      clientY: touch.clientY,
+      force: touch.force,
+      pageX: touch.pageX,
+      pageY: touch.pageY,
+      radiusX: touch.radiusX,
+      radiusY: touch.radiusY,
+      rotationAngle: touch.rotationAngle,
+      screenX: touch.screenX,
+      screenY: touch.screenY,
+      target: touch.target,
+      timestamp: timestamp,
+      identifier: fixIdentifier(touch.identifier)
+    };
+  });
 };
 
 var originRecordTouchTrack = ResponderTouchHistoryStore.recordTouchTrack;
 ResponderTouchHistoryStore.recordTouchTrack = function(topLevelType, nativeEvent) {
-  var timestamp = nativeEvent.timestamp || nativeEvent.timeStamp;
-
-  if (nativeEvent.changedTouches) {
-    var changedTouches = toArray(nativeEvent.changedTouches);
-    changedTouches.forEach(argumentTimestamp.bind(null, timestamp));
-  }
 
   originRecordTouchTrack.call(ResponderTouchHistoryStore, topLevelType, {
-    changedTouches: changedTouches || [],
-    touches: toArray(nativeEvent.touches) || [],
+    changedTouches: normalizeTouches(nativeEvent.changedTouches, nativeEvent),
+    touches: normalizeTouches(nativeEvent.touches, nativeEvent),
   });
 };
 
