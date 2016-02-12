@@ -25,9 +25,11 @@
 If you already have a React Native project and want to add web support, you need to execute the following commands in your existing project directory:
 
 1. Install `npm install react-web-cli -g`
-2. Execute `react-web init <ExistedProjectDir>` that install `react-web` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project
-3. Execute `react-web start` that starts the web dev server
-4. Execute `react-web bundle` that builds the output
+2. Execute `react-web init <ExistedProjectDir>`. That install `react-web` and `devDependencies` to your project and make a `web` directory with `webpack.config.js` file under your project
+3. Register your app into a web platform. To do so, add the code from **Fix platform differences. 2. Should run application on web platform** to your index.ios.js file
+4. Execute `npm start`
+5. Execute `react-web start` that starts the web dev server
+6. Execute `react-web bundle` that builds the output
 
 ## Getting Started
 
