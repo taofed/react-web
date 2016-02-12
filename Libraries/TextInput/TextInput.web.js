@@ -150,6 +150,22 @@ var TextInput = React.createClass({
      * Callback that is called when the text input's text changes.
      */
     onChange: PropTypes.func,
+
+    /**
+     * Callback that is called when a key is down.
+     */
+    onKeyDown: PropTypes.func,
+
+    /**
+     * Callback that is called when a key is no longer down.
+     */
+    onKeyUp: PropTypes.func,
+
+    /**
+     * Callback that is called when a key is pressed and released.
+     */
+    onKeyPress: PropTypes.func,
+
     /**
      * Callback that is called when the text input's text changes.
      * Changed text is passed as an argument to the callback handler.
@@ -294,6 +310,9 @@ var TextInput = React.createClass({
       numberOfLines,
       onBlur,
       onChange,
+      onKeyDown,
+      onKeyUp,
+      onKeyPress,
       onChangeText,
       onSelectionChange,
       placeholder,
@@ -322,7 +341,10 @@ var TextInput = React.createClass({
         ...style
       },
       testID,
-      value
+      value,
+      onKeyDown,
+      onKeyUp,
+      onKeyPress
     };
 
     var input;
