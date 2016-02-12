@@ -19,7 +19,7 @@
     "lint": "eslint . --ext .js --ext .jsx",
     "start": "node local-cli/cli.js start webpack.config.js",
     "demo": "node local-cli/cli.js bundle webpack.config.js",
-    "prepublish": "babel ./Libraries --out-dir ./lib --stage 1",
+    "prepublish": "node node_modules/babel/bin/babel.js ./Libraries --out-dir ./lib --stage 1",
     "postpublish": "rm -rf ./lib"
   },
   "devDependencies": {
