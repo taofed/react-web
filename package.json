@@ -56,7 +56,6 @@
     "promise": "7.0.4",
     "react-timer-mixin": "0.13.2",
     "rebound": "0.0.13",
-    "tinycolor2": "1.1.2",
     "webpack": "1.12.10",
     "webpack-dev-server": "1.14.0"
   }
