@@ -16,10 +16,14 @@ var shorthandProperties = {
 };
 
 // some number that react not auto add px
-var numberProperties = {
+var numberTransformProperties = {
   translateX: true,
   translateY: true,
-  translateZ: true,
+  translateZ: true
+};
+
+// some number that react not auto add px
+var numberProperties = {
   lineHeight: true
 };
 
@@ -126,6 +130,13 @@ function isValidValue(value) {
   return value !== '' && value !== null && value !== undefined;
 }
 
+function processTransformValue(value, key) {
+  if (numberTransformProperties[key] && typeof value == 'number') {
+    value += 'px';
+  }
+  return value;
+}
+
 function processValueForProp(value, prop) {
 
   if (typeof value == 'number') {
@@ -166,11 +177,11 @@ function processValueForProp(value, prop) {
         }
 
         val = val.map(function(v) {
-          return processValueForProp(v, key);
+          return processTransformValue(v, key);
         }).join(',');
 
       } else {
-        val = processValueForProp(val, key);
+        val = processTransformValue(val, key);
       }
 
       transformations.push(key + '(' + val + ')');

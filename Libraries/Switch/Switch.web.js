@@ -7,8 +7,10 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var Switch = React.createClass({
+  mixins: [NativeMethodsMixin],
 
   propTypes: {
     value: PropTypes.bool,

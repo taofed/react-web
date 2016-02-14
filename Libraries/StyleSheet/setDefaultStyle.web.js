@@ -5,14 +5,16 @@
  */
 'use strict';
 
-function appendSytle(options) {
-  var referenceWidth = options.reference;
-  var rootClassName = options.rootClassName;
+function appendSytle({
+  reference,
+  rootClassName,
+  viewClassName
+}) {
 
   var docEl = document.documentElement;
   var styleEl = document.createElement('style');
   docEl.firstElementChild.appendChild(styleEl);
-  var rem = docEl.clientWidth / referenceWidth;
+  var rem = docEl.clientWidth / reference;
 
   var boxStyle = `
   box-sizing: border-box;
@@ -43,7 +45,7 @@ function appendSytle(options) {
     bottom: 0;
     ${boxStyle}
   }
-  .${rootClassName} div {
+  .${rootClassName} .${viewClassName} {
     position: relative;
     ${boxStyle}
   }

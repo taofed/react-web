@@ -14,8 +14,7 @@ var config = {
     src: path.join(ROOT_PATH, 'Libraries'),
     demo: path.join(ROOT_PATH, DEMO_DIR),
     demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
-  },
-  library: 'StyleSheet',
+  }
 };
 
 var mergeCommon = merge.bind(null, {
@@ -28,12 +27,6 @@ var mergeCommon = merge.bind(null, {
   },
   module: {
     loaders: [{
-      test: /\.css$/,
-      loaders: ['style', 'css'],
-    }, {
-      test: /\.md$/,
-      loaders: ['html', 'highlight', 'markdown'],
-    }, {
       test: /\.png$/,
       loader: 'url?limit=100000&mimetype=image/png',
       include: config.paths.demo,
@@ -49,12 +42,12 @@ var mergeCommon = merge.bind(null, {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      blacklist: ['node_modules/react-native', 'pages', 'lib']
+      blacklist: ['pages', 'lib'],
     }),
   ]
 });
 
-if (NODE_ENV === 'local') {
+if (NODE_ENV === 'development') {
   var IP = '0.0.0.0';
   var PORT = 3000;
   module.exports = mergeCommon({
@@ -88,14 +81,14 @@ if (NODE_ENV === 'local') {
       }],
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['react-hot', 'babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
       }, ]
     }
   });
 }
 
-if (NODE_ENV === 'demo') {
+if (NODE_ENV === 'production') {
 
   module.exports = mergeCommon({
     devtool: 'source-map',
@@ -106,7 +99,6 @@ if (NODE_ENV === 'demo') {
       movies: './Examples/Movies/MoviesApp.web',
       tictactoe: './Examples/TicTacToe/TicTacToeApp',
       uiexplorer: './Examples/UIExplorer/UIExplorerApp.web',
-
     },
     output: {
       path: './pages',
@@ -155,7 +147,7 @@ if (NODE_ENV === 'demo') {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        loaders: ['babel?stage=1'],
         include: [config.paths.demo, config.paths.src],
       }]
     }

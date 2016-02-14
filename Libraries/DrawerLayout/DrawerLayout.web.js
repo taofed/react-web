@@ -12,6 +12,7 @@ import View from 'ReactView';
 import Animated from 'ReactAnimated';
 import PanResponder from 'ReactPanResponder';
 import Dimensions from 'ReactDimensions';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -22,6 +23,7 @@ const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
 var DrawerLayout = React.createClass({
+  mixins: [NativeMethodsMixin],
 
   statics: {
     positions: {
@@ -100,7 +102,7 @@ var DrawerLayout = React.createClass({
     let animatedDrawerStyles = {transform: [{translateX: drawerTranslateX}]};
 
     /* Overlay styles */
-    //let opacityOutputRange;
+    // let opacityOutputRange;
 
     let overlayOpacity = openValue.interpolate({
       inputRange: [0, 1],
@@ -213,7 +215,7 @@ var DrawerLayout = React.createClass({
 
   _panResponderRelease(e, {moveX, vx}) {
     let { drawerPosition } = this.props;
-    //let { openValue } = this.state;
+    // let { openValue } = this.state;
     let previouslyOpen = this._isClosing;
     let isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 

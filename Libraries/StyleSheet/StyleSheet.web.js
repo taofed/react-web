@@ -15,27 +15,30 @@ import flattenStyle from './flattenStyle.web';
 
 var inited = false;
 
-const ROOT_CLASS_NAME = 'react-web-root';
+const ROOT_CLASS_NAME = 'react-root';
+const VIEW_CLASS_NAME = 'react-view';
 
 var StyleSheet = {
   create: function(styles) {
     return styles;
   },
-  extendCreateElement: function(React) {
+  extendCreateElement: function(React, nativeComponents) {
     extendCreateElement(React, function(style) {
       if (!inited) {
         inited = true;
         setDefaultStyle({
           reference: reference.getWidth(),
-          rootClassName: ROOT_CLASS_NAME
+          rootClassName: ROOT_CLASS_NAME,
+          viewClassName: VIEW_CLASS_NAME,
         });
       }
 
       return flattenStyle(style, extendProperties);
-    });
+    }, nativeComponents);
   },
   setReferenceWidth: reference.setWidth,
-  rootClassName: ROOT_CLASS_NAME
+  rootClassName: ROOT_CLASS_NAME,
+  viewClassName: VIEW_CLASS_NAME,
 };
 
 module.exports = StyleSheet;

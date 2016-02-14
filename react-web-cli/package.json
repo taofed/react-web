@@ -1,0 +1,23 @@
+{
+  "name": "react-web-cli",
+  "version": "0.0.1",
+  "license" : "BSD-3-Clause",
+  "description": "The React Web CLI tools",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taobaofed/react-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/taobaofed/react-web/issues"
+  },
+  "homepage": "https://github.com/taobaofed/react-web/react-web-cli#readme",
+  "bin": {
+    "react-web": "index.js"
+  },
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "prompt": "^0.2.14",
+    "semver": "^5.0.3"
+  }
+}

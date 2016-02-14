@@ -7,9 +7,12 @@
 'use strict';
 
 import React from 'react';
+import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var ProgressView = React.createClass({
+  mixins: [NativeMethodsMixin],
   render: function() {
 
     var specificStyle = {
@@ -52,11 +55,11 @@ var ProgressView = React.createClass({
     specificStyle = StyleSheet.create(specificStyle);
 
     return (
-      <div style={[styles.progressView, this.props.style]}>
-        <div style={[styles.progressTrack, specificStyle.progressTrack]}>
-          <div style={[styles.progressTint, specificStyle.progressTint]}></div>
-        </div>
-      </div>
+      <View style={[styles.progressView, this.props.style]}>
+        <View style={[styles.progressTrack, specificStyle.progressTrack]}>
+          <View style={[styles.progressTint, specificStyle.progressTint]} />
+        </View>
+      </View>
     );
   }
 });

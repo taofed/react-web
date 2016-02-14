@@ -7,9 +7,11 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
 import assign from 'domkit/appendVendorPrefix';
 import insertKeyframesRule from 'domkit/insertKeyframesRule';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 const keyframes = {
   '50%': {
@@ -25,6 +27,7 @@ const GRAY = '#999999';
 var animationName = insertKeyframesRule(keyframes);
 
 var ActivityIndicator = React.createClass({
+  mixins: [NativeMethodsMixin],
 
   propTypes: {
     /**
@@ -99,16 +102,16 @@ var ActivityIndicator = React.createClass({
 
     if (this.props.animating) {
       for (let i = 1; i <= 12; i++) {
-        lines.push(<div key={i} style={this.getStyle(i, 12)}></div>);
+        lines.push(<View key={i} style={this.getStyle(i, 12)} />);
       }
     }
 
     return (
-      <div style={[styles.container, sizeContainerStyle, this.props.style]}>
-        <div>
+      <View style={[styles.container, sizeContainerStyle, this.props.style]}>
+        <View>
           {lines}
-        </div>
-      </div>
+        </View>
+      </View>
     );
   }
 });

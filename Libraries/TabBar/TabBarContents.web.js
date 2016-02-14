@@ -6,6 +6,7 @@
 'use strict';
 
 import React from 'react';
+import View from 'ReactView';
 
 let TabBarContents = React.createClass({
 
@@ -50,9 +51,9 @@ let TabBarContents = React.createClass({
     // if the tab has already been shown once, always continue to show it so we
     // preserve state between tab transitions
     if (this.state.hasBeenSelected) {
-      tabContents = <div style={styles}>
+      tabContents = <View style={styles}>
         {this.props.children}
-      </div>;
+      </View>;
     }
 
     return (tabContents);

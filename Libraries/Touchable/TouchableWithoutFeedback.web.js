@@ -4,13 +4,13 @@
  *
  * Copyright (c) 2015, Facebook, Inc.  All rights reserved.
  *
- * @providesModule ReactTouchable
+ * @providesModule ReactTouchableWithoutFeedback
  */
 'use strict';
 
 import 'ReactPanResponder';
 import React from 'react';
-import Touchable from 'ReactTouchableMixin';
+import Touchable from 'ReactTouchable';
 
 /**
  * When the scroll view is disabled, this defines how far your touch may move

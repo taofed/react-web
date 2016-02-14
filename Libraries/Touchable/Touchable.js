@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2015, Facebook, Inc.  All rights reserved.
  *
- * @providesModule ReactTouchableMixin
+ * @providesModule ReactTouchable
  */
 'use strict';
 

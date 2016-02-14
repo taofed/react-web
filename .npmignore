@@ -24,11 +24,21 @@ DerivedData
 # node.js
 #
 npm-debug.log
-Examples
-Libraries
+
+# Config
+#
 .eslintrc
 .eslintignore
-.jscsrc
 .editorconfig
 .gitignore
+
+# IDE
+#
 .idea
+
+# Project
+#
+pages
+react-web-cli
+Examples
+Libraries

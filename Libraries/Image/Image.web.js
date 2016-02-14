@@ -7,15 +7,17 @@
 'use strict';
 
 import React from 'react';
+import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 var Image = React.createClass({
   statics: {
     resizeMode: ImageResizeMode,
   },
 
-  mixins: [LayoutMixin],
+  mixins: [LayoutMixin, NativeMethodsMixin],
 
   contextTypes: {
     isInAParentText: React.PropTypes.bool
@@ -23,7 +25,7 @@ var Image = React.createClass({
   render: function() {
 
     var props = {...this.props};
-    props.src = props.source.uri;
+    props.src = typeof props.source === 'string' ? props.source : props.source.uri;
 
     // TODO: lazyload image when not in viewport
 
@@ -38,9 +40,9 @@ var Image = React.createClass({
       containerStyles.backgroundPosition = '50%';
 
       return (
-        <div style={containerStyles} data-src={props.src}>
+        <View style={containerStyles} data-src={props.src}>
           {this.props.children}
-        </div>
+        </View>
       );
     } else {
       return (

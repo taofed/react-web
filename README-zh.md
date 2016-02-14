@@ -1,6 +1,6 @@
 ![react-web](https://cloud.githubusercontent.com/assets/677114/12007136/b5bf2230-ac31-11e5-9f6a-06f2f135411a.png)
 
-# React Web
+# React Web [![npm version](https://badge.fury.io/js/react-web.svg)](http://badge.fury.io/js/react-web)
 
 > 基于 React 的构建无线 Web 应用框架
 
@@ -8,10 +8,10 @@
 
 ![Examples](http://img2.tbcdn.cn/L1/461/1/0d463dbae33dcb28ffb732c60abe28856e55109f.png)
 
-* [UIExplorer](https://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
-* [Movies](https://rawgit.com/taobaofed/react-web/master/pages/movies.html)
-* [TicTacToe](https://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
-* [Game2048](https://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
+* [UIExplorer](http://rawgit.com/taobaofed/react-web/master/pages/uiexplorer.html)
+* [Movies](http://rawgit.com/taobaofed/react-web/master/pages/movies.html)
+* [TicTacToe](http://rawgit.com/taobaofed/react-web/master/pages/tictactoe.html)
+* [Game2048](http://rawgit.com/taobaofed/react-web/master/pages/game2048.html)
 
 ## 安装
 
@@ -37,7 +37,8 @@ module.exports = {
   },
   plugins: [
     new HasteResolverPlugin({
-      platform: 'web'
+      platform: 'web',
+      nodeModules: ['react-web']
     })
   ]
 }
@@ -140,17 +141,7 @@ var Platform = require('ReactPlatform');
   var fetch = Platform.OS === 'web'? require('ReactJsonp'): require('ReactFetch');
   ```
 
-4. Web 端的组件没有 setNativeProps 方法
-  ```js
-  var setNativeProps = require('ReactSetNativeProps')
-  setNativeProps(this.refs.foo, {
-    style: {
-      top: 0
-    }
-  })
-  ```
-
-5. Web 端没有 LayoutAnimation
+4. Web 端没有 LayoutAnimation
   ```js
   var LayoutAnimation = require('ReactLayoutAnimation')
   if(Platform.OS !== 'web'){

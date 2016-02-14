@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import Portal from 'ReactPortal';
@@ -36,7 +37,7 @@ function renderApplication<D, P, S>(
   rootTag: any
 ) {
 
-  React.render(
+  ReactDOM.render(
     <AppContainer
       rootComponent={RootComponent}
       initialProps={initialProps}
