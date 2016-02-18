@@ -133,11 +133,4 @@ var styles = StyleSheet.create({
 
 AppRegistry.registerComponent('UIExplorerApp', () => UIExplorerApp);
 
-var app = document.createElement('div');
-document.body.appendChild(app);
-
-AppRegistry.runApplication('UIExplorerApp', {
-  rootTag: app
-})
-
 module.exports = UIExplorerApp;
