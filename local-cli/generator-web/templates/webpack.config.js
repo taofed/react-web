@@ -16,7 +16,7 @@ let isProd = NODE_ENV === 'production';
 var config = {
   paths: {
     src: path.join(ROOT_PATH, '.'),
-    index: path.join(ROOT_PATH, 'index.ios'),
+    index: path.join(ROOT_PATH, 'index.web'),
   },
 };
 

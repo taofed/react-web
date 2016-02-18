@@ -49,6 +49,14 @@ var AppRegistry = {
       run: (appParameters) =>
         renderApplication(getComponentFunc(), appParameters.initialProps, appParameters.rootTag)
     };
+  
+    var app = document.createElement('div');
+    document.body.appendChild(app);
+
+    AppRegistry.runApplication(appKey, {
+      rootTag: app
+    });
+
     return appKey;
   },
 
