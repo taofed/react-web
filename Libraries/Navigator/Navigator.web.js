@@ -876,6 +876,10 @@ var Navigator = React.createClass({
       } else {
         history.go(n);
       }
+      return;
+    }
+    if (n < 0) {
+      __uid += n;
     }
   },
 
