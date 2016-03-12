@@ -155,4 +155,6 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = Portal;
+Portal.isReactNativeComponent = true;
+
+export default Portal;

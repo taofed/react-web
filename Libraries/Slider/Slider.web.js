@@ -235,4 +235,6 @@ var defaultStyles = StyleSheet.create({
   },
 });
 
-module.exports = Slider;
+Slider.isReactNativeComponent = true;
+
+export default Slider;

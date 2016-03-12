@@ -1133,4 +1133,6 @@ var Navigator = React.createClass({
   }
 });
 
-module.exports = Navigator;
+Navigator.isReactNativeComponent = true;
+
+export default Navigator;

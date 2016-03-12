@@ -143,4 +143,6 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ActivityIndicator;
+ActivityIndicator.isReactNativeComponent = true;
+
+export default ActivityIndicator;

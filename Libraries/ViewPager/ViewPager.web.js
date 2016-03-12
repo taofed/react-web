@@ -224,4 +224,6 @@ var ViewPager = React.createClass({
   }
 });
 
-module.exports = ViewPager;
+ViewPager.isReactNativeComponent = true;
+
+export default ViewPager;

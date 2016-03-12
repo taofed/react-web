@@ -175,4 +175,6 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = SegmentedControl;
+SegmentedControl.isReactNativeComponent = true;
+
+export default SegmentedControl;

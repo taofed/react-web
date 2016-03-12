@@ -410,4 +410,6 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = ScrollView;
+ScrollView.isReactNativeComponent = true;
+
+export default ScrollView;

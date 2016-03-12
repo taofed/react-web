@@ -52,4 +52,6 @@ var Image = React.createClass({
   }
 });
 
-module.exports = Image;
+Image.isReactNativeComponent = true;
+
+export default Image;

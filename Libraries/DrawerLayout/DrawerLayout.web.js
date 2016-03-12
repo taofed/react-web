@@ -272,4 +272,6 @@ let styles = StyleSheet.create({
   },
 });
 
+DrawerLayout.isReactNativeComponent = true;
+
 export default DrawerLayout;

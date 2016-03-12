@@ -611,4 +611,6 @@ var ListView = React.createClass({
   },
 });
 
-module.exports = ListView;
+ListView.isReactNativeComponent = true;
+
+export default ListView;

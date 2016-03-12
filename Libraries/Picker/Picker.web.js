@@ -58,4 +58,6 @@ Picker.Item = React.createClass({
   },
 });
 
-module.exports = Picker;
+Picker.isReactNativeComponent = true;
+
+export default Picker;

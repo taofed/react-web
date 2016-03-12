@@ -259,4 +259,6 @@ type RectOffset = {
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
-module.exports = Text;
+Text.isReactNativeComponent = true;
+
+export default Text;
