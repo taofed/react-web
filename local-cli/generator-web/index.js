@@ -15,13 +15,15 @@ function installDev(projectDir, verbose) {
     'install',
     verbose? '--verbose': '',
     '--save-dev',
-    'webpack@' + packageJson.dependencies.webpack,
+    'webpack@' + packageJson.dependencies['webpack'],
     'webpack-dev-server@' + packageJson.dependencies['webpack-dev-server'],
-    'babel-loader@5.1.3',
-    'json-loader@0.5.2',
-    'react-hot-loader@1.2.7',
-    'haste-resolver-webpack-plugin@0.1.2',
-    'webpack-html-plugin@0.1.1'
+    'babel-loader@' + packageJson.devDependencies['babel-loader'],
+    'json-loader@' + packageJson.devDependencies['json-loader'],
+    'react-hot-loader@' + packageJson.devDependencies['react-hot-loader'],
+    'haste-resolver-webpack-plugin@' + packageJson.devDependencies['haste-resolver-webpack-plugin'],
+    'webpack-html-plugin@' + packageJson.devDependencies['webpack-html-plugin'],
+    'babel-preset-es2015@' + packageJson.devDependencies['babel-preset-es2015'],
+    'babel-preset-react@' + packageJson.devDependencies['babel-preset-react']
   ], {stdio: 'inherit'});
 
   proc.on('close', function (code) {

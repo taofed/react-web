@@ -42,7 +42,6 @@ var mergeCommon = merge.bind(null, {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      blacklist: ['pages', 'lib'],
     }),
   ]
 });
@@ -81,9 +80,17 @@ if (NODE_ENV === 'development') {
       }],
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel?stage=1'],
+        loader: 'react-hot',
         include: [config.paths.demo, config.paths.src],
-      }, ]
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel', // 'babel-loader' is also a legal name to reference
+        query: {
+          presets: ['es2015', 'react', 'stage-1']
+        },
+        include: [config.paths.demo, config.paths.src],
+      }]
     }
   });
 }
@@ -147,7 +154,10 @@ if (NODE_ENV === 'production') {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['babel?stage=1'],
+        loader: 'babel', // 'babel-loader' is also a legal name to reference
+        query: {
+          presets: ['es2015', 'react', 'stage-1']
+        },
         include: [config.paths.demo, config.paths.src],
       }]
     }
