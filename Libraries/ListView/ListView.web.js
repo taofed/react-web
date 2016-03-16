@@ -15,17 +15,16 @@ import ScrollView from 'ReactScrollView';
 import ScrollResponder from 'ReactScrollResponder';
 import StaticRenderer from 'ReactStaticRenderer';
 import TimerMixin from 'react-timer-mixin';
-
+import mixin from 'react-mixin';
 import assign from 'object-assign';
+import autobind from 'autobind-decorator';
 
-
-var DEFAULT_PAGE_SIZE = 1;
-var DEFAULT_INITIAL_ROWS = 10;
-var DEFAULT_SCROLL_RENDER_AHEAD = 1000;
-var DEFAULT_END_REACHED_THRESHOLD = 1000;
-var DEFAULT_SCROLL_CALLBACK_THROTTLE = 50;
-var SCROLLVIEW_REF = 'listviewscroll';
-
+const DEFAULT_PAGE_SIZE = 1;
+const DEFAULT_INITIAL_ROWS = 10;
+const DEFAULT_SCROLL_RENDER_AHEAD = 1000;
+const DEFAULT_END_REACHED_THRESHOLD = 1000;
+const DEFAULT_SCROLL_CALLBACK_THROTTLE = 50;
+const SCROLLVIEW_REF = 'listviewscroll';
 
 /**
  * ListView - A core component designed for efficient display of vertically
@@ -74,13 +73,9 @@ var SCROLLVIEW_REF = 'listviewscroll';
  *    work into smaller chunks to reduce the chance of dropping frames while
  *    rendering rows.
  */
+class ListView extends React.Component {
 
-var ListView = React.createClass({
-  mixins: [ScrollResponder.Mixin, TimerMixin],
-
-  statics: {
-    DataSource: ListViewDataSource,
-  },
+  static DataSource = ListViewDataSource
 
   /**
    * You must provide a renderRow function. If you omit any of the other render
@@ -89,7 +84,7 @@ var ListView = React.createClass({
    * - renderRow(rowData, sectionID, rowID, highlightRow);
    * - renderSectionHeader(sectionData, sectionID);
    */
-  propTypes: {
+  static propTypes = {
     ...ScrollView.propTypes,
 
     dataSource: PropTypes.instanceOf(ListViewDataSource).isRequired,
@@ -195,69 +190,65 @@ var ListView = React.createClass({
      * @platform ios
      */
     stickyHeaderIndices: PropTypes.arrayOf(PropTypes.number),
-  },
+  }
+
+  /**
+   * React life cycle hooks.
+   */
+
+  static defaultProps = {
+    initialListSize: DEFAULT_INITIAL_ROWS,
+    pageSize: DEFAULT_PAGE_SIZE,
+    renderScrollComponent: props => <ScrollView {...props} />,
+    scrollRenderAheadDistance: DEFAULT_SCROLL_RENDER_AHEAD,
+    onEndReachedThreshold: DEFAULT_END_REACHED_THRESHOLD,
+    stickyHeaderIndices: [],
+  }
+
+  state = {
+    curRenderedRowsCount: this.props.initialListSize,
+    highlightedRow: {},
+  }
 
   /**
    * Exports some data, e.g. for perf investigations or analytics.
    */
-  getMetrics: function() {
+  getMetrics() {
     return {
       contentLength: this.scrollProperties.contentLength,
       totalRows: this.props.dataSource.getRowCount(),
       renderedRows: this.state.curRenderedRowsCount,
       visibleRows: Object.keys(this._visibleRows).length,
     };
-  },
+  }
 
   /**
    * Provides a handle to the underlying scroll responder.
    * Note that the view in `SCROLLVIEW_REF` may not be a `ScrollView`, so we
    * need to check that it responds to `getScrollResponder` before calling it.
    */
-  getScrollResponder: function() {
+  getScrollResponder() {
     return this.refs[SCROLLVIEW_REF] &&
       this.refs[SCROLLVIEW_REF].getScrollResponder &&
       this.refs[SCROLLVIEW_REF].getScrollResponder();
-  },
+  }
 
-  scrollTo: function(...args) {
+  scrollTo(...args) {
     this.refs[SCROLLVIEW_REF] &&
-      this.refs[SCROLLVIEW_REF].scrollTo &&
-      this.refs[SCROLLVIEW_REF].scrollTo(...args);
-  },
+    this.refs[SCROLLVIEW_REF].scrollTo &&
+    this.refs[SCROLLVIEW_REF].scrollTo(...args);
+  }
 
-  setNativeProps: function(props) {
+  setNativeProps(props) {
     this.refs[SCROLLVIEW_REF] &&
-      this.refs[SCROLLVIEW_REF].setNativeProps(props);
-  },
+    this.refs[SCROLLVIEW_REF].setNativeProps(props);
+  }
 
-  /**
-   * React life cycle hooks.
-   */
-
-  getDefaultProps: function() {
-    return {
-      initialListSize: DEFAULT_INITIAL_ROWS,
-      pageSize: DEFAULT_PAGE_SIZE,
-      renderScrollComponent: props => <ScrollView {...props} />,
-      scrollRenderAheadDistance: DEFAULT_SCROLL_RENDER_AHEAD,
-      onEndReachedThreshold: DEFAULT_END_REACHED_THRESHOLD,
-      stickyHeaderIndices: [],
-    };
-  },
-
-  getInitialState: function() {
-    return {
-      curRenderedRowsCount: this.props.initialListSize,
-      highlightedRow: {},
-    };
-  },
-
-  getInnerViewNode: function() {
+  getInnerViewNode() {
     return this.refs[SCROLLVIEW_REF].getInnerViewNode();
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     // this data should never trigger a render pass, so don't put in state
     this.scrollProperties = {
       visibleLength: null,
@@ -268,17 +259,17 @@ var ListView = React.createClass({
     this._visibleRows = {};
     this._prevRenderedRowsCount = 0;
     this._sentEndForContentLength = null;
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     // do this in animation frame until componentDidMount actually runs after
     // the component is laid out
     this.requestAnimationFrame(() => {
       this._measureAndUpdateScrollProps();
     });
-  },
+  }
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (this.props.dataSource !== nextProps.dataSource ||
         this.props.initialListSize !== nextProps.initialListSize) {
       this.setState((state, props) => {
@@ -294,19 +285,19 @@ var ListView = React.createClass({
         };
       }, () => this._renderMoreRowsIfNeeded());
     }
-  },
+  }
 
-  componentDidUpdate: function() {
+  componentDidUpdate() {
     this.requestAnimationFrame(() => {
       this._measureAndUpdateScrollProps();
     });
-  },
+  }
 
-  onRowHighlighted: function(sectionID, rowID) {
+  onRowHighlighted(sectionID, rowID) {
     this.setState({highlightedRow: {sectionID, rowID}});
-  },
+  }
 
-  render: function() {
+  render() {
     var bodyComponents = [];
 
     var dataSource = this.props.dataSource;
@@ -417,13 +408,13 @@ var ListView = React.createClass({
       onContentSizeChange: this._onContentSizeChange,
       onLayout: this._onLayout,
     }, header, bodyComponents, footer);
-  },
+  }
 
   /**
    * Private methods
    */
 
-  _measureAndUpdateScrollProps: function() {
+  _measureAndUpdateScrollProps() {
     var scrollComponent = this.getScrollResponder();
     if (!scrollComponent || !scrollComponent.getInnerViewNode) {
       return;
@@ -436,9 +427,9 @@ var ListView = React.createClass({
     //     React.findNodeHandle(scrollComponent),
     //     this._updateVisibleRows,
     //   );
-  },
+  }
 
-  _onContentSizeChange: function(width, height) {
+  _onContentSizeChange(width, height) {
     var contentLength = !this.props.horizontal ? height : width;
     if (contentLength !== this.scrollProperties.contentLength) {
       this.scrollProperties.contentLength = contentLength;
@@ -446,9 +437,9 @@ var ListView = React.createClass({
       this._renderMoreRowsIfNeeded();
     }
     this.props.onContentSizeChange && this.props.onContentSizeChange(width, height);
-  },
+  }
 
-  _onLayout: function(event) {
+  _onLayout(event) {
     var {width, height} = event.nativeEvent.layout;
     var visibleLength = !this.props.horizontal ? height : width;
     if (visibleLength !== this.scrollProperties.visibleLength) {
@@ -457,9 +448,9 @@ var ListView = React.createClass({
       this._renderMoreRowsIfNeeded();
     }
     this.props.onLayout && this.props.onLayout(event);
-  },
+  }
 
-  _maybeCallOnEndReached: function(event) {
+  _maybeCallOnEndReached(event) {
     if (this.props.onEndReached &&
         this.scrollProperties.contentLength !== this._sentEndForContentLength &&
         this._getDistanceFromEnd(this.scrollProperties) < this.props.onEndReachedThreshold &&
@@ -469,9 +460,9 @@ var ListView = React.createClass({
       return true;
     }
     return false;
-  },
+  }
 
-  _renderMoreRowsIfNeeded: function() {
+  _renderMoreRowsIfNeeded() {
     if (this.scrollProperties.contentLength === null ||
       this.scrollProperties.visibleLength === null ||
       this.state.curRenderedRowsCount === this.props.dataSource.getRowCount()) {
@@ -483,9 +474,9 @@ var ListView = React.createClass({
     if (distanceFromEnd < this.props.scrollRenderAheadDistance) {
       this._pageInNewRows();
     }
-  },
+  }
 
-  _pageInNewRows: function() {
+  _pageInNewRows() {
     this.setState((state, props) => {
       var rowsToRender = Math.min(
         state.curRenderedRowsCount + props.pageSize,
@@ -499,13 +490,13 @@ var ListView = React.createClass({
       this._measureAndUpdateScrollProps();
       this._prevRenderedRowsCount = this.state.curRenderedRowsCount;
     });
-  },
+  }
 
-  _getDistanceFromEnd: function(scrollProperties) {
+  _getDistanceFromEnd(scrollProperties) {
     return scrollProperties.contentLength - scrollProperties.visibleLength - scrollProperties.offset;
-  },
+  }
 
-  _updateVisibleRows: function(updatedFrames) {
+  _updateVisibleRows(updatedFrames) {
     // if (!this.props.onChangeVisibleRows) {
     //   return; // No need to compute visible rows if there is no callback
     // }
@@ -572,9 +563,9 @@ var ListView = React.createClass({
     //   }
     // }
     // visibilityChanged && this.props.onChangeVisibleRows(this._visibleRows, changedRows);
-  },
+  }
 
-  _onScroll: function(e) {
+  _onScroll(e) {
     var isVertical = !this.props.horizontal;
     // this.scrollProperties.visibleLength = e.nativeEvent.layoutMeasurement[
     //   isVertical ? 'height' : 'width'
@@ -608,8 +599,12 @@ var ListView = React.createClass({
     }
 
     this.props.onScroll && this.props.onScroll(e);
-  },
-});
+  }
+}
+
+mixin(ListView.prototype, ScrollResponder.Mixin);
+mixin(ListView.prototype, TimerMixin);
+autobind(ListView);
 
 ListView.isReactNativeComponent = true;
 

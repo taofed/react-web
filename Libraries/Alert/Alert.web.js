@@ -9,8 +9,8 @@
  */
 'use strict';
 
-var DEFAULT_BUTTON_TEXT = 'OK';
-var DEFAULT_BUTTON = {
+const DEFAULT_BUTTON_TEXT = 'OK';
+const DEFAULT_BUTTON = {
   text: DEFAULT_BUTTON_TEXT,
   onPress: null,
 };
@@ -47,8 +47,8 @@ class AlertIOS {
     }>,
     type?: ?string
   ): void {
-    var callbacks = [];
-    var buttonsSpec = [];
+    let callbacks = [];
+    let buttonsSpec = [];
     title = title || '';
     message = message || '';
     buttons = buttons || [DEFAULT_BUTTON];
@@ -56,7 +56,7 @@ class AlertIOS {
 
     buttons.forEach((btn, index) => {
       callbacks[index] = btn.onPress;
-      var btnDef = {};
+      let btnDef = {};
       btnDef[index] = btn.text || DEFAULT_BUTTON_TEXT;
       buttonsSpec.push(btnDef);
     });
@@ -95,11 +95,11 @@ class AlertIOS {
       }];
     }
 
-    var ret = prompt(title);
+    let ret = prompt(title);
     if (ret && callback) {
       callback();
     }
   }
 }
 
-module.exports = AlertIOS;
+export default AlertIOS;

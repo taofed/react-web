@@ -12,11 +12,11 @@ import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import Portal from 'ReactPortal';
 
-var AppContainer = React.createClass({
+class AppContainer extends React.Component {
 
-  render: function() {
-    var RootComponent = this.props.rootComponent;
-    var appView =
+  render() {
+    let RootComponent = this.props.rootComponent;
+    let appView =
       <View
         ref="main"
         className={StyleSheet.rootClassName}
@@ -29,7 +29,7 @@ var AppContainer = React.createClass({
 
     return appView;
   }
-});
+}
 
 function renderApplication<D, P, S>(
   RootComponent: ReactClass<D, P, S>,
@@ -58,4 +58,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = renderApplication;
+export default renderApplication;

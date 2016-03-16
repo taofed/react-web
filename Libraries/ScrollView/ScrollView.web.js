@@ -15,8 +15,8 @@ import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import throttle from 'domkit/throttle';
 
-var SCROLLVIEW = 'ScrollView';
-var INNERVIEW = 'InnerScrollView';
+const SCROLLVIEW = 'ScrollView';
+const INNERVIEW = 'InnerScrollView';
 
 /**
  * Component that wraps platform ScrollView while providing

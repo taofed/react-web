@@ -15,7 +15,7 @@ import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';
 
-module.exports = {
+export default {
   ...AnimatedImplementation,
   View: AnimatedImplementation.createAnimatedComponent(View),
   Text: AnimatedImplementation.createAnimatedComponent(Text),

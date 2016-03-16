@@ -68,4 +68,4 @@ var AppRegistry = {
   },
 };
 
-module.exports = AppRegistry;
+export default AppRegistry;

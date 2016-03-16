@@ -42,6 +42,7 @@ var mergeCommon = merge.bind(null, {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
+      blacklist: ['lib']
     }),
   ]
 });
@@ -55,7 +56,7 @@ if (NODE_ENV === 'development') {
     devtool: 'source-map',
     entry: [
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
-      'webpack/hot/only-dev-server',
+      // 'webpack/hot/only-dev-server',
       config.paths.demoIndex,
     ],
     output: {
@@ -68,7 +69,7 @@ if (NODE_ENV === 'development') {
           'NODE_ENV': JSON.stringify('development'),
         }
       }),
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new HtmlPlugin(),
     ],
