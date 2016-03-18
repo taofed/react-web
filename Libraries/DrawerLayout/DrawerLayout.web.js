@@ -13,6 +13,8 @@ import Animated from 'ReactAnimated';
 import PanResponder from 'ReactPanResponder';
 import Dimensions from 'ReactDimensions';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -22,24 +24,19 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
-var DrawerLayout = React.createClass({
-  mixins: [NativeMethodsMixin],
+class DrawerLayout extends React.Component {
 
-  statics: {
-    positions: {
-      Left: 'left',
-      Right: 'right'
-    }
-  },
+  static positions = {
+    Left: 'left',
+    Right: 'right'
+  }
 
-  getDefaultProps() {
-    return {
-      drawerWidth: 0,
-      drawerPosition: 'left',
-    };
-  },
+  static defaultProps = {
+    drawerWidth: 0,
+    drawerPosition: 'left',
+  }
 
-  propTypes: {
+  static propTypes = {
     drawerWidth: PropTypes.number.isRequired,
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
     renderNavigationView: PropTypes.func.isRequired,
@@ -52,13 +49,11 @@ var DrawerLayout = React.createClass({
 
     /* Not implemented */
     keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
-  },
+  }
 
-  getInitialState() {
-    return {
-      openValue: new Animated.Value(0),
-    };
-  },
+  state = {
+    openValue: new Animated.Value(0),
+  }
 
   componentWillMount() {
     let { openValue } = this.state;
@@ -76,7 +71,7 @@ var DrawerLayout = React.createClass({
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: (evt, gestureState) => { }
     });
-  },
+  }
 
   render() {
     let { openValue } = this.state;
@@ -123,11 +118,11 @@ var DrawerLayout = React.createClass({
         </Animated.View>
       </View>
     );
-  },
+  }
 
   _emitStateChanged(newState) {
     this.props.onDrawerStateChanged && this.props.onDrawerStateChanged(newState);
-  },
+  }
 
   open(options = {}) {
     this._emitStateChanged(SETTLING);
@@ -135,7 +130,7 @@ var DrawerLayout = React.createClass({
       this.props.onDrawerOpen && this.props.onDrawerOpen();
       this._emitStateChanged(IDLE);
     });
-  },
+  }
 
   close(options = {}) {
     this._emitStateChanged(SETTLING);
@@ -143,15 +138,15 @@ var DrawerLayout = React.createClass({
       this.props.onDrawerClose && this.props.onDrawerClose();
       this._emitStateChanged(IDLE);
     });
-  },
+  }
 
   _handleDrawerOpen() {
     this.props.onDrawerOpen && this.props.onDrawerOpen();
-  },
+  }
 
   _handleDrawerClose() {
     this.props.onDrawerClose && this.props.onDrawerClose();
-  },
+  }
 
   _shouldSetPanResponder(e, {moveX, dx, dy}) {
     let { drawerPosition } = this.props;
@@ -191,11 +186,11 @@ var DrawerLayout = React.createClass({
         }
       }
     }
-  },
+  }
 
   _panResponderGrant() {
     this._emitStateChanged(DRAGGING);
-  },
+  }
 
   _panResponderMove(e, {moveX}) {
     let openValue = this._getOpenValueForX(moveX);
@@ -211,7 +206,7 @@ var DrawerLayout = React.createClass({
     }
 
     this.state.openValue.setValue(openValue);
-  },
+  }
 
   _panResponderRelease(e, {moveX, vx}) {
     let { drawerPosition } = this.props;
@@ -240,7 +235,7 @@ var DrawerLayout = React.createClass({
         this.close();
       }
     }
-  },
+  }
 
   _getOpenValueForX(x) {
     let { drawerPosition, drawerWidth } = this.props;
@@ -251,7 +246,7 @@ var DrawerLayout = React.createClass({
       return (DEVICE_WIDTH - x) / drawerWidth;
     }
   }
-});
+}
 
 let styles = StyleSheet.create({
   drawer: {
@@ -271,5 +266,11 @@ let styles = StyleSheet.create({
     right: 0,
   },
 });
+
+
+mixin(DrawerLayout.prototype, NativeMethodsMixin);
+autobind(DrawerLayout);
+
+DrawerLayout.isReactNativeComponent = true;
 
 export default DrawerLayout;

@@ -132,4 +132,7 @@ var Switch = React.createClass({
   }
 
 });
-module.exports = Switch;
+
+Switch.isReactNativeComponent = true;
+
+export default Switch;

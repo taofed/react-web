@@ -101,4 +101,6 @@ var View = React.createClass({
   }
 });
 
-module.exports = View;
+View.isReactNativeComponent = true;
+
+export default View;

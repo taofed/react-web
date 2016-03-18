@@ -26,7 +26,11 @@ var {
   View,
 } = React;
 
-var PAGE_SIZE = 4;
+// var NativeModules = require('NativeModules');
+// var {
+//   UIManager,
+// } = NativeModules;
+
 var THUMB_URLS = ['https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-ash3/t39.1997/p128x128/851549_767334479959628_274486868_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851561_767334496626293_1958532586_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-ash3/t39.1997/p128x128/851579_767334503292959_179092627_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851589_767334513292958_1747022277_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851563_767334559959620_1193692107_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851593_767334566626286_1953955109_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851591_767334523292957_797560749_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851567_767334529959623_843148472_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851548_767334489959627_794462220_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851575_767334539959622_441598241_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-ash3/t39.1997/p128x128/851573_767334549959621_534583464_n.png', 'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851583_767334573292952_1519550680_n.png'];
 var NUM_SECTIONS = 100;
 var NUM_ROWS_PER_SECTION = 10;
@@ -35,25 +39,29 @@ var Thumb = React.createClass({
   getInitialState: function() {
     return {thumbIndex: this._getThumbIdx(), dir: 'row'};
   },
+  componentWillMount: function() {
+    // UIManager.setLayoutAnimationEnabledExperimental &&
+    //   UIManager.setLayoutAnimationEnabledExperimental(true);
+  },
   _getThumbIdx: function() {
     return Math.floor(Math.random() * THUMB_URLS.length);
   },
   _onPressThumb: function() {
-    var config = layoutAnimationConfigs[this.state.thumbIndex % layoutAnimationConfigs.length];
+    // var config = layoutAnimationConfigs[this.state.thumbIndex % layoutAnimationConfigs.length];
     // LayoutAnimation.configureNext(config);
-    // this.setState({
-    //   thumbIndex: this._getThumbIdx(),
-    //   dir: this.state.dir === 'row' ? 'column' : 'row',
-    // });
+    this.setState({
+      thumbIndex: this._getThumbIdx(),
+      dir: this.state.dir === 'row' ? 'column' : 'row',
+    });
   },
   render: function() {
     return (
       <TouchableOpacity
         onPress={this._onPressThumb}
         style={[styles.buttonContents, {flexDirection: this.state.dir}]}>
-        <Image style={styles.img} source={{uri: THUMB_URLS[this.state.thumbIndex]}} />
-        <Image style={styles.img} source={{uri: THUMB_URLS[this.state.thumbIndex]}} />
-        <Image style={styles.img} source={{uri: THUMB_URLS[this.state.thumbIndex]}} />
+        <Image style={styles.img} source={THUMB_URLS[this.state.thumbIndex]} />
+        <Image style={styles.img} source={THUMB_URLS[this.state.thumbIndex]} />
+        <Image style={styles.img} source={THUMB_URLS[this.state.thumbIndex]} />
         {this.state.dir === 'column' ?
           <Text>
             Oooo, look at this new text!  So awesome it may just be crazy.
@@ -159,15 +167,15 @@ var ListViewPagingExample = React.createClass({
         renderSectionHeader={this.renderSectionHeader}
         renderRow={this.renderRow}
         initialListSize={10}
-        pageSize={PAGE_SIZE}
-        scrollRenderAheadDistance={2000}
+        pageSize={4}
+        scrollRenderAheadDistance={500}
       />
     );
   },
 
   _onPressHeader: function() {
     var config = layoutAnimationConfigs[Math.floor(this.state.headerPressCount / 2) % layoutAnimationConfigs.length];
-    // LayoutAnimation.configureNext(config);
+    LayoutAnimation.configureNext(config);
     this.setState({headerPressCount: this.state.headerPressCount + 1});
   },
 
@@ -221,37 +229,37 @@ var styles = StyleSheet.create({
   },
 });
 
-var animations = {
-  layout: {
-    spring: {
-      duration: 750,
-      create: {
-        duration: 300,
-        // type: LayoutAnimation.Types.easeInEaseOut,
-        // property: LayoutAnimation.Properties.opacity,
-      },
-      update: {
-        // type: LayoutAnimation.Types.spring,
-        springDamping: 0.4,
-      },
-    },
-    easeInEaseOut: {
-      duration: 300,
-      create: {
-        // type: LayoutAnimation.Types.easeInEaseOut,
-        // property: LayoutAnimation.Properties.scaleXY,
-      },
-      update: {
-        delay: 100,
-        // type: LayoutAnimation.Types.easeInEaseOut,
-      },
-    },
-  },
-};
-
-var layoutAnimationConfigs = [
-  animations.layout.spring,
-  animations.layout.easeInEaseOut,
-];
+// var animations = {
+//   layout: {
+//     spring: {
+//       duration: 750,
+//       create: {
+//         duration: 300,
+//         type: LayoutAnimation.Types.easeInEaseOut,
+//         property: LayoutAnimation.Properties.opacity,
+//       },
+//       update: {
+//         type: LayoutAnimation.Types.spring,
+//         springDamping: 0.4,
+//       },
+//     },
+//     easeInEaseOut: {
+//       duration: 300,
+//       create: {
+//         type: LayoutAnimation.Types.easeInEaseOut,
+//         property: LayoutAnimation.Properties.scaleXY,
+//       },
+//       update: {
+//         delay: 100,
+//         type: LayoutAnimation.Types.easeInEaseOut,
+//       },
+//     },
+//   },
+// };
+//
+// var layoutAnimationConfigs = [
+//   animations.layout.spring,
+//   animations.layout.easeInEaseOut,
+// ];
 
 module.exports = ListViewPagingExample;

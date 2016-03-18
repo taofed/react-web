@@ -5,14 +5,14 @@
  */
 'use strict';
 
-function extendCreateElement(React, processor, nativeComponents) {
+function extendCreateElement(React, processor) {
   var originalCreateElement = React.createElement;
   React.createElement = function(type, props) {
     var args = arguments;
 
     if (props && props.style &&
       (Array.isArray(props.style) || typeof props.style === 'object') &&
-      nativeComponents.indexOf(type) !== -1) {
+      type.isReactNativeComponent) {
       var style = processor(props.style);
       // should copy it, props is read only
       var target = {};

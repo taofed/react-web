@@ -67,6 +67,9 @@ var ListViewGridLayoutExample = React.createClass({
       <ListView
         contentContainerStyle={styles.list}
         dataSource={this.state.dataSource}
+        initialListSize={21}
+        pageSize={3} // should be a multiple of the no. of visible cells per row
+        scrollRenderAheadDistance={500}
         renderRow={this._renderRow}
       />
     );
@@ -74,9 +77,7 @@ var ListViewGridLayoutExample = React.createClass({
 
   _renderRow: function(rowData: string, sectionID: number, rowID: number) {
     var rowHash = Math.abs(hashCode(rowData));
-    var imgSource = {
-      uri: THUMB_URLS[rowHash % THUMB_URLS.length],
-    };
+    var imgSource = THUMB_URLS[rowHash % THUMB_URLS.length];
     return (
       <TouchableHighlight onPress={() => this._pressRow(rowID)} underlayColor="transparent">
         <View>

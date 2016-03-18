@@ -400,4 +400,6 @@ const styles = {
   }
 };
 
-module.exports = TextInput;
+TextInput.isReactNativeComponent = true;
+
+export default TextInput;

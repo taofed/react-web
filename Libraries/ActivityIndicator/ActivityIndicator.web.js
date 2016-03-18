@@ -2,6 +2,9 @@
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
  *
+ * Copyright (c) 2015-present, Facebook, Inc.
+ * All rights reserved.
+ *
  * @providesModule ReactActivityIndicator
  */
 'use strict';
@@ -12,6 +15,8 @@ import StyleSheet from 'ReactStyleSheet';
 import assign from 'domkit/appendVendorPrefix';
 import insertKeyframesRule from 'domkit/insertKeyframesRule';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 const keyframes = {
   '50%': {
@@ -24,12 +29,11 @@ const keyframes = {
 
 const GRAY = '#999999';
 
-var animationName = insertKeyframesRule(keyframes);
+const animationName = insertKeyframesRule(keyframes);
 
-var ActivityIndicator = React.createClass({
-  mixins: [NativeMethodsMixin],
+class ActivityIndicator extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     /**
      * Whether to show the indicator (true, the default) or hide it (false).
      */
@@ -45,35 +49,33 @@ var ActivityIndicator = React.createClass({
       'small',
       'large',
     ]),
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
-      animating: true,
-      color: GRAY,
-      size: 'small',
-    };
-  },
+  static defaultProps = {
+    animating: true,
+    color: GRAY,
+    size: 'small',
+  }
 
   /**
    * @param  {Number} i
    * @return {Object}
    */
-  getAnimationStyle: function(i) {
-    var animation = [animationName, '1.2s', (i * 0.12) + 's', 'infinite', 'ease-in-out'].join(' ');
-    var animationFillMode = 'both';
+  getAnimationStyle(i) {
+    let animation = [animationName, '1.2s', `${i * 0.12}s`, 'infinite', 'ease-in-out'].join(' ');
+    let animationFillMode = 'both';
 
     return {
-      animation: animation,
-      animationFillMode: animationFillMode,
+      animation,
+      animationFillMode,
     };
-  },
+  }
 
   /**
    * @param  {Number} i
    * @return {Object}
    */
-  getLineStyle: function(i, lines) {
+  getLineStyle(i, lines) {
     return {
       backgroundColor: this.props.color,
       position: 'absolute',
@@ -82,23 +84,24 @@ var ActivityIndicator = React.createClass({
       left: -1,
       transform: 'rotate(' + ~~(360 / lines * i) + 'deg) translate(0, -' + (this.props.size === 'large' ? 12 : 7) + 'px)',
     };
-  },
+  }
+
   /**
    * @param  {Number} i
    * @return {Object}
    */
-  getStyle: function(i, lines) {
-    var sizeLineStyle = (this.props.size === 'large') ? styles.sizeLargeLine : styles.sizeSmallLine;
+  getStyle(i, lines) {
+    let sizeLineStyle = (this.props.size === 'large') ? styles.sizeLargeLine : styles.sizeSmallLine;
     return assign(
       this.getAnimationStyle(i),
       this.getLineStyle(i, lines),
       sizeLineStyle
     );
-  },
+  }
 
-  render: function() {
-    var lines = [];
-    var sizeContainerStyle = (this.props.size === 'large') ? styles.sizeLargeContainer : styles.sizeSmallContainer;
+  render() {
+    let lines = [];
+    let sizeContainerStyle = (this.props.size === 'large') ? styles.sizeLargeContainer : styles.sizeSmallContainer;
 
     if (this.props.animating) {
       for (let i = 1; i <= 12; i++) {
@@ -114,7 +117,7 @@ var ActivityIndicator = React.createClass({
       </View>
     );
   }
-});
+}
 
 var styles = StyleSheet.create({
   container: {
@@ -143,4 +146,8 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ActivityIndicator;
+mixin(ActivityIndicator.prototype, NativeMethodsMixin);
+
+ActivityIndicator.isReactNativeComponent = true;
+
+export default ActivityIndicator;

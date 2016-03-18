@@ -115,4 +115,6 @@ var TabBar = React.createClass({
   }
 });
 
-module.exports = TabBar;
+TabBar.isReactNativeComponent = true;
+
+export default TabBar;

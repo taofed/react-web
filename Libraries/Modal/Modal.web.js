@@ -61,4 +61,6 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = Modal;
+Modal.isReactNativeComponent = true;
+
+export default Modal;

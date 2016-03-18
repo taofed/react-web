@@ -42,7 +42,7 @@ var mergeCommon = merge.bind(null, {
   plugins: [
     new HasteResolverPlugin({
       platform: 'web',
-      blacklist: ['pages', 'lib'],
+      blacklist: ['lib']
     }),
   ]
 });
@@ -56,7 +56,7 @@ if (NODE_ENV === 'development') {
     devtool: 'source-map',
     entry: [
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
-      'webpack/hot/only-dev-server',
+      // 'webpack/hot/only-dev-server',
       config.paths.demoIndex,
     ],
     output: {
@@ -69,7 +69,7 @@ if (NODE_ENV === 'development') {
           'NODE_ENV': JSON.stringify('development'),
         }
       }),
-      new webpack.HotModuleReplacementPlugin(),
+      // new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
       new HtmlPlugin(),
     ],
@@ -81,9 +81,17 @@ if (NODE_ENV === 'development') {
       }],
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel?stage=1'],
+        loader: 'react-hot',
         include: [config.paths.demo, config.paths.src],
-      }, ]
+      },
+      {
+        test: /\.jsx?$/,
+        loader: 'babel', // 'babel-loader' is also a legal name to reference
+        query: {
+          presets: ['es2015', 'react', 'stage-1']
+        },
+        include: [config.paths.demo, config.paths.src],
+      }]
     }
   });
 }
@@ -147,7 +155,10 @@ if (NODE_ENV === 'production') {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        loaders: ['babel?stage=1'],
+        loader: 'babel', // 'babel-loader' is also a legal name to reference
+        query: {
+          presets: ['es2015', 'react', 'stage-1']
+        },
         include: [config.paths.demo, config.paths.src],
       }]
     }

@@ -8,8 +8,8 @@
  */
 'use strict';
 
-import TouchEventUtils from 'TouchEventUtils';
-import keyMirror from 'keyMirror';
+import TouchEventUtils from 'fbjs/lib/TouchEventUtils';
+import keyMirror from 'fbjs/lib/keyMirror';
 
 /**
  * `Touchable`: Taps done right.

@@ -27,7 +27,6 @@ module.exports = {
   resolve: {
     alias: {
       'react-native': 'react-web',
-      'ReactNativeART': 'react-art',
     },
     extensions: ['', '.js', '.jsx'],
   },
@@ -64,9 +63,17 @@ module.exports = {
       loader: 'json',
     }, {
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel?stage=1'],
+      loaders: 'react-hot',
       include: [config.paths.src],
       exclude: [/node_modules/]
-    }, ]
+    }, {
+      test: /\.jsx?$/,
+      loaders: 'babel',
+      query: {
+        presets: ['es2015', 'react']
+      },
+      include: [config.paths.src],
+      exclude: [/node_modules/]
+    }]
   }
 };

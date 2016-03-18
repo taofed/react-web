@@ -7,82 +7,55 @@
 'use strict';
 
 import React from 'react';
-import StyleSheet from 'ReactStyleSheet';
+import {extendCreateElement} from 'ReactStyleSheet';
 
 // proxy origin react createElement
-StyleSheet.extendCreateElement(React, [
-  // whitelist all Native Components (to only override `style` of these)
-  require('ReactActivityIndicator'),
-  require('ReactDrawerLayout'),
-  require('ReactImage'),
-  require('ReactListView'),
-  require('ReactModal'),
-  require('ReactNavigator'),
-  require('ReactPicker'),
-  require('ReactProgressView'),
-  require('ReactScrollView'),
-  require('ReactSegmentedControl'),
-  require('ReactSlider'),
-  require('ReactSwitch'),
-  require('ReactTabBar'),
-  require('ReactText'),
-  require('ReactTextInput'),
-  require('ReactToast'),
-  require('ReactTouchable'),
-  require('ReactTouchableHighlight'),
-  require('ReactTouchableOpacity'),
-  require('ReactTouchableWithoutFeedback'),
-  require('ReactView'),
-  require('ReactViewPager')
-]);
+extendCreateElement(React);
 
-var ReactWeb = {
-  // Components
-  get ActivityIndicatorIOS() { return require('ReactActivityIndicator'); },
-  get DatePickerIOS() { return null; },
-  get DrawerLayoutAndroid() { return require('ReactDrawerLayout'); },
-  get Image() { return require('ReactImage'); },
-  get ListView() { return require('ReactListView'); },
-  get Modal() { return require('ReactModal'); },
-  get Navigator() { return require('ReactNavigator'); },
-  get PickerIOS() { return require('ReactPicker'); },
-  get ProgressViewIOS() { return require('ReactProgressView'); },
-  get ScrollView() { return require('ReactScrollView'); },
-  get SegmentedControlIOS() { return require('ReactSegmentedControl'); },
-  get SliderIOS() { return require('ReactSlider'); },
-  get Switch() { return require('ReactSwitch'); },
-  get SwitchAndroid() { return require('ReactSwitch'); },
-  get SwitchIOS() { return require('ReactSwitch'); },
-  get TabBarIOS() { return require('ReactTabBar'); },
-  get Text() { return require('ReactText'); },
-  get TextInput() { return require('ReactTextInput'); },
-  get ToastAndroid() { return require('ReactToast'); },
-  get Touchable() { return require('ReactTouchable'); },
-  get TouchableHighlight() { return require('ReactTouchableHighlight'); },
-  get TouchableOpacity() { return require('ReactTouchableOpacity'); },
-  get TouchableWithoutFeedback() { return require('ReactTouchableWithoutFeedback'); },
-  get View() { return require('ReactView'); },
-  get ViewPagerAndroid() { return require('ReactViewPager'); },
+// React
+export * from 'react';
 
-  // APIs
-  get Alert() { return require('ReactAlert'); },
-  get AlertIOS() { return require('ReactAlert'); },
-  get Animated() { return require('ReactAnimated'); },
-  get AppRegistry() { return require('ReactAppRegistry'); },
-  get AsyncStorage() { return require('ReactAsyncStorage'); },
-  get Dimensions() { return require('ReactDimensions'); },
-  get Easing() { return require('ReactEasing'); },
-  get InteractionManager() { return require('ReactInteractionManager'); },
-  get PanResponder() { return require('ReactPanResponder'); },
-  get PixelRatio() { return require('ReactPixelRatio'); },
-  get StyleSheet() { return require('ReactStyleSheet'); },
+// Components
+export ActivityIndicatorIOS from 'ReactActivityIndicator';
+// export DatePickerIOS from 'ReactDatePicker';
+export DrawerLayoutAndroid from 'ReactDrawerLayout';
+export Image from 'ReactImage';
+export ListView from 'ReactListView';
+export Modal from 'ReactModal';
+export Navigator from 'ReactNavigator';
+export PickerIOS from 'ReactPicker';
+export ProgressViewIOS from 'ReactProgressView';
+export ScrollView from 'ReactScrollView';
+export SegmentedControlIOS from 'ReactSegmentedControl';
+export SliderIOS from 'ReactSlider';
+export Switch from 'ReactSwitch';
+export SwitchAndroid from 'ReactSwitch';
+export SwitchIOS from 'ReactSwitch';
+export TabBarIOS from 'ReactTabBar';
+export Text from 'ReactText';
+export TextInput from 'ReactTextInput';
+export ToastAndroid from 'ReactToast';
+export Touchable from 'ReactTouchable';
+export TouchableHighlight from 'ReactTouchableHighlight';
+export TouchableOpacity from 'ReactTouchableOpacity';
+export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
+export View from 'ReactView';
+export ViewPagerAndroid from 'ReactViewPager';
 
-  // Plugins
-  get NativeModules() { return require('ReactNativeModules'); },
-  get Platform() { return require('ReactPlatform'); },
-  get processColor() { return require('ReactProcessColor'); },
+// APIs
+export Alert from 'ReactAlert';
+export AlertIOS from 'ReactAlert';
+export Animated from 'ReactAnimated';
+export AppRegistry from 'ReactAppRegistry';
+export AsyncStorage from 'ReactAsyncStorage';
+export Dimensions from 'ReactDimensions';
+export Easing from 'ReactEasing';
+export InteractionManager from 'ReactInteractionManager';
+export PanResponder from 'ReactPanResponder';
+export PixelRatio from 'ReactPixelRatio';
+export StyleSheet from 'ReactStyleSheet';
 
-  ...React,
-};
-
-module.exports = ReactWeb;
+// Plugins
+export NativeModules from 'ReactNativeModules';
+export Platform from 'ReactPlatform';
+export processColor from 'ReactProcessColor';

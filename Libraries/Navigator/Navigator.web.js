@@ -876,6 +876,10 @@ var Navigator = React.createClass({
       } else {
         history.go(n);
       }
+      return;
+    }
+    if (n < 0) {
+      __uid += n;
     }
   },
 
@@ -1129,4 +1133,6 @@ var Navigator = React.createClass({
   }
 });
 
-module.exports = Navigator;
+Navigator.isReactNativeComponent = true;
+
+export default Navigator;

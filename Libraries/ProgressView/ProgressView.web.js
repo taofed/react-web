@@ -85,4 +85,6 @@ var styles = StyleSheet.create({
   }
 });
 
-module.exports = ProgressView;
+ProgressView.isReactNativeComponent = true;
+
+export default ProgressView;
