@@ -14,7 +14,7 @@ import StyleSheet from 'ReactStyleSheet';
 const LONG_DELAY = 3500; // 3.5 seconds
 const SHORT_DELAY = 2000; // 2 seconds
 
-var Toast = {
+let Toast = {
 
   SHORT: SHORT_DELAY,
   LONG: LONG_DELAY,
@@ -25,7 +25,7 @@ var Toast = {
   },
 };
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     backgroundColor: 'rgba(0,0,0,.65)',
     color: '#ffffff',
@@ -40,4 +40,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = Toast;
+export default Toast;
