@@ -11,8 +11,9 @@ import View from 'ReactView';
 import TabBarItem from './TabBarItem.web';
 import TabBarContents from './TabBarContents.web';
 import assign from 'object-assign';
+import StyleSheet from 'ReactStyleSheet';
 
-var TabBar = React.createClass({
+let TabBar = React.createClass({
   getInitialState() {
     return {
       selectedIndex: 0
@@ -37,8 +38,8 @@ var TabBar = React.createClass({
     clientHeight: React.PropTypes.number
   },
 
-  getStyles: function() {
-    return {
+  getStyles() {
+    return StyleSheet.create({
       container: {
         width: '100%',
         height: this.props.clientHeight || document.documentElement.clientHeight,
@@ -61,25 +62,25 @@ var TabBar = React.createClass({
         backgroundColor: 'rgba(250,250,250,.96)',
         display: 'table'
       }
-    };
+    });
   },
 
-  handleTouchTap: function(index) {
+  handleTouchTap(index) {
     this.setState({
       selectedIndex: index
     });
   },
 
-  render: function() {
-    var self = this;
-    var styles = self.getStyles();
-    var barStyle = assign(styles.bar, this.props.style || {}, this.props.barTintColor ? {
+  render() {
+    let self = this;
+    let styles = self.getStyles();
+    let barStyle = assign(styles.bar, this.props.style || {}, this.props.barTintColor ? {
       backgroundColor: this.props.barTintColor
     } : {});
 
-    var tabContent = [];
+    let tabContent = [];
 
-    var tabs = React.Children.map(this.props.children, (tab,
+    let tabs = React.Children.map(this.props.children, (tab,
     index) => {
       if (tab.type.displayName === 'TabBarItem') {
         if (tab.props.children) {

@@ -9,8 +9,9 @@ import React, { PropTypes } from 'react';
 import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';
+import StyleSheet from 'ReactStyleSheet';
 
-var TabBarItem = React.createClass({
+let TabBarItem = React.createClass({
   propTypes: {
     /**
      * Little red bubble that sits at the top right of the icon.
@@ -52,42 +53,7 @@ var TabBarItem = React.createClass({
     selectedColor: PropTypes.string
   },
 
-  getStyles: function() {
-    return {
-      tab: {
-        display: 'table-cell',
-        textAlign: 'center',
-        position: 'relative'
-      },
-      link: {
-        display: 'block',
-        padding: '0.3em 0'
-      },
-      badge: {
-        display: 'inline-block',
-        position: 'absolute',
-        top: 0,
-        left: '52%',
-        color: '#FFF',
-        backgroundColor: '#FF0000',
-        height: '1.6em',
-        lineHeight: '1.6em',
-        minWidth: '1.6em',
-        fontSize: '0.7em',
-        borderRadius: '0.8em',
-        fontStyle: 'normal'
-      },
-      icon: {
-        width: '1.875em',
-        height: '1.875em'
-      },
-      title: {
-        fontSize: 12
-      }
-    };
-  },
-
-  _onClick: function() {
+  _onClick() {
     if (this.props.onPress) {
       this.props.onPress();
     }
@@ -96,8 +62,7 @@ var TabBarItem = React.createClass({
     }
   },
 
-  render: function() {
-    var styles = this.getStyles();
+  render() {
 
     var tabStyle = {...styles.tab, ...this.props.style || {}, color: (this.props.selectedColor && this.props.selected) ? this.props.selectedColor : null};
 
@@ -115,4 +80,37 @@ var TabBarItem = React.createClass({
   }
 });
 
-module.exports = TabBarItem;
+let styles = StyleSheet.create({
+  tab: {
+    display: 'table-cell',
+    textAlign: 'center',
+    position: 'relative'
+  },
+  link: {
+    display: 'block',
+    padding: '0.3em 0'
+  },
+  badge: {
+    display: 'inline-block',
+    position: 'absolute',
+    top: 0,
+    left: '52%',
+    color: '#FFF',
+    backgroundColor: '#FF0000',
+    height: '1.6em',
+    lineHeight: '1.6em',
+    minWidth: '1.6em',
+    fontSize: '0.7em',
+    borderRadius: '0.8em',
+    fontStyle: 'normal'
+  },
+  icon: {
+    width: '1.875em',
+    height: '1.875em'
+  },
+  title: {
+    fontSize: 12
+  }
+});
+
+export default TabBarItem;

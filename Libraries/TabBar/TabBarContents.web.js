@@ -7,16 +7,17 @@
 
 import React from 'react';
 import View from 'ReactView';
+import StyleSheet from 'ReactStyleSheet';
 
 let TabBarContents = React.createClass({
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       hasBeenSelected: false
     };
   },
 
-  componentWillMount: function() {
+  componentWillMount() {
     if (this.props.selected) {
       this.setState({
         hasBeenSelected: true
@@ -24,9 +25,7 @@ let TabBarContents = React.createClass({
     }
   },
 
-  componentWillReceiveProps: function(nextProps: {
-    selected ?: boolean
-  }) {
+  componentWillReceiveProps(nextProps) {
     if (this.state.hasBeenSelected || nextProps.selected) {
       this.setState({
         hasBeenSelected: true
@@ -35,12 +34,13 @@ let TabBarContents = React.createClass({
   },
 
   render() {
-    let styles = {
+
+    let styles = StyleSheet.create({
       'display': 'none',
       'width': '100%',
       'height': '100%',
       'position': 'relative'
-    };
+    });
 
     if (this.props.selected) {
       delete styles.display;
@@ -60,4 +60,6 @@ let TabBarContents = React.createClass({
   }
 });
 
-module.exports = TabBarContents;
+
+
+export default TabBarContents;
