@@ -15,14 +15,15 @@ import Dimensions from 'ReactDimensions';
 import PanResponder from 'ReactPanResponder';
 import dismissKeyboard from 'ReactDismissKeyboard';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 const deviceSize = Dimensions.get('window');
 const VIEWPAGER_REF = 'viewpager';
 
-var ViewPager = React.createClass({
-  mixins: [NativeMethodsMixin],
+class ViewPager extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     /**
      * Index of initial page that should be selected. Use `setPage` method to
      * update the page, and `onPageSelected` to monitor page changes
@@ -57,26 +58,22 @@ var ViewPager = React.createClass({
       'none', // default
       'on-drag'
     ])
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      initialPage: 0
-    };
-  },
+  static defaultProps = {
+    initialPage: 0
+  }
 
-  getInitialState() {
-    return {
-      selectedPage: this.props.initialPage,
-      pageWidth: deviceSize.width,
-      pageCount: this.props.children.length,
-      offsetLeft: new Animated.Value(0)
-    };
-  },
+  state = {
+    selectedPage: this.props.initialPage,
+    pageWidth: deviceSize.width,
+    pageCount: this.props.children.length,
+    offsetLeft: new Animated.Value(0)
+  }
 
   getInnerViewNode() {
     return this.refs[VIEWPAGER_REF].childNodes[0];
-  },
+  }
 
   componentWillMount() {
     // let { offsetLeft, selectedPage } = this.state;
@@ -100,11 +97,11 @@ var ViewPager = React.createClass({
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: () => { }
     });
-  },
+  }
 
   componentDidMount() {
     this.setPage(this.state.selectedPage);
-  },
+  }
 
   _childrenWithOverridenStyle() {
     // Override styles so that each page will fill the parent. Native component
@@ -119,8 +116,9 @@ var ViewPager = React.createClass({
       };
       return cloneElement(child, assign({}, child.props, newProps));
     });
-  },
-  render: function() {
+  }
+
+  render() {
     let children = this._childrenWithOverridenStyle();
 
     let { offsetLeft, pageWidth, pageCount } = this.state;
@@ -148,16 +146,16 @@ var ViewPager = React.createClass({
         {children}
       </Animated.View>
     </View>);
-  },
+  }
 
-  _onPageScroll: function(event) {
+  _onPageScroll(event) {
     if (this.props.onPageScroll) {
       this.props.onPageScroll(event);
     }
     if (this.props.keyboardDismissMode === 'on-drag') {
       dismissKeyboard();
     }
-  },
+  }
 
   _shouldSetPanResponder() {
     if (this._scrolling) {
@@ -168,12 +166,12 @@ var ViewPager = React.createClass({
     }
 
     return true;
-  },
+  }
 
   _panResponderMove(ev, {dx}) {
     let val = this.state.selectedPage + dx / this.state.pageWidth * -1;
     this.state.offsetLeft.setValue(val);
-  },
+  }
 
   _panResponderRelease(ev, {dx}) {
     let { selectedPage, pageWidth } = this.state;
@@ -189,7 +187,7 @@ var ViewPager = React.createClass({
     }
 
     this.setPage(selectedPage);
-  },
+  }
 
   setPage(index) {
     if (index < 0) {
@@ -222,7 +220,11 @@ var ViewPager = React.createClass({
       });
     });
   }
-});
+
+};
+
+mixin(ViewPager.prototype, NativeMethodsMixin);
+autobind(ViewPager);
 
 ViewPager.isReactNativeComponent = true;
 
