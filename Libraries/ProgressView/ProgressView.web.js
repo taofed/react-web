@@ -10,12 +10,14 @@ import React from 'react';
 import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
-var ProgressView = React.createClass({
-  mixins: [NativeMethodsMixin],
-  render: function() {
+class ProgressView extends React.Component {
 
-    var specificStyle = {
+  render() {
+
+    let specificStyle = {
       progressTint: {},
       progressTrack: {},
     };
@@ -43,7 +45,7 @@ var ProgressView = React.createClass({
     }
 
     // process progress
-    var progress = this.props.progress;
+    let progress = this.props.progress;
     if ( progress >= 1 ) {
       progress = 1;
     } else if ( progress <= 0 ) {
@@ -62,9 +64,9 @@ var ProgressView = React.createClass({
       </View>
     );
   }
-});
+};
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   progressView: {
     display: 'block',
     height: '2px',
@@ -85,6 +87,8 @@ var styles = StyleSheet.create({
   }
 });
 
+mixin(ProgressView.prototype, NativeMethodsMixin);
+autobind(ProgressView);
 ProgressView.isReactNativeComponent = true;
 
 export default ProgressView;
