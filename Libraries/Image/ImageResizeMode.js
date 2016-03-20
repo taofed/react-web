@@ -15,7 +15,7 @@ import keyMirror from 'fbjs/lib/keyMirror';
  * ImageResizeMode - Enum for different image resizing modes, set via
  * `resizeMode` style property on `<Image>` components.
  */
-var ImageResizeMode = keyMirror({
+let ImageResizeMode = keyMirror({
   /**
    * contain - The image will be resized such that it will be completely
    * visible, contained within the frame of the View.
