@@ -8,19 +8,19 @@
 
 import React, { PropTypes } from 'react';
 
-var StaticRenderer = React.createClass({
-  propTypes: {
+class StaticRenderer extends React.Component {
+  static propTypes = {
     shouldUpdate: PropTypes.bool.isRequired,
     render: PropTypes.func.isRequired,
-  },
+  }
 
-  shouldComponentUpdate: function(nextProps: { shouldUpdate: boolean }): boolean {
+  shouldComponentUpdate(nextProps) {
     return nextProps.shouldUpdate;
-  },
+  }
 
-  render: function(): ReactElement {
+  render() {
     return this.props.render();
-  },
-});
+  }
+};
 
-module.exports = StaticRenderer;
+export default StaticRenderer;

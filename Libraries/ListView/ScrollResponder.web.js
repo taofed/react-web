@@ -92,7 +92,7 @@ import warning from 'fbjs/lib/warning';
  *   this.props.onKeyboardDidHide
  */
 
-var IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
+let IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
 
 type State = {
     isTouching: boolean;
@@ -103,7 +103,7 @@ type State = {
 };
 type Event = Object;
 
-var ScrollResponderMixin = {
+let ScrollResponderMixin = {
   // mixins: [Subscribable.Mixin],
   // statics: RCTScrollViewConsts,
   scrollResponderMixinGetInitialState: function(): State {
@@ -171,7 +171,7 @@ var ScrollResponderMixin = {
    */
   scrollResponderHandleStartShouldSetResponderCapture: function(e: Event): boolean {
     // First see if we want to eat taps while the keyboard is up
-    // var currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
+    // let currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
     // if (!this.props.keyboardShouldPersistTaps &&
     //   currentlyFocusedTextInput != null &&
     //   e.target !== currentlyFocusedTextInput) {
@@ -228,7 +228,7 @@ var ScrollResponderMixin = {
    * @param {SyntheticEvent} e Event.
    */
   scrollResponderHandleTouchEnd: function(e: Event) {
-    var nativeEvent = e.nativeEvent;
+    let nativeEvent = e.nativeEvent;
     this.state.isTouching = nativeEvent.touches.length !== 0;
     this.props.onTouchEnd && this.props.onTouchEnd(e);
   },
@@ -241,7 +241,7 @@ var ScrollResponderMixin = {
 
     // By default scroll views will unfocus a textField
     // if another touch occurs outside of it
-    // var currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
+    // let currentlyFocusedTextInput = TextInputState.currentlyFocusedField();
     if (!this.props.keyboardShouldPersistTaps &&
       // currentlyFocusedTextInput != null && e.target !== currentlyFocusedTextInput &&
       !this.state.observedScrollSinceBecomingResponder &&
@@ -337,9 +337,9 @@ var ScrollResponderMixin = {
    * a touch has just started or ended.
    */
   scrollResponderIsAnimating: function(): boolean {
-    var now = Date.now();
-    var timeSinceLastMomentumScrollEnd = now - this.state.lastMomentumScrollEndTime;
-    var isAnimating = timeSinceLastMomentumScrollEnd < IS_ANIMATING_TOUCH_START_THRESHOLD_MS ||
+    let now = Date.now();
+    let timeSinceLastMomentumScrollEnd = now - this.state.lastMomentumScrollEndTime;
+    let isAnimating = timeSinceLastMomentumScrollEnd < IS_ANIMATING_TOUCH_START_THRESHOLD_MS ||
       this.state.lastMomentumScrollEndTime < this.state.lastMomentumScrollBeginTime;
     return isAnimating;
   },
@@ -360,7 +360,7 @@ var ScrollResponderMixin = {
    */
   scrollResponderScrollWithouthAnimationTo: function(offsetX: number, offsetY: number) {
 
-    var node = ReactDOM.findDOMNode(this);
+    let node = ReactDOM.findDOMNode(this);
     node.offsetX = offsetX;
     node.offsetY = offsetY;
   },
@@ -407,7 +407,7 @@ var ScrollResponderMixin = {
    */
   scrollResponderInputMeasureAndScrollToKeyboard: function(left: number, top: number, width: number, height: number) {
     if (this.keyboardWillOpenTo) {
-      var scrollOffsetY =
+      let scrollOffsetY =
         top - this.keyboardWillOpenTo.endCoordinates.screenY + height +
         this.additionalScrollOffset;
 
@@ -501,7 +501,7 @@ var ScrollResponderMixin = {
 
 };
 
-var ScrollResponder = {
+let ScrollResponder = {
   Mixin: ScrollResponderMixin,
 };
 
