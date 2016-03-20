@@ -42,7 +42,7 @@ Modal.propTypes = {
   onDismiss: PropTypes.func,
 };
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   modal: {
     position: 'fixed',
     left: 0,
