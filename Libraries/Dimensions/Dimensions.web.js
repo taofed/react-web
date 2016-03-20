@@ -6,7 +6,7 @@
  */
 'use strict';
 
-var dimensions = {
+let dimensions = {
   // Not map to real window size, because that map to screen size in native env.
   window: {
     width: document.documentElement.clientWidth,
@@ -39,4 +39,4 @@ class Dimensions {
   }
 }
 
-module.exports = Dimensions;
+export default Dimensions;
