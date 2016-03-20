@@ -7,7 +7,7 @@
 
 'use strict';
 
-var Platform = {
+const Platform = {
   OS: 'web',
 };
 
