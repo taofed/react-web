@@ -10,9 +10,9 @@ import ResponderEventPlugin from 'react/lib/ResponderEventPlugin';
 import EventConstants from 'react/lib/EventConstants';
 import ResponderTouchHistoryStore from 'react/lib/ResponderTouchHistoryStore';
 
-var topLevelTypes = EventConstants.topLevelTypes;
+let topLevelTypes = EventConstants.topLevelTypes;
 
-var eventTypes = ResponderEventPlugin.eventTypes;
+let eventTypes = ResponderEventPlugin.eventTypes;
 eventTypes.startShouldSetResponder.dependencies = [
   topLevelTypes.topTouchStart,
 ];
@@ -30,8 +30,8 @@ eventTypes.moveShouldSetResponder.dependencies = [
 ];
 
 ['responderStart', 'responderMove', 'responderEnd', 'responderRelease',
-'responderTerminationRequest', 'responderGrant', 'responderReject', 'responderTerminate'].forEach(function(type) {
-  var dependencies;
+'responderTerminationRequest', 'responderGrant', 'responderReject', 'responderTerminate'].forEach((type) => {
+  let dependencies;
   if ('ontouchstart' in window) {
     dependencies = [
       topLevelTypes.topTouchStart,
@@ -63,10 +63,10 @@ function fixIdentifier(identifier) {
   return identifier;
 }
 
-var normalizeTouches = function(touches, nativeEvent) {
-  var timestamp = nativeEvent.timestamp || nativeEvent.timeStamp;
+let normalizeTouches = function(touches, nativeEvent) {
+  let timestamp = nativeEvent.timestamp || nativeEvent.timeStamp;
 
-  return toArray(touches).map(function(touch) {
+  return toArray(touches).map((touch) => {
     // Cloned touch
     return {
       clientX: touch.clientX,
@@ -86,8 +86,8 @@ var normalizeTouches = function(touches, nativeEvent) {
   });
 };
 
-var originRecordTouchTrack = ResponderTouchHistoryStore.recordTouchTrack;
-ResponderTouchHistoryStore.recordTouchTrack = function(topLevelType, nativeEvent) {
+let originRecordTouchTrack = ResponderTouchHistoryStore.recordTouchTrack;
+ResponderTouchHistoryStore.recordTouchTrack = (topLevelType, nativeEvent) => {
 
   originRecordTouchTrack.call(ResponderTouchHistoryStore, topLevelType, {
     changedTouches: normalizeTouches(nativeEvent.changedTouches, nativeEvent),
