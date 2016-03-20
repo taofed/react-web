@@ -7,16 +7,17 @@
 'use strict';
 
 import React, { PropTypes } from 'react';
+import autobind from 'autobind-decorator';
 
 const PICKER = 'picker';
 
-var Picker = React.createClass({
-  propTypes: {
+class Picker extends React.Component {
+  static propTypes = {
     onValueChange: PropTypes.func,
     selectedValue: PropTypes.any, // string or integer basically
-  },
+  }
 
-  _onChange: function(event) {
+  _onChange(event) {
     // shim the native event
     event.nativeEvent.newValue = this.refs[PICKER].value;
 
@@ -27,9 +28,9 @@ var Picker = React.createClass({
     if (this.props.onValueChange) {
       this.props.onValueChange(event.nativeEvent.newValue);
     }
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <select
         ref={PICKER}
@@ -45,7 +46,7 @@ var Picker = React.createClass({
       </select>
     );
   }
-});
+};
 
 Picker.Item = React.createClass({
   propTypes: {
@@ -57,6 +58,8 @@ Picker.Item = React.createClass({
     return <option value={this.props.value}>{this.props.label}</option>;
   },
 });
+
+autobind(Picker);
 
 Picker.isReactNativeComponent = true;
 
