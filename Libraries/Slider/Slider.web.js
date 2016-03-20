@@ -16,8 +16,8 @@ import View from 'ReactView';
 import Image from 'ReactImage';
 import PanResponder from 'ReactPanResponder';
 
-var TRACK_SIZE = 4;
-var THUMB_SIZE = 20;
+let TRACK_SIZE = 4;
+let THUMB_SIZE = 20;
 
 function noop() {}
 
@@ -39,7 +39,7 @@ class Slider extends Component {
     });
   }
   render() {
-    var {
+    let {
       minimumTrackTintColor,
       maximumTrackTintColor,
       styles,
@@ -51,11 +51,11 @@ class Slider extends Component {
       disabled,
       ...other,
     } = this.props;
-    var mainStyles = styles || defaultStyles;
-    var trackHeight = (trackStyle && trackStyle.height) || defaultStyles.track.height;
-    var thumbHeight = (thumbStyle && thumbStyle.height) || defaultStyles.thumb.height;
-    var minTrackWidth = this._getMinTrackWidth();
-    var minimumTrackStyle = {
+    let mainStyles = styles || defaultStyles;
+    let trackHeight = (trackStyle && trackStyle.height) || defaultStyles.track.height;
+    let thumbHeight = (thumbStyle && thumbStyle.height) || defaultStyles.thumb.height;
+    let minTrackWidth = this._getMinTrackWidth();
+    let minimumTrackStyle = {
       width: minTrackWidth,
       marginTop: -trackHeight,
       backgroundColor: minimumTrackTintColor,
@@ -113,8 +113,8 @@ class Slider extends Component {
   }
   _getValue(gestureState) {
     const {step, maximumValue, minimumValue} = this.props;
-    var totalWidth = this._getWidth('totalTrack');
-    var thumbLeft = Math.min(totalWidth,
+    let totalWidth = this._getWidth('totalTrack');
+    let thumbLeft = Math.min(totalWidth,
       Math.max(0, this.previousLeft + gestureState.dx)),
       ratio = thumbLeft / totalWidth,
       newValue = ratio * (maximumValue - minimumValue) + minimumValue;
@@ -126,13 +126,13 @@ class Slider extends Component {
   }
   _getWidth(ref) {
     if (this.refs[ref]) {
-      var node = ReactDOM.findDOMNode(this.refs[ref]),
+      let node = ReactDOM.findDOMNode(this.refs[ref]),
         rect = node.getBoundingClientRect();
       return rect.width;
     }
   }
   _getMinTrackWidth() {
-    var value = this.state.value;
+    let value = this.state.value;
     return 100 * (value - this.props.minimumValue) / (this.props.maximumValue - this.props.minimumValue) + '%';
   }
 }
@@ -213,7 +213,7 @@ Slider.defaultProps = {
   onSlidingComplete: noop,
 };
 
-var defaultStyles = StyleSheet.create({
+let defaultStyles = StyleSheet.create({
   container: {
     height: 40,
     justifyContent: 'center',
