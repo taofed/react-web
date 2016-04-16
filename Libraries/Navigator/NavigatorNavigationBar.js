@@ -16,6 +16,7 @@ import Platform from 'ReactStyleSheet';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import { Map } from 'immutable';
+import autobind from 'autobind-decorator';
 
 var COMPONENT_NAMES = ['Title', 'LeftButton', 'RightButton'];
 
@@ -199,5 +200,7 @@ var styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
+autobind(NavigatorNavigationBar);
 
 module.exports = NavigatorNavigationBar;
