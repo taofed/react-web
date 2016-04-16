@@ -16,8 +16,8 @@ import View from 'ReactView';
 import Image from 'ReactImage';
 import PanResponder from 'ReactPanResponder';
 
-let TRACK_SIZE = 4;
-let THUMB_SIZE = 20;
+const TRACK_SIZE = 4;
+const THUMB_SIZE = 20;
 
 function noop() {}
 

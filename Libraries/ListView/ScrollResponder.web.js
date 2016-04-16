@@ -92,7 +92,7 @@ import warning from 'fbjs/lib/warning';
  *   this.props.onKeyboardDidHide
  */
 
-let IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
+const IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
 
 type State = {
     isTouching: boolean;
