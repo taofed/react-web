@@ -30,9 +30,22 @@ var navStatePresentedIndex = function(navState) {
   return navState.observedTopOfStack;
 };
 
-var NavigatorNavigationBar = React.createClass({
+class NavigatorNavigationBar extends React.Component {
 
-  propTypes: {
+  constructor(props) {
+    super(props);
+
+    this._components = {};
+    this._descriptors = {};
+
+    COMPONENT_NAMES.forEach(componentName => {
+      this._components[componentName] = new Map();
+      this._descriptors[componentName] = new Map();
+    });
+
+  }
+
+  static propTypes = {
     navigator: PropTypes.object,
     routeMapper: PropTypes.shape({
       Title: PropTypes.func.isRequired,
@@ -45,31 +58,19 @@ var NavigatorNavigationBar = React.createClass({
     }),
     navigationStyles: PropTypes.object,
     style: View.propTypes.style,
-  },
+  }
 
-  statics: {
+  static statics = {
     Styles: NavigatorNavigationBarStyles,
     StylesAndroid: NavigatorNavigationBarStylesAndroid,
     StylesIOS: NavigatorNavigationBarStylesIOS,
-  },
+  }
 
-  getDefaultProps() {
-    return {
-      navigationStyles: NavigatorNavigationBarStyles,
-    };
-  },
+  static defaultProps = {
+    navigationStyles: NavigatorNavigationBarStyles,
+  }
 
-  componentWillMount: function() {
-    this._components = {};
-    this._descriptors = {};
-
-    COMPONENT_NAMES.forEach(componentName => {
-      this._components[componentName] = new Map();
-      this._descriptors[componentName] = new Map();
-    });
-  },
-
-  _getReusableProps: function(
+  _getReusableProps(
     /* string */componentName,
     /* number */index
   ) /* object */ {
@@ -85,9 +86,9 @@ var NavigatorNavigationBar = React.createClass({
       props = propStack[index] = {style:{}};
     }
     return props;
-  },
+  }
 
-  _updateIndexProgress: function(
+  _updateIndexProgress(
     /* number */progress,
     /* number */index,
     /* number */fromIndex,
@@ -116,9 +117,9 @@ var NavigatorNavigationBar = React.createClass({
         component.setNativeProps(props);
       }
     }, this);
-  },
+  }
 
-  updateProgress: function(
+  updateProgress(
     /* number */progress,
     /* number */fromIndex,
     /* number */toIndex
@@ -128,9 +129,9 @@ var NavigatorNavigationBar = React.createClass({
     for (var index = min; index <= max; index++) {
       this._updateIndexProgress(progress, index, fromIndex, toIndex);
     }
-  },
+  }
 
-  render: function() {
+  render() {
     var navBarStyle = {
       height: this.props.navigationStyles.General.TotalNavHeight,
     };
@@ -146,9 +147,9 @@ var NavigatorNavigationBar = React.createClass({
         {components}
       </View>
     );
-  },
+  }
 
-  _getComponent: function(
+  _getComponent(
     /* string */componentName,
     /* object */route,
     /* number */index
@@ -184,9 +185,9 @@ var NavigatorNavigationBar = React.createClass({
 
     this._descriptors[componentName] = this._descriptors[componentName].set(route, rendered);
     return rendered;
-  },
+  }
 
-});
+};
 
 
 var styles = StyleSheet.create({
