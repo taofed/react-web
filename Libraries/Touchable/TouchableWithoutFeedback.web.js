@@ -11,6 +11,8 @@
 import 'ReactPanResponder';
 import React from 'react';
 import Touchable from 'ReactTouchable';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 /**
  * When the scroll view is disabled, this defines how far your touch may move
@@ -30,10 +32,10 @@ var PRESS_RECT_OFFSET = {
  * respond to press should have a visual feedback when touched. This is
  * one of the primary reason a "web" app doesn't feel "native".
  */
-var TouchableWithoutFeedback = React.createClass({
-  mixins: [Touchable.Mixin],
+class TouchableWithoutFeedback extends React.Component {
 
-  propTypes: {
+
+  static propTypes = {
     /**
      * Called when the touch is released, but not if cancelled (e.g. by a scroll
      * that steals the responder lock).
@@ -56,58 +58,56 @@ var TouchableWithoutFeedback = React.createClass({
      * Delay in ms, from onPressIn, before onLongPress is called.
      */
     delayLongPress: React.PropTypes.number,
-  },
+  }
 
-  getInitialState: function() {
-    return this.touchableGetInitialState();
-  },
+  state = this.touchableGetInitialState()
 
-  componentDidMount: function() {
+  // componentDidMount: function() {
     // ensurePositiveDelayProps(this.props);
-  },
+  // },
 
-  componentWillReceiveProps: function(nextProps: Object) {
+  componentWillReceiveProps(nextProps: Object) {
     // ensurePositiveDelayProps(nextProps);
-  },
+  }
 
   /**
    * `Touchable.Mixin` self callbacks. The mixin will invoke these if they are
    * defined on your component.
    */
-  touchableHandlePress: function(e: Event) {
+  touchableHandlePress(e: Event) {
     this.props.onPress && this.props.onPress(e);
-  },
+  }
 
-  touchableHandleActivePressIn: function(e: Event) {
+  touchableHandleActivePressIn(e: Event) {
     this.props.onPressIn && this.props.onPressIn(e);
-  },
+  }
 
-  touchableHandleActivePressOut: function(e: Event) {
+  touchableHandleActivePressOut(e: Event) {
     this.props.onPressOut && this.props.onPressOut(e);
-  },
+  }
 
-  touchableHandleLongPress: function(e: Event) {
+  touchableHandleLongPress(e: Event) {
     this.props.onLongPress && this.props.onLongPress(e);
-  },
+  }
 
-  touchableGetPressRectOffset: function(): typeof PRESS_RECT_OFFSET {
+  touchableGetPressRectOffset(): typeof PRESS_RECT_OFFSET {
     return PRESS_RECT_OFFSET; // Always make sure to predeclare a constant!
-  },
+  }
 
-  touchableGetHighlightDelayMS: function(): number {
+  touchableGetHighlightDelayMS(): number {
     return this.props.delayPressIn || 0;
-  },
+  }
 
-  touchableGetLongPressDelayMS: function(): number {
+  touchableGetLongPressDelayMS(): number {
     return this.props.delayLongPress === 0 ? 0 :
       this.props.delayLongPress || 500;
-  },
+  }
 
-  touchableGetPressOutDelayMS: function(): number {
+  touchableGetPressOutDelayMS(): number {
     return this.props.delayPressOut || 0;
-  },
+  }
 
-  render: function(): ReactElement {
+  render(): ReactElement {
     // Note(avik): remove dynamic typecast once Flow has been upgraded
     return (React: any).cloneElement(React.Children.only(this.props.children), {
       onStartShouldSetResponder: this.touchableHandleStartShouldSetResponder,
@@ -118,6 +118,10 @@ var TouchableWithoutFeedback = React.createClass({
       onResponderTerminate: this.touchableHandleResponderTerminate
     });
   }
-});
+
+};
+
+mixin(TouchableWithoutFeedback.prototype, Touchable.Mixin);
+autobind(TouchableWithoutFeedback);
 
 module.exports = TouchableWithoutFeedback;
