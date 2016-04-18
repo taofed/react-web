@@ -11,6 +11,8 @@
 import Animated from 'ReactAnimated';
 import React from 'react';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 type Event = Object;
 type State = {
@@ -31,10 +33,9 @@ var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
  * `TouchableMixin` expects us to implement some abstract methods to handle
  * interesting interactions such as `handleTouchablePress`.
  */
-var TouchableBounce = React.createClass({
-  mixins: [TouchableMixin],
+class TouchableBounce extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     onPress: React.PropTypes.func,
     onPressIn: React.PropTypes.func,
     onPressOut: React.PropTypes.func,
@@ -44,16 +45,14 @@ var TouchableBounce = React.createClass({
     onPressWithCompletion: React.PropTypes.func,
     // the function passed is called after the animation is complete
     onPressAnimationComplete: React.PropTypes.func,
-  },
+  }
 
-  getInitialState: function(): State {
-    return {
-      ...this.touchableGetInitialState(),
-      scale: new Animated.Value(1),
-    };
-  },
+  state = {
+    ...this.touchableGetInitialState(),
+    scale: new Animated.Value(1),
+  }
 
-  bounceTo: function(
+  bounceTo(
     value: number,
     velocity: number,
     bounciness: number,
@@ -64,23 +63,23 @@ var TouchableBounce = React.createClass({
       velocity,
       bounciness,
     }).start(callback);
-  },
+  }
 
   /**
    * `Touchable.Mixin` self callbacks. The mixin will invoke these if they are
    * defined on your component.
    */
-  touchableHandleActivePressIn: function(e: Event) {
+  touchableHandleActivePressIn(e: Event) {
     this.bounceTo(0.93, 0.1, 0);
     this.props.onPressIn && this.props.onPressIn(e);
-  },
+  }
 
-  touchableHandleActivePressOut: function(e: Event) {
+  touchableHandleActivePressOut(e: Event) {
     this.bounceTo(1, 0.4, 0);
     this.props.onPressOut && this.props.onPressOut(e);
-  },
+  }
 
-  touchableHandlePress: function(e: Event) {
+  touchableHandlePress(e: Event) {
     var onPressWithCompletion = this.props.onPressWithCompletion;
     if (onPressWithCompletion) {
       onPressWithCompletion(() => {
@@ -92,17 +91,17 @@ var TouchableBounce = React.createClass({
 
     this.bounceTo(1, 10, 10, this.props.onPressAnimationComplete);
     this.props.onPress && this.props.onPress(e);
-  },
+  }
 
-  touchableGetPressRectOffset: function(): typeof PRESS_RECT_OFFSET {
+  touchableGetPressRectOffset(): typeof PRESS_RECT_OFFSET {
     return PRESS_RECT_OFFSET;   // Always make sure to predeclare a constant!
-  },
+  }
 
-  touchableGetHighlightDelayMS: function(): number {
+  touchableGetHighlightDelayMS(): number {
     return 0;
-  },
+  }
 
-  render: function(): ReactElement {
+  render(): ReactElement {
     return (
       <Animated.View
         style={[{transform: [{scale: this.state.scale}]}, this.props.style]}
@@ -118,6 +117,10 @@ var TouchableBounce = React.createClass({
       </Animated.View>
     );
   }
-});
+
+};
+
+mixin(TouchableBounce.prototype, TouchableMixin);
+autobind(TouchableBounce);
 
 module.exports = TouchableBounce;

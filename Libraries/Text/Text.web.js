@@ -21,7 +21,7 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
  * each other on account of the literal newlines:
  *
  * ```
- * renderText: function() {
+ * renderText() {
  *   return (
  *     <Text style={styles.baseText}>
  *       <Text style={styles.titleText} onPress={this.onPressTitle}>
@@ -34,7 +34,7 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
  *   );
  * },
  * ...
- * var styles = StyleSheet.create({
+ * let styles = StyleSheet.create({
  *   baseText: {
  *     fontFamily: 'Cochin',
  *   },
@@ -46,7 +46,7 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
  * ```
  */
 
-var Text = React.createClass({
+let Text = React.createClass({
 
   mixins: [LayoutMixin, TouchableMixin, NativeMethodsMixin],
 
@@ -83,28 +83,28 @@ var Text = React.createClass({
     allowFontScaling: React.PropTypes.bool,
   },
 
-  getInitialState: function(): Object {
+  getInitialState(): Object {
     return {...this.touchableGetInitialState(), ...{
       isHighlighted: false,
     }};
   },
 
-  getDefaultProps: function(): Object {
+  getDefaultProps(): Object {
     return {
       allowFontScaling: true,
     };
   },
 
-  // componentDidMount: function() {
+  // componentDidMount() {
   //   console.log('mount')
   // },
   //
-  // componentDidUpdate: function() {
+  // componentDidUpdate() {
   //   console.log('update')
   // },
 
-  onStartShouldSetResponder: function(): bool {
-    var shouldSetFromProps = this.props.onStartShouldSetResponder &&
+  onStartShouldSetResponder(): bool {
+    let shouldSetFromProps = this.props.onStartShouldSetResponder &&
       this.props.onStartShouldSetResponder();
     return shouldSetFromProps || !!this.props.onPress;
   },
@@ -112,41 +112,41 @@ var Text = React.createClass({
   /*
    * Returns true to allow responder termination
    */
-  handleResponderTerminationRequest: function(): bool {
+  handleResponderTerminationRequest(): bool {
     // Allow touchable or props.onResponderTerminationRequest to deny
     // the request
-    var allowTermination = this.touchableHandleResponderTerminationRequest();
+    let allowTermination = this.touchableHandleResponderTerminationRequest();
     if (allowTermination && this.props.onResponderTerminationRequest) {
       allowTermination = this.props.onResponderTerminationRequest();
     }
     return allowTermination;
   },
 
-  handleResponderGrant: function(e: SyntheticEvent, dispatchID: string) {
+  handleResponderGrant(e: SyntheticEvent, dispatchID: string) {
     this.touchableHandleResponderGrant(e, dispatchID);
     this.props.onResponderGrant &&
       this.props.onResponderGrant.apply(this, arguments);
   },
 
-  handleResponderMove: function(e: SyntheticEvent) {
+  handleResponderMove(e: SyntheticEvent) {
     this.touchableHandleResponderMove(e);
     this.props.onResponderMove &&
       this.props.onResponderMove.apply(this, arguments);
   },
 
-  handleResponderRelease: function(e: SyntheticEvent) {
+  handleResponderRelease(e: SyntheticEvent) {
     this.touchableHandleResponderRelease(e);
     this.props.onResponderRelease &&
       this.props.onResponderRelease.apply(this, arguments);
   },
 
-  handleResponderTerminate: function(e: SyntheticEvent) {
+  handleResponderTerminate(e: SyntheticEvent) {
     this.touchableHandleResponderTerminate(e);
     this.props.onResponderTerminate &&
       this.props.onResponderTerminate.apply(this, arguments);
   },
 
-  touchableHandleActivePressIn: function() {
+  touchableHandleActivePressIn() {
     if (this.props.suppressHighlighting || !this.props.onPress) {
       return;
     }
@@ -155,7 +155,7 @@ var Text = React.createClass({
     });
   },
 
-  touchableHandleActivePressOut: function() {
+  touchableHandleActivePressOut() {
     if (this.props.suppressHighlighting || !this.props.onPress) {
       return;
     }
@@ -164,15 +164,15 @@ var Text = React.createClass({
     });
   },
 
-  touchableHandlePress: function() {
+  touchableHandlePress() {
     this.props.onPress && this.props.onPress();
   },
 
-  touchableGetPressRectOffset: function(): RectOffset {
+  touchableGetPressRectOffset(): RectOffset {
     return PRESS_RECT_OFFSET;
   },
 
-  getChildContext: function(): Object {
+  getChildContext(): Object {
     return {isInAParentText: true};
   },
 
@@ -184,8 +184,8 @@ var Text = React.createClass({
     isInAParentText: React.PropTypes.bool
   },
 
-  render: function() {
-    var props = {...this.props};
+  render() {
+    let props = {...this.props};
     // Text is accessible by default
     if (props.accessible !== false) {
       props.accessible = true;
@@ -199,7 +199,7 @@ var Text = React.createClass({
     props.onResponderRelease = this.handleResponderRelease;
     props.onResponderTerminate = this.handleResponderTerminate;
 
-    var {
+    let {
       numberOfLines,
       style
     } = props;
@@ -211,7 +211,7 @@ var Text = React.createClass({
     }
 
     // Default lineHeight is 1.2 x fontSize
-    var lineHeight = style.lineHeight || (style.fontSize || 16) * 1.2; // FIXME:  not sure 16px is the default line height
+    let lineHeight = style.lineHeight || (style.fontSize || 16) * 1.2; // FIXME:  not sure 16px is the default line height
     if (typeof lineHeight == 'number') {
       lineHeight += 'px';
     }
@@ -257,7 +257,7 @@ type RectOffset = {
   bottom: number;
 }
 
-var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
+let PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
 Text.isReactNativeComponent = true;
 

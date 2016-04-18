@@ -11,16 +11,16 @@
 import './injectResponderEventPlugin.web';
 import TouchHistoryMath from './TouchHistoryMath';
 
-var currentCentroidXOfTouchesChangedAfter =
+let currentCentroidXOfTouchesChangedAfter =
   TouchHistoryMath.currentCentroidXOfTouchesChangedAfter;
-var currentCentroidYOfTouchesChangedAfter =
+let currentCentroidYOfTouchesChangedAfter =
   TouchHistoryMath.currentCentroidYOfTouchesChangedAfter;
-var previousCentroidXOfTouchesChangedAfter =
+let previousCentroidXOfTouchesChangedAfter =
   TouchHistoryMath.previousCentroidXOfTouchesChangedAfter;
-var previousCentroidYOfTouchesChangedAfter =
+let previousCentroidYOfTouchesChangedAfter =
   TouchHistoryMath.previousCentroidYOfTouchesChangedAfter;
-var currentCentroidX = TouchHistoryMath.currentCentroidX;
-var currentCentroidY = TouchHistoryMath.currentCentroidY;
+let currentCentroidX = TouchHistoryMath.currentCentroidX;
+let currentCentroidY = TouchHistoryMath.currentCentroidY;
 
 /**
  * `PanResponder` reconciles several touches into a single gesture. It makes
@@ -49,7 +49,7 @@ var currentCentroidY = TouchHistoryMath.currentCentroidY;
  * ### Basic Usage
  *
  * ```
- *   componentWillMount: function() {
+ *   componentWillMount() {
  *     this._panResponder = PanResponder.create({
  *       // Ask to be the responder:
  *       onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -86,7 +86,7 @@ var currentCentroidY = TouchHistoryMath.currentCentroidY;
  *     });
  *   },
  *
- *   render: function() {
+ *   render() {
  *     return (
  *       <View {...this._panResponder.panHandlers} />
  *     );
@@ -100,7 +100,7 @@ var currentCentroidY = TouchHistoryMath.currentCentroidY;
  * [PanResponder example in UIExplorer](https://github.com/facebook/react-native/blob/master/Examples/UIExplorer/ResponderExample.js)
  */
 
-var PanResponder = {
+let PanResponder = {
 
   /**
    *
@@ -165,7 +165,7 @@ var PanResponder = {
    * - vx/vy: Velocity.
    */
 
-  _initializeGestureState: function(gestureState) {
+  _initializeGestureState(gestureState) {
     gestureState.moveX = 0;
     gestureState.moveY = 0;
     gestureState.x0 = 0;
@@ -203,7 +203,7 @@ var PanResponder = {
    * typical responder callback pattern (without using `PanResponder`), but
    * avoids more dispatches than necessary.
    */
-  _updateGestureStateOnMove: function(gestureState, touchHistory) {
+  _updateGestureStateOnMove(gestureState, touchHistory) {
     gestureState.numberActiveTouches = touchHistory.numberActiveTouches;
     gestureState.moveX = currentCentroidXOfTouchesChangedAfter(
       touchHistory,
@@ -213,16 +213,16 @@ var PanResponder = {
       touchHistory,
       gestureState._accountsForMovesUpTo
     );
-    var movedAfter = gestureState._accountsForMovesUpTo;
-    var prevX = previousCentroidXOfTouchesChangedAfter(touchHistory, movedAfter);
-    var x = currentCentroidXOfTouchesChangedAfter(touchHistory, movedAfter);
-    var prevY = previousCentroidYOfTouchesChangedAfter(touchHistory, movedAfter);
-    var y = currentCentroidYOfTouchesChangedAfter(touchHistory, movedAfter);
-    var nextDX = gestureState.dx + (x - prevX);
-    var nextDY = gestureState.dy + (y - prevY);
+    let movedAfter = gestureState._accountsForMovesUpTo;
+    let prevX = previousCentroidXOfTouchesChangedAfter(touchHistory, movedAfter);
+    let x = currentCentroidXOfTouchesChangedAfter(touchHistory, movedAfter);
+    let prevY = previousCentroidYOfTouchesChangedAfter(touchHistory, movedAfter);
+    let y = currentCentroidYOfTouchesChangedAfter(touchHistory, movedAfter);
+    let nextDX = gestureState.dx + (x - prevX);
+    let nextDY = gestureState.dy + (y - prevY);
 
     // TODO: This must be filtered intelligently.
-    var dt =
+    let dt =
       (touchHistory.mostRecentTimeStamp - gestureState._accountsForMovesUpTo);
     gestureState.vx = (nextDX - gestureState.dx) / dt;
     gestureState.vy = (nextDY - gestureState.dy) / dt;
@@ -264,22 +264,22 @@ var PanResponder = {
    *  accordingly. (numberActiveTouches) may not be totally accurate unless you
    *  are the responder.
    */
-  create: function(config) {
-    var gestureState = {
+  create(config) {
+    let gestureState = {
       // Useful for debugging
       stateID: Math.random(),
     };
     PanResponder._initializeGestureState(gestureState);
-    var panHandlers = {
-      onStartShouldSetResponder: function(e) {
+    let panHandlers = {
+      onStartShouldSetResponder(e) {
         return config.onStartShouldSetPanResponder === undefined ? false :
           config.onStartShouldSetPanResponder(e, gestureState);
       },
-      onMoveShouldSetResponder: function(e) {
+      onMoveShouldSetResponder(e) {
         return config.onMoveShouldSetPanResponder === undefined ? false :
           config.onMoveShouldSetPanResponder(e, gestureState);
       },
-      onStartShouldSetResponderCapture: function(e) {
+      onStartShouldSetResponderCapture(e) {
         if (!e.nativeEvent.touches) {
           return false;
         }
@@ -293,8 +293,8 @@ var PanResponder = {
           config.onStartShouldSetPanResponderCapture(e, gestureState) : false;
       },
 
-      onMoveShouldSetResponderCapture: function(e) {
-        var touchHistory = e.touchHistory;
+      onMoveShouldSetResponderCapture(e) {
+        let touchHistory = e.touchHistory;
         // Responder system incorrectly dispatches should* to current responder
         // Filter out any touch moves past the first one - we would have
         // already processed multi-touch geometry during the first event.
@@ -306,7 +306,7 @@ var PanResponder = {
           config.onMoveShouldSetPanResponderCapture(e, gestureState) : false;
       },
 
-      onResponderGrant: function(e) {
+      onResponderGrant(e) {
         gestureState.x0 = currentCentroidX(e.touchHistory);
         gestureState.y0 = currentCentroidY(e.touchHistory);
         gestureState.dx = 0;
@@ -317,23 +317,23 @@ var PanResponder = {
           config.onShouldBlockNativeResponder();
       },
 
-      onResponderReject: function(e) {
+      onResponderReject(e) {
         config.onPanResponderReject && config.onPanResponderReject(e, gestureState);
       },
 
-      onResponderRelease: function(e) {
+      onResponderRelease(e) {
         config.onPanResponderRelease && config.onPanResponderRelease(e, gestureState);
         PanResponder._initializeGestureState(gestureState);
       },
 
-      onResponderStart: function(e) {
-        var touchHistory = e.touchHistory;
+      onResponderStart(e) {
+        let touchHistory = e.touchHistory;
         gestureState.numberActiveTouches = touchHistory.numberActiveTouches;
         config.onPanResponderStart && config.onPanResponderStart(e, gestureState);
       },
 
-      onResponderMove: function(e) {
-        var touchHistory = e.touchHistory;
+      onResponderMove(e) {
+        let touchHistory = e.touchHistory;
         // Guard against the dispatch of two touch moves when there are two
         // simultaneously changed touches.
         if (gestureState._accountsForMovesUpTo === touchHistory.mostRecentTimeStamp) {
@@ -345,19 +345,19 @@ var PanResponder = {
         config.onPanResponderMove && config.onPanResponderMove(e, gestureState);
       },
 
-      onResponderEnd: function(e) {
-        var touchHistory = e.touchHistory;
+      onResponderEnd(e) {
+        let touchHistory = e.touchHistory;
         gestureState.numberActiveTouches = touchHistory.numberActiveTouches;
         config.onPanResponderEnd && config.onPanResponderEnd(e, gestureState);
       },
 
-      onResponderTerminate: function(e) {
+      onResponderTerminate(e) {
         config.onPanResponderTerminate &&
           config.onPanResponderTerminate(e, gestureState);
         PanResponder._initializeGestureState(gestureState);
       },
 
-      onResponderTerminationRequest: function(e) {
+      onResponderTerminationRequest(e) {
         return config.onPanResponderTerminationRequest === undefined ? true :
           config.onPanResponderTerminationRequest(e, gestureState);
       },
@@ -366,4 +366,4 @@ var PanResponder = {
   },
 };
 
-module.exports = PanResponder;
+export default PanResponder;

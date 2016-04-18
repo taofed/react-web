@@ -14,6 +14,8 @@ import ScrollResponder from 'ReactScrollResponder';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import throttle from 'domkit/throttle';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 const SCROLLVIEW = 'ScrollView';
 const INNERVIEW = 'InnerScrollView';
@@ -33,8 +35,8 @@ const INNERVIEW = 'InnerScrollView';
  * Doesn't yet support other contained responders from blocking this scroll
  * view from becoming the responder.
  */
-var ScrollView = React.createClass({
-  propTypes: {
+class ScrollView extends React.Component {
+  static propTypes = {
     /**
      * Controls whether iOS should automatically adjust the content inset
      * for scroll views that are placed behind a navigation bar or
@@ -259,13 +261,9 @@ var ScrollView = React.createClass({
      * @platform ios
      */
     zoomScale: PropTypes.number,
-  },
+  }
 
-  mixins: [ScrollResponder.Mixin],
-
-  getInitialState: function() {
-    return this.scrollResponderMixinGetInitialState();
-  },
+  state = this.scrollResponderMixinGetInitialState();
 
   /**
    * Returns a reference to the underlying scroll responder, which supports
@@ -273,33 +271,33 @@ var ScrollView = React.createClass({
    * implement this method so that they can be composed while providing access
    * to the underlying scroll responder's methods.
    */
-  getScrollResponder: function(): ReactComponent {
+  getScrollResponder() {
     return this;
-  },
+  }
 
-  getInnerViewNode: function(): any {
+  getInnerViewNode() {
     return this.refs[INNERVIEW];
-  },
+  }
 
-  scrollTo: function(destY?: number, destX?: number) {
+  scrollTo(destY?: number, destX?: number) {
     // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
     // this.getScrollResponder().scrollResponderScrollTo(destX || 0, destY || 0);
     this.scrollWithoutAnimationTo(destY, destX);
-  },
+  }
 
-  scrollWithoutAnimationTo: function(destY?: number, destX?: number) {
+  scrollWithoutAnimationTo(destY?: number, destX?: number) {
     // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
     // this.getScrollResponder().scrollResponderScrollWithouthAnimationTo(
     //   destX || 0,
     //   destY || 0,
     // );
 
-    var scrollView = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
+    let scrollView = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
     scrollView.scrollTop = destY || 0;
     scrollView.scrollLeft = destX || 0;
-  },
+  }
 
-  handleScroll: function(e: Event) {
+  handleScroll(e: Event) {
     // if (__DEV__) {
     //   if (this.props.onScroll && !this.props.scrollEventThrottle) {
     //     console.log(
@@ -318,17 +316,17 @@ var ScrollView = React.createClass({
     // }
 
     this.props.onScroll && this.props.onScroll(e);
-  },
+  }
 
-  render: function() {
-    var contentContainerStyle = [
+  render() {
+    let contentContainerStyle = [
       styles.contentContainer,
       this.props.horizontal && styles.contentContainerHorizontal,
       this.props.contentContainerStyle,
     ];
     // if (__DEV__ && this.props.style) {
-    //   var style = flattenStyle(this.props.style);
-    //   var childLayoutProps = ['alignItems', 'justifyContent']
+    //   let style = flattenStyle(this.props.style);
+    //   let childLayoutProps = ['alignItems', 'justifyContent']
     //     .filter((prop) => style && style[prop] !== undefined);
     //   invariant(
     //     childLayoutProps.length === 0,
@@ -337,7 +335,7 @@ var ScrollView = React.createClass({
     //   );
     // }
 
-    var contentContainer =
+    let contentContainer =
       <View
         ref={INNERVIEW}
         style={contentContainerStyle}
@@ -346,21 +344,22 @@ var ScrollView = React.createClass({
         {this.props.children}
       </View>;
 
-    var alwaysBounceHorizontal =
+    let alwaysBounceHorizontal =
       this.props.alwaysBounceHorizontal !== undefined ?
         this.props.alwaysBounceHorizontal :
         this.props.horizontal;
 
-    var alwaysBounceVertical =
+    let alwaysBounceVertical =
       this.props.alwaysBounceVertical !== undefined ?
         this.props.alwaysBounceVertical :
         !this.props.horizontal;
 
+    let handleScroll = () => {};
     if (this.props.scrollEventThrottle && this.props.onScroll) {
-      var handleScroll = throttle(this.handleScroll, this.props.scrollEventThrottle);
+      handleScroll = throttle(this.handleScroll, this.props.scrollEventThrottle);
     }
 
-    var props = {
+    let props = {
       ...this.props,
       alwaysBounceHorizontal,
       alwaysBounceVertical,
@@ -378,7 +377,7 @@ var ScrollView = React.createClass({
       // onScroll: handleScroll,
       onScrollShouldSetResponder: handleScroll,
       // replace onScroll in the props
-      onScroll: function() {},
+      onScroll: () => {},
       onResponderGrant: this.scrollResponderHandleResponderGrant,
       onResponderTerminationRequest: this.scrollResponderHandleTerminationRequest,
       onResponderTerminate: this.scrollResponderHandleTerminate,
@@ -392,9 +391,9 @@ var ScrollView = React.createClass({
       </View>
     );
   }
-});
+};
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   base: {
     overflow: 'scroll',
     WebkitOverflowScrolling: 'touch',
@@ -409,6 +408,9 @@ var styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+mixin(ScrollView.prototype, ScrollResponder.Mixin);
+autobind(ScrollView);
 
 ScrollView.isReactNativeComponent = true;
 

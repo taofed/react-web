@@ -8,43 +8,41 @@
 
 import React, { PropTypes } from 'react';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import StyleSheet from 'ReactStyleSheet';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
-var Switch = React.createClass({
-  mixins: [NativeMethodsMixin],
+class Switch extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     value: PropTypes.bool,
     disabled: PropTypes.bool,
     onValueChange: PropTypes.func,
     onTintColor: PropTypes.string,
     thumbTintColor: PropTypes.string,
     tintColor: PropTypes.string
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
-      onTintColor: '#00e158',
-      thumbTintColor: '#fff',
-      tintColor: '#fff'
-    };
-  },
+  static defaultProps = {
+    onTintColor: '#00e158',
+    thumbTintColor: '#fff',
+    tintColor: '#fff'
+  }
 
-  getInitialState: function() {
-    return {
-      value: this.props.value,
-      disabled: this.props.disabled
-    };
-  },
+  state = {
+    value: this.props.value,
+    disabled: this.props.disabled
+  }
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       value: nextProps.value,
       disabled: nextProps.disabled
     });
-  },
+  }
 
-  getStyles: function() {
-    return {
+  getStyles() {
+    return StyleSheet.create({
       span: {
         position: 'relative',
         display: 'inline-block',
@@ -94,10 +92,10 @@ var Switch = React.createClass({
       uncheckedSmall: {
         WebkitTransform: 'translateX(0)'
       }
-    };
-  },
+    });
+  }
 
-  handleClick: function(e) {
+  handleClick(e) {
     if (this.state.disabled) {
       return null;
     }
@@ -116,9 +114,9 @@ var Switch = React.createClass({
         });
       }
     }.bind(this), 200);
-  },
+  }
 
-  render: function() {
+  render() {
     var styles = this.getStyles();
     var spancss = this.state.value ? {...styles.span, ...styles.checkedSpan} : {...styles.span, ...styles.uncheckedSpan};
     var smallcss = this.state.value ? {...styles.small, ...styles.checkedSmall} : {...styles.small, ...styles.uncheckedSmall};
@@ -131,7 +129,10 @@ var Switch = React.createClass({
     );
   }
 
-});
+};
+
+mixin(Switch.prototype, NativeMethodsMixin);
+autobind(Switch);
 
 Switch.isReactNativeComponent = true;
 

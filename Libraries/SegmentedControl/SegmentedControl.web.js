@@ -13,11 +13,13 @@ import View from 'ReactView';
 import Text from 'ReactText';
 import StyleSheet from 'ReactStyleSheet';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
-var SegmentedControl = React.createClass({
-  mixins: [NativeMethodsMixin],
+class SegmentedControl extends React.Component {
 
-  propTypes: {
+
+  static propTypes = {
     /**
      * The labels for the control's segment buttons, in order.
      */
@@ -56,23 +58,19 @@ var SegmentedControl = React.createClass({
      * The `onValueChange` callback will still work as expected.
      */
     momentary: PropTypes.bool
-  },
+  }
 
-  getDefaultProps: function(): DefaultProps {
-    return {
-      values: [],
-      enabled: true
-    };
-  },
+  static defaultProps = {
+    values: [],
+    enabled: true
+  }
 
-  getInitialState: function() {
-    return {
-      selectedIndex: this.props.selectedIndex,
-      momentary: false
-    };
-  },
+  state = {
+    selectedIndex: this.props.selectedIndex,
+    momentary: false
+  }
 
-  _onChange: function(value, index, event: Event) {
+  _onChange(value, index, event: Event) {
 
     if (this.state.selectedIndex == index) return;
 
@@ -97,12 +95,12 @@ var SegmentedControl = React.createClass({
         selectedIndex: null
       }), 300);
     }
-  },
+  }
 
-  render: function() {
-    var props = this.props;
+  render() {
+    let props = this.props;
 
-    var items = props.values.map((value, index) => {
+    let items = props.values.map((value, index) => {
       return (<View key={index} style={[
         styles.segmentedControlItem,
         props.tintColor ? { borderColor: props.tintColor } : null,
@@ -124,11 +122,11 @@ var SegmentedControl = React.createClass({
           {items}
         </View>);
   }
-});
+};
 
 const defaultColor = '#007AFF';
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   segmentedControl: {
     height: 28,
     justifyContent: 'center',
@@ -174,6 +172,9 @@ var styles = StyleSheet.create({
     borderRightWidth: 1,
   },
 });
+
+mixin(SegmentedControl.prototype, NativeMethodsMixin);
+autobind(SegmentedControl);
 
 SegmentedControl.isReactNativeComponent = true;
 

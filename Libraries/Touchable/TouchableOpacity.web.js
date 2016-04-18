@@ -14,6 +14,8 @@ import TimerMixin from 'react-timer-mixin';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 // var ensurePositiveDelayProps = require('ensurePositiveDelayProps');
 var flattenStyle = require('ReactFlattenStyle');
@@ -42,65 +44,60 @@ type Event = Object;
  * ```
  */
 
-var TouchableOpacity = React.createClass({
-  mixins: [TimerMixin, TouchableMixin, NativeMethodsMixin],
+class TouchableOpacity extends React.Component {
 
-  propTypes: {
+  static propTypes = {
     ...TouchableWithoutFeedback.propTypes,
     /**
      * Determines what the opacity of the wrapped view should be when touch is
      * active.
      */
     activeOpacity: React.PropTypes.number,
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
-      activeOpacity: 0.2,
-    };
-  },
+  static defaultProps ={
+    activeOpacity: 0.2,
+  }
 
-  getInitialState: function() {
-    return {
-      ...this.touchableGetInitialState(),
-      anim: new Animated.Value(1),
-    };
-  },
+  state = {
+    ...this.touchableGetInitialState(),
+    anim: new Animated.Value(1),
+  }
 
-  componentDidMount: function() {
-    // ensurePositiveDelayProps(this.props);
-  },
+  // componentDidMount: function() {
+  //   // ensurePositiveDelayProps(this.props);
+  // },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // ensurePositiveDelayProps(nextProps);
-  },
+  }
 
-  setOpacityTo: function(value) {
+  setOpacityTo(value) {
     Animated.timing(
       this.state.anim,
       {toValue: value, duration: 150}
     ).start();
-  },
+  }
 
   /**
    * `Touchable.Mixin` self callbacks. The mixin will invoke these if they are
    * defined on your component.
    */
-  touchableHandleActivePressIn: function(e: Event) {
+  touchableHandleActivePressIn(e: Event) {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     this._opacityActive();
     this.props.onPressIn && this.props.onPressIn(e);
-  },
+  }
 
-  touchableHandleActivePressOut: function(e: Event) {
+  touchableHandleActivePressOut(e: Event) {
     if (!this._hideTimeout) {
       this._opacityInactive();
     }
     this.props.onPressOut && this.props.onPressOut(e);
-  },
+  }
 
-  touchableHandlePress: function(e: Event) {
+  touchableHandlePress(e: Event) {
     this.clearTimeout(this._hideTimeout);
     this._opacityActive();
     this._hideTimeout = this.setTimeout(
@@ -108,43 +105,43 @@ var TouchableOpacity = React.createClass({
       this.props.delayPressOut || 100
     );
     this.props.onPress && this.props.onPress(e);
-  },
+  }
 
-  touchableHandleLongPress: function(e: Event) {
+  touchableHandleLongPress(e: Event) {
     this.props.onLongPress && this.props.onLongPress(e);
-  },
+  }
 
-  touchableGetPressRectOffset: function() {
+  touchableGetPressRectOffset() {
     return PRESS_RECT_OFFSET;   // Always make sure to predeclare a constant!
-  },
+  }
 
-  touchableGetHighlightDelayMS: function() {
+  touchableGetHighlightDelayMS() {
     return this.props.delayPressIn || 0;
-  },
+  }
 
-  touchableGetLongPressDelayMS: function() {
+  touchableGetLongPressDelayMS() {
     return this.props.delayLongPress === 0 ? 0 :
       this.props.delayLongPress || 500;
-  },
+  }
 
-  touchableGetPressOutDelayMS: function() {
+  touchableGetPressOutDelayMS() {
     return this.props.delayPressOut;
-  },
+  }
 
-  _opacityActive: function() {
+  _opacityActive() {
     this.setOpacityTo(this.props.activeOpacity);
-  },
+  }
 
-  _opacityInactive: function() {
+  _opacityInactive() {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     var childStyle = flattenStyle(this.props.style) || {};
     this.setOpacityTo(
       childStyle.opacity === undefined ? 1 : childStyle.opacity
     );
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <Animated.View
         accessible={true}
@@ -162,8 +159,9 @@ var TouchableOpacity = React.createClass({
         {this.props.children}
       </Animated.View>
     );
-  },
-});
+  }
+
+};
 
 /**
  * When the scroll view is disabled, this defines how far your touch may move
@@ -173,5 +171,9 @@ var TouchableOpacity = React.createClass({
  */
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
+mixin(TouchableOpacity.prototype, TimerMixin);
+mixin(TouchableOpacity.prototype, TouchableMixin);
+mixin(TouchableOpacity.prototype, NativeMethodsMixin);
+autobind(TouchableOpacity);
 
 module.exports = TouchableOpacity;

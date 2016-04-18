@@ -11,8 +11,9 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import View from 'ReactView';
+import autobind from 'autobind-decorator';
 
-var typeMap = {
+let typeMap = {
   'default': 'text',
   'ascii-capable': 'text',
   'numbers-and-punctuation': 'number',
@@ -27,8 +28,8 @@ var typeMap = {
   'numeric': 'number'
 };
 
-var TextInput = React.createClass({
-  propTypes: {
+class TextInput extends React.Component {
+  static propTypes = {
     /**
      * Can tell TextInput to automatically capitalize certain characters.
      *
@@ -233,17 +234,15 @@ var TextInput = React.createClass({
      * @platform ios
      */
     selectTextOnFocus: PropTypes.bool,
-  },
+  }
 
-  getDefaultProps: function() {
-    return {
-      editable: true,
-      multiline: false,
-      secureTextEntry: false,
-      keyboardType: 'default',
-      autoFocus: false
-    };
-  },
+  static defaultProps = {
+    editable: true,
+    multiline: false,
+    secureTextEntry: false,
+    keyboardType: 'default',
+    autoFocus: false
+  }
 
   _onBlur(e) {
     const { onBlur } = this.props;
@@ -251,7 +250,7 @@ var TextInput = React.createClass({
       e.nativeEvent.text = e.target.value;
       onBlur(e);
     }
-  },
+  }
 
   _onChange(e) {
     const { onChange, onChangeText } = this.props;
@@ -260,7 +259,7 @@ var TextInput = React.createClass({
       e.nativeEvent.text = e.target.value;
       onChange(e);
     }
-  },
+  }
 
   _onFocus(e) {
     const { clearTextOnFocus, onFocus, selectTextOnFocus } = this.props;
@@ -271,7 +270,7 @@ var TextInput = React.createClass({
       e.nativeEvent.text = e.target.value;
       onFocus(e);
     }
-  },
+  }
 
   _onSelectionChange(e) {
     const { onSelectionChange } = this.props;
@@ -287,15 +286,15 @@ var TextInput = React.createClass({
       };
       onSelectionChange(event);
     }
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     if (this.props.autoFocus) {
       ReactDOM.findDOMNode(this.refs.input).focus();
     }
-  },
+  }
 
-  render: function() {
+  render() {
 
     const {
       accessibilityLabel,
@@ -347,7 +346,7 @@ var TextInput = React.createClass({
       onKeyPress
     };
 
-    var input;
+    let input;
     if (multiline) {
       const propsMultiline = {
         ...propsCommon,
@@ -359,7 +358,7 @@ var TextInput = React.createClass({
 
     } else {
 
-      var type = typeMap[keyboardType];
+      let type = typeMap[keyboardType];
 
       if (password || secureTextEntry) {
         type = 'password';
@@ -384,7 +383,7 @@ var TextInput = React.createClass({
       return input;
     }
   }
-});
+};
 
 const styles = {
   initial: {
@@ -399,6 +398,8 @@ const styles = {
     height: 30, // default height
   }
 };
+
+autobind(TextInput);
 
 TextInput.isReactNativeComponent = true;
 

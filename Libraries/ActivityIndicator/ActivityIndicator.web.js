@@ -119,7 +119,7 @@ class ActivityIndicator extends React.Component {
   }
 }
 
-var styles = StyleSheet.create({
+let styles = StyleSheet.create({
   container: {
     position: 'relative',
     fontSize: 0,

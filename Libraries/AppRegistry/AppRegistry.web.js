@@ -11,7 +11,7 @@
 
 import renderApplication from 'ReactRenderApplication';
 
-var runnables = {};
+let runnables = {};
 
 type ComponentProvider = () => ReactClass < any, any, any > ;
 
@@ -32,10 +32,10 @@ type AppConfig = {
  * sure the JS execution environment is setup before other modules are
  * `require`d.
  */
-var AppRegistry = {
+let AppRegistry = {
   registerConfig: function(config: Array < AppConfig > ) {
-    for (var i = 0; i < config.length; ++i) {
-      var appConfig = config[i];
+    for (let i = 0; i < config.length; ++i) {
+      let appConfig = config[i];
       if (appConfig.run) {
         AppRegistry.registerRunnable(appConfig.appKey, appConfig.run);
       } else {

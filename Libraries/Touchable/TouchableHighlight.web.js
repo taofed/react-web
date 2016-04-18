@@ -15,6 +15,8 @@ import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import StyleSheet from 'ReactStyleSheet';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
 type Event = Object;
 
@@ -33,8 +35,8 @@ var INACTIVE_UNDERLAY_PROPS = {
   style: StyleSheet.create({x: {backgroundColor: 'transparent'}}).x,
 };
 
-var TouchableHighlight = React.createClass({
-  propTypes: {
+class TouchableHighlight extends React.Component {
+  static propTypes = {
     ...TouchableWithoutFeedback.propTypes,
     /**
      * Determines what the opacity of the wrapped view should be when touch is
@@ -54,14 +56,14 @@ var TouchableHighlight = React.createClass({
      * Called immediately after the underlay is hidden
      */
     onHideUnderlay: React.PropTypes.func,
-  },
+  }
 
-  mixins: [TimerMixin, TouchableMixin, NativeMethodsMixin],
+  static defaultProps = DEFAULT_PROPS
 
-  getDefaultProps: () => DEFAULT_PROPS,
+  state = {...this.touchableGetInitialState(), ...this.computeSyntheticState(this.props)}
 
   // Performance optimization to avoid constantly re-generating these objects.
-  computeSyntheticState: function(props) {
+  computeSyntheticState(props) {
     return {
       activeProps: {
         style: {
@@ -78,87 +80,83 @@ var TouchableHighlight = React.createClass({
         props.style,
       ]
     };
-  },
+  }
 
-  getInitialState: function() {
-    return {...this.touchableGetInitialState(), ...this.computeSyntheticState(this.props)};
-  },
+  // componentDidMount() {
+  //   // ensurePositiveDelayProps(this.props);
+  //   // ensureComponentIsNative(this.refs[CHILD_REF]);
+  // },
 
-  componentDidMount: function() {
-    // ensurePositiveDelayProps(this.props);
+  componentDidUpdate() {
     // ensureComponentIsNative(this.refs[CHILD_REF]);
-  },
+  }
 
-  componentDidUpdate: function() {
-    // ensureComponentIsNative(this.refs[CHILD_REF]);
-  },
-
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // ensurePositiveDelayProps(nextProps);
     if (nextProps.activeOpacity !== this.props.activeOpacity ||
         nextProps.underlayColor !== this.props.underlayColor ||
         nextProps.style !== this.props.style) {
       this.setState(this.computeSyntheticState(nextProps));
     }
-  },
+  }
 
   /**
    * `Touchable.Mixin` self callbacks. The mixin will invoke these if they are
    * defined on your component.
    */
-  touchableHandleActivePressIn: function(e: Event) {
+  touchableHandleActivePressIn(e: Event) {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     this._showUnderlay();
     this.props.onPressIn && this.props.onPressIn(e);
-  },
+  }
 
-  touchableHandleActivePressOut: function(e: Event) {
+  touchableHandleActivePressOut(e: Event) {
     if (!this._hideTimeout) {
       this._hideUnderlay();
     }
     this.props.onPressOut && this.props.onPressOut(e);
-  },
+  }
 
-  touchableHandlePress: function(e: Event) {
+  touchableHandlePress(e: Event) {
     this.clearTimeout(this._hideTimeout);
     this._showUnderlay();
     this._hideTimeout = this.setTimeout(this._hideUnderlay,
       this.props.delayPressOut || 100);
     this.props.onPress && this.props.onPress(e);
-  },
+  }
 
-  touchableHandleLongPress: function(e: Event) {
+  touchableHandleLongPress(e: Event) {
     this.props.onLongPress && this.props.onLongPress(e);
-  },
+  }
 
-  touchableGetPressRectOffset: function() {
+  touchableGetPressRectOffset() {
     return PRESS_RECT_OFFSET;   // Always make sure to predeclare a constant!
-  },
+  }
 
-  touchableGetHighlightDelayMS: function() {
+  touchableGetHighlightDelayMS() {
     return this.props.delayPressIn;
-  },
+  }
 
-  touchableGetLongPressDelayMS: function() {
+  touchableGetLongPressDelayMS() {
     return this.props.delayLongPress;
-  },
+  }
 
-  touchableGetPressOutDelayMS: function() {
+  touchableGetPressOutDelayMS() {
     return this.props.delayPressOut;
-  },
+  }
 
-  _showUnderlay: function() {
-    if (!this.isMounted()) {
-      return;
-    }
+  _showUnderlay() {
+    // if (!this.isMounted()) {
+    //   return;
+    // }
 
     // this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
     // this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
     this.props.onShowUnderlay && this.props.onShowUnderlay();
-  },
+  }
 
-  _hideUnderlay: function() {
+  _hideUnderlay() {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     if (this.refs[UNDERLAY_REF]) {
@@ -169,9 +167,9 @@ var TouchableHighlight = React.createClass({
       // });
       this.props.onHideUnderlay && this.props.onHideUnderlay();
     }
-  },
+  }
 
-  render: function() {
+  render() {
 
     return (
       <View
@@ -197,6 +195,12 @@ var TouchableHighlight = React.createClass({
       </View>
     );
   }
-});
+
+};
+
+mixin(TouchableHighlight.prototype, TimerMixin);
+mixin(TouchableHighlight.prototype, TouchableMixin);
+mixin(TouchableHighlight.prototype, NativeMethodsMixin);
+autobind(TouchableHighlight);
 
 module.exports = TouchableHighlight;

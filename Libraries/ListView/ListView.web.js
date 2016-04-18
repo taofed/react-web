@@ -38,7 +38,7 @@ const SCROLLVIEW_REF = 'listviewscroll';
  *
  * ```
  * getInitialState: function() {
- *   var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+ *   let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
  *   return {
  *     dataSource: ds.cloneWithRows(['row 1', 'row 2']),
  *   };
@@ -298,26 +298,26 @@ class ListView extends React.Component {
   }
 
   render() {
-    var bodyComponents = [];
+    let bodyComponents = [];
 
-    var dataSource = this.props.dataSource;
-    var allRowIDs = dataSource.rowIdentities;
-    var rowCount = 0;
-    var sectionHeaderIndices = [];
+    let dataSource = this.props.dataSource;
+    let allRowIDs = dataSource.rowIdentities;
+    let rowCount = 0;
+    let sectionHeaderIndices = [];
 
-    var header = this.props.renderHeader && this.props.renderHeader();
-    var footer = this.props.renderFooter && this.props.renderFooter();
-    var totalIndex = header ? 1 : 0;
+    let header = this.props.renderHeader && this.props.renderHeader();
+    let footer = this.props.renderFooter && this.props.renderFooter();
+    let totalIndex = header ? 1 : 0;
 
-    for (var sectionIdx = 0; sectionIdx < allRowIDs.length; sectionIdx++) {
-      var sectionID = dataSource.sectionIdentities[sectionIdx];
-      var rowIDs = allRowIDs[sectionIdx];
+    for (let sectionIdx = 0; sectionIdx < allRowIDs.length; sectionIdx++) {
+      let sectionID = dataSource.sectionIdentities[sectionIdx];
+      let rowIDs = allRowIDs[sectionIdx];
       if (rowIDs.length === 0) {
         continue;
       }
 
       if (this.props.renderSectionHeader) {
-        var shouldUpdateHeader = rowCount >= this._prevRenderedRowsCount &&
+        let shouldUpdateHeader = rowCount >= this._prevRenderedRowsCount &&
           dataSource.sectionHeaderShouldUpdate(sectionIdx);
         bodyComponents.push(
           <StaticRenderer
@@ -333,12 +333,12 @@ class ListView extends React.Component {
         sectionHeaderIndices.push(totalIndex++);
       }
 
-      for (var rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
-        var rowID = rowIDs[rowIdx];
-        var comboID = sectionID + '_' + rowID;
-        var shouldUpdateRow = rowCount >= this._prevRenderedRowsCount &&
+      for (let rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
+        let rowID = rowIDs[rowIdx];
+        let comboID = sectionID + '_' + rowID;
+        let shouldUpdateRow = rowCount >= this._prevRenderedRowsCount &&
           dataSource.rowShouldUpdate(sectionIdx, rowIdx);
-        var row =
+        let row =
           <StaticRenderer
             key={'r_' + comboID}
             shouldUpdate={!!shouldUpdateRow}
@@ -355,12 +355,12 @@ class ListView extends React.Component {
 
         if (this.props.renderSeparator &&
             (rowIdx !== rowIDs.length - 1 || sectionIdx === allRowIDs.length - 1)) {
-          var adjacentRowHighlighted =
+          let adjacentRowHighlighted =
             this.state.highlightedRow.sectionID === sectionID && (
               this.state.highlightedRow.rowID === rowID ||
               this.state.highlightedRow.rowID === rowIDs[rowIdx + 1]
             );
-          var separator = this.props.renderSeparator(
+          let separator = this.props.renderSeparator(
             sectionID,
             rowID,
             adjacentRowHighlighted
@@ -379,7 +379,7 @@ class ListView extends React.Component {
       }
     }
 
-    var {
+    let {
       renderScrollComponent,
       ...props,
     } = this.props;
@@ -415,7 +415,7 @@ class ListView extends React.Component {
    */
 
   _measureAndUpdateScrollProps() {
-    var scrollComponent = this.getScrollResponder();
+    let scrollComponent = this.getScrollResponder();
     if (!scrollComponent || !scrollComponent.getInnerViewNode) {
       return;
     }
@@ -430,7 +430,7 @@ class ListView extends React.Component {
   }
 
   _onContentSizeChange(width, height) {
-    var contentLength = !this.props.horizontal ? height : width;
+    let contentLength = !this.props.horizontal ? height : width;
     if (contentLength !== this.scrollProperties.contentLength) {
       this.scrollProperties.contentLength = contentLength;
       this._updateVisibleRows();
@@ -440,8 +440,8 @@ class ListView extends React.Component {
   }
 
   _onLayout(event) {
-    var {width, height} = event.nativeEvent.layout;
-    var visibleLength = !this.props.horizontal ? height : width;
+    let {width, height} = event.nativeEvent.layout;
+    let visibleLength = !this.props.horizontal ? height : width;
     if (visibleLength !== this.scrollProperties.visibleLength) {
       this.scrollProperties.visibleLength = visibleLength;
       this._updateVisibleRows();
@@ -470,7 +470,7 @@ class ListView extends React.Component {
       return;
     }
 
-    var distanceFromEnd = this._getDistanceFromEnd(this.scrollProperties);
+    let distanceFromEnd = this._getDistanceFromEnd(this.scrollProperties);
     if (distanceFromEnd < this.props.scrollRenderAheadDistance) {
       this._pageInNewRows();
     }
@@ -478,7 +478,7 @@ class ListView extends React.Component {
 
   _pageInNewRows() {
     this.setState((state, props) => {
-      var rowsToRender = Math.min(
+      let rowsToRender = Math.min(
         state.curRenderedRowsCount + props.pageSize,
         props.dataSource.getRowCount()
       );
@@ -505,39 +505,39 @@ class ListView extends React.Component {
     //     this._childFrames[newFrame.index] = merge(newFrame);
     //   });
     // }
-    // var isVertical = !this.props.horizontal;
-    // var dataSource = this.props.dataSource;
-    // var visibleMin = this.scrollProperties.offset;
-    // var visibleMax = visibleMin + this.scrollProperties.visibleLength;
-    // var allRowIDs = dataSource.rowIdentities;
+    // let isVertical = !this.props.horizontal;
+    // let dataSource = this.props.dataSource;
+    // let visibleMin = this.scrollProperties.offset;
+    // let visibleMax = visibleMin + this.scrollProperties.visibleLength;
+    // let allRowIDs = dataSource.rowIdentities;
     //
-    // var header = this.props.renderHeader && this.props.renderHeader();
-    // var totalIndex = header ? 1 : 0;
-    // var visibilityChanged = false;
-    // var changedRows = {};
-    // for (var sectionIdx = 0; sectionIdx < allRowIDs.length; sectionIdx++) {
-    //   var rowIDs = allRowIDs[sectionIdx];
+    // let header = this.props.renderHeader && this.props.renderHeader();
+    // let totalIndex = header ? 1 : 0;
+    // let visibilityChanged = false;
+    // let changedRows = {};
+    // for (let sectionIdx = 0; sectionIdx < allRowIDs.length; sectionIdx++) {
+    //   let rowIDs = allRowIDs[sectionIdx];
     //   if (rowIDs.length === 0) {
     //     continue;
     //   }
-    //   var sectionID = dataSource.sectionIdentities[sectionIdx];
+    //   let sectionID = dataSource.sectionIdentities[sectionIdx];
     //   if (this.props.renderSectionHeader) {
     //     totalIndex++;
     //   }
-    //   var visibleSection = this._visibleRows[sectionID];
+    //   let visibleSection = this._visibleRows[sectionID];
     //   if (!visibleSection) {
     //     visibleSection = {};
     //   }
-    //   for (var rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
-    //     var rowID = rowIDs[rowIdx];
-    //     var frame = this._childFrames[totalIndex];
+    //   for (let rowIdx = 0; rowIdx < rowIDs.length; rowIdx++) {
+    //     let rowID = rowIDs[rowIdx];
+    //     let frame = this._childFrames[totalIndex];
     //     totalIndex++;
     //     if (!frame) {
     //       break;
     //     }
-    //     var rowVisible = visibleSection[rowID];
-    //     var min = isVertical ? frame.y : frame.x;
-    //     var max = min + (isVertical ? frame.height : frame.width);
+    //     let rowVisible = visibleSection[rowID];
+    //     let min = isVertical ? frame.y : frame.x;
+    //     let max = min + (isVertical ? frame.height : frame.width);
     //     if (min > visibleMax || max < visibleMin) {
     //       if (rowVisible) {
     //         visibilityChanged = true;
@@ -566,7 +566,7 @@ class ListView extends React.Component {
   }
 
   _onScroll(e) {
-    var isVertical = !this.props.horizontal;
+    let isVertical = !this.props.horizontal;
     // this.scrollProperties.visibleLength = e.nativeEvent.layoutMeasurement[
     //   isVertical ? 'height' : 'width'
     // ];
@@ -577,7 +577,7 @@ class ListView extends React.Component {
     //   isVertical ? 'y' : 'x'
     // ];
 
-    var target = ReactDOM.findDOMNode(this.refs[SCROLLVIEW_REF]);
+    let target = ReactDOM.findDOMNode(this.refs[SCROLLVIEW_REF]);
     this.scrollProperties.visibleLength = target[
       isVertical ? 'offsetHeight' : 'offsetWidth'
     ];
