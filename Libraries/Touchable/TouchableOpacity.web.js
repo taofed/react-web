@@ -57,6 +57,9 @@ class TouchableOpacity extends React.Component {
 
   static defaultProps ={
     activeOpacity: 0.2,
+    style: {
+      cursor: 'pointer'
+    }
   }
 
   state = {

@@ -23,6 +23,9 @@ type Event = Object;
 var DEFAULT_PROPS = {
   activeOpacity: 0.8,
   underlayColor: 'black',
+  style: {
+    cursor: 'pointer'
+  }
 };
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
