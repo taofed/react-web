@@ -20,7 +20,7 @@ var config = {
   },
 };
 
-module.exports = {
+var webpackConfig = {
   ip: IP,
   port: PORT,
   devtool: 'source-map',
@@ -77,3 +77,6 @@ module.exports = {
     }]
   }
 };
+webpackConfig.resolve.alias[path.basename(ROOT_PATH, '.')] = path.join(ROOT_PATH, '.');
+
+module.exports = webpackConfig;
