@@ -108,10 +108,9 @@ class ViewPager extends React.Component {
     // will handle positioning of elements, so it's not important to offset
     // them correctly.
     return React.Children.map(this.props.children, function(child) {
+      let style = assign({}, child.props.style, {width: deviceSize.width});
       let newProps = {
-        style: [child.props.style, {
-          width: deviceSize.width
-        }],
+        style: style,
         collapsable: false
       };
       return cloneElement(child, assign({}, child.props, newProps));
