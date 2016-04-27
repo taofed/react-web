@@ -45,19 +45,21 @@ bothMethods.forEach(function(item) {
   var promiseMethod = function() {
 
     var args = arguments;
+    var lastArg = args[args.length - 1];
+    var cb = typeof lastArg === 'function' ? lastArg : null;
 
     return new Promise(function(resolve, reject) {
 
       try {
 
         var result = localStorage[item].apply(localStorage, args);
+        if (cb) cb(null, result);
         resolve(result);
 
       } catch (err) {
-
         // Maybe in the browser private mode will cause this problem
+        if (cb) cb(err, null);
         reject(err);
-
       }
 
     });
@@ -94,13 +96,15 @@ AsyncStorage.mergeItem = function(key, value) {
 /**
  * Gets *all* keys known to the system, for all callers, libraries, etc. Returns a `Promise` object.
  */
-AsyncStorage.getAllKeys = function() {
+AsyncStorage.getAllKeys = function(cb) {
 
   var keys = [];
 
   for (var i = 0, len = localStorage.length; i < len; ++i) {
     keys.push(localStorage.key(i));
   }
+
+  if (typeof cb === 'function') cb(null, keys)
 
   return new Promise(function(resolve, reject) {
     resolve(keys);
