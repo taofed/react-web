@@ -55,6 +55,7 @@ if (NODE_ENV === 'development') {
     port: PORT,
     devtool: 'source-map',
     entry: [
+      'babel-polyfill',
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
       // 'webpack/hot/only-dev-server',
       config.paths.demoIndex,
