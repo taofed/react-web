@@ -400,7 +400,6 @@ let styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    position: 'absolute',
     minWidth: '100%',
   },
   contentContainerHorizontal: {
