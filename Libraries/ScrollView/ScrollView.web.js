@@ -19,6 +19,7 @@ import autobind from 'autobind-decorator';
 
 const SCROLLVIEW = 'ScrollView';
 const INNERVIEW = 'InnerScrollView';
+const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'];
 
 /**
  * Component that wraps platform ScrollView while providing
@@ -319,10 +320,24 @@ class ScrollView extends React.Component {
   }
 
   render() {
+    let {
+      style,
+      ...otherProps
+    } = this.props;
+
+    let contentContainerExtStyle = {};
+
+    for (let i = 0; i < CONTENT_EXT_STYLE.length; i++) {
+      if (typeof style[CONTENT_EXT_STYLE[i]] === 'number') {
+        contentContainerExtStyle[CONTENT_EXT_STYLE[i]] = style[CONTENT_EXT_STYLE[i]];
+      }
+    }
+
     let contentContainerStyle = [
       styles.contentContainer,
       this.props.horizontal && styles.contentContainerHorizontal,
       this.props.contentContainerStyle,
+      contentContainerExtStyle,
     ];
     // if (__DEV__ && this.props.style) {
     //   let style = flattenStyle(this.props.style);
@@ -360,7 +375,7 @@ class ScrollView extends React.Component {
     }
 
     let props = {
-      ...this.props,
+      ...otherProps,
       alwaysBounceHorizontal,
       alwaysBounceVertical,
       style: ([styles.base, this.props.style]: ?Array<any>),
@@ -400,6 +415,7 @@ let styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
+    position: 'absolute',
     minWidth: '100%',
   },
   contentContainerHorizontal: {

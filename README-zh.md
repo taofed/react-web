@@ -148,6 +148,12 @@ var Platform = require('ReactPlatform');
     LayoutAnimation.configureNext(...)
   }
   ```
+5. ScrollView 需要指定高度
+  ```js
+  <ScrollView style={{height: 235}} horizontal={true}> // 手动指定滚动区域高度、子元素不会自动撑起ScrollView
+    <View />
+  </ScrollView>
+  ```
 
 ## 任务脚本
 
