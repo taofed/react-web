@@ -150,9 +150,7 @@ var Platform = require('ReactPlatform');
   ```
 5. ScrollView 需要指定高度
   ```js
-  <ScrollView style={{height: 235}} horizontal={true}> // 手动指定滚动区域高度、子元素不会自动撑起ScrollView
-    <View />
-  </ScrollView>
+  <ScrollView style={{height: 235}} horizontal={true}></ScrollView>
   ```
 
 ## 任务脚本
