@@ -31,9 +31,9 @@ var DEFAULT_PROPS = {
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 var CHILD_REF = 'childRef';
 var UNDERLAY_REF = 'underlayRef';
-// var INACTIVE_CHILD_PROPS = {
-//   style: StyleSheet.create({x: {opacity: 1.0}}).x,
-// };
+var INACTIVE_CHILD_PROPS = {
+  style: StyleSheet.create({x: {opacity: 1.0}}).x,
+};
 var INACTIVE_UNDERLAY_PROPS = {
   style: StyleSheet.create({x: {backgroundColor: 'transparent'}}).x,
 };
@@ -154,8 +154,8 @@ class TouchableHighlight extends React.Component {
     //   return;
     // }
 
-    // this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
-    // this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
+    this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
+    this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
     this.props.onShowUnderlay && this.props.onShowUnderlay();
   }
 
@@ -163,11 +163,11 @@ class TouchableHighlight extends React.Component {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     if (this.refs[UNDERLAY_REF]) {
-      // this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
-      // this.refs[UNDERLAY_REF].setNativeProps({
-      //  ...INACTIVE_UNDERLAY_PROPS,
-      //  style: this.state.underlayStyle,
-      // });
+      this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
+      this.refs[UNDERLAY_REF].setNativeProps({
+        ...INACTIVE_UNDERLAY_PROPS,
+        style: this.state.underlayStyle,
+      });
       this.props.onHideUnderlay && this.props.onHideUnderlay();
     }
   }
