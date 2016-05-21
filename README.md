@@ -153,6 +153,11 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
   }
   ```
 
+5. Should manually specify the height of ScrollView
+  ```js
+  <ScrollView style={{height: 235}} horizontal={true} />
+  ```
+
 ### React Native compatible
 
 #### Components

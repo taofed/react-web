@@ -148,6 +148,10 @@ var Platform = require('ReactPlatform');
     LayoutAnimation.configureNext(...)
   }
   ```
+5. ScrollView 需要指定高度
+  ```js
+  <ScrollView style={{height: 235}} horizontal={true}></ScrollView>
+  ```
 
 ## 任务脚本
 
