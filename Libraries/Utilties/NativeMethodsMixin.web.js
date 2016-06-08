@@ -60,7 +60,7 @@ var NativeMethodsMixin = {
    * Manipulation](/react-native/docs/direct-manipulation.html)).
    */
   setNativeProps: function(nativeProps) {
-    setNativeProps(ReactDOM.findDOMNode(this), nativeProps);
+    setNativeProps(ReactDOM.findDOMNode(this), nativeProps, this._reactInternalInstance);
   },
 
   /**

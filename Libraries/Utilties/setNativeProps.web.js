@@ -21,7 +21,7 @@ function convertTransform(style) {
   return result;
 }
 
-function setNativeProps(node, props) {
+function setNativeProps(node, props, component) {
 
   for (var name in props) {
     if (name === 'style') {
@@ -30,7 +30,7 @@ function setNativeProps(node, props) {
         style = convertTransform(style);
       }
 
-      CSSPropertyOperations.setValueForStyles(node, style);
+      CSSPropertyOperations.setValueForStyles(node, style, component);
     } else {
       node.setAttribute(name, props[name]);
     }
