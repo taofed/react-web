@@ -602,8 +602,8 @@ class ListView extends React.Component {
   }
 }
 
-mixin(ListView.prototype, ScrollResponder.Mixin);
-mixin(ListView.prototype, TimerMixin);
+mixin.onClass(ListView, ScrollResponder.Mixin);
+mixin.onClass(ListView, TimerMixin);
 autobind(ListView);
 
 ListView.isReactNativeComponent = true;

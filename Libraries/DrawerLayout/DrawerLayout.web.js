@@ -268,7 +268,7 @@ let styles = StyleSheet.create({
 });
 
 
-mixin(DrawerLayout.prototype, NativeMethodsMixin);
+mixin.onClass(DrawerLayout, NativeMethodsMixin);
 autobind(DrawerLayout);
 
 DrawerLayout.isReactNativeComponent = true;

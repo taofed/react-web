@@ -174,9 +174,9 @@ class TouchableOpacity extends React.Component {
  */
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
-mixin(TouchableOpacity.prototype, TimerMixin);
-mixin(TouchableOpacity.prototype, TouchableMixin);
-mixin(TouchableOpacity.prototype, NativeMethodsMixin);
+mixin.onClass(TouchableOpacity, TimerMixin);
+mixin.onClass(TouchableOpacity, TouchableMixin);
+mixin.onClass(TouchableOpacity, NativeMethodsMixin);
 autobind(TouchableOpacity);
 
 module.exports = TouchableOpacity;

@@ -146,7 +146,7 @@ let styles = StyleSheet.create({
   }
 });
 
-mixin(ActivityIndicator.prototype, NativeMethodsMixin);
+mixin.onClass(ActivityIndicator, NativeMethodsMixin);
 
 ActivityIndicator.isReactNativeComponent = true;
 

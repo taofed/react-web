@@ -201,9 +201,9 @@ class TouchableHighlight extends React.Component {
 
 };
 
-mixin(TouchableHighlight.prototype, TimerMixin);
-mixin(TouchableHighlight.prototype, TouchableMixin);
-mixin(TouchableHighlight.prototype, NativeMethodsMixin);
+mixin.onClass(TouchableHighlight, TimerMixin);
+mixin.onClass(TouchableHighlight, TouchableMixin);
+mixin.onClass(TouchableHighlight, NativeMethodsMixin);
 autobind(TouchableHighlight);
 
 module.exports = TouchableHighlight;
