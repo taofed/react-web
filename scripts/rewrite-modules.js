@@ -26,6 +26,8 @@ function mapModule(state, module) {
     var mod = getModule(module, platform);
     if (mod && mod.path) {
       module = path.relative(path.dirname(filePath), mod.path);
+      if (!module.startsWith('.'))
+        module = './' + module;
       module = module.replace('.js', '')
     }
 
