@@ -59,3 +59,10 @@ export StyleSheet from 'ReactStyleSheet';
 export NativeModules from 'ReactNativeModules';
 export Platform from 'ReactPlatform';
 export processColor from 'ReactProcessColor';
+
+
+// Match the react-native export signature, which uses CommonJS
+// (not ES6), where this works:
+//    import ReactNative, {View} from 'react-native';
+//    ReactNative.View === View
+export default module.exports;
