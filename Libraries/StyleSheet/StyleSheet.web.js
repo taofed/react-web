@@ -39,6 +39,7 @@ var StyleSheet = {
   setReferenceWidth: reference.setWidth,
   rootClassName: ROOT_CLASS_NAME,
   viewClassName: VIEW_CLASS_NAME,
+  flatten: flattenStyle
 };
 
 module.exports = StyleSheet;
