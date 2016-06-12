@@ -424,7 +424,7 @@ let styles = StyleSheet.create({
   },
 });
 
-mixin(ScrollView.prototype, ScrollResponder.Mixin);
+mixin.onClass(ScrollView, ScrollResponder.Mixin);
 autobind(ScrollView);
 
 ScrollView.isReactNativeComponent = true;

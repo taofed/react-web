@@ -131,7 +131,7 @@ class Switch extends React.Component {
 
 };
 
-mixin(Switch.prototype, NativeMethodsMixin);
+mixin.onClass(Switch, NativeMethodsMixin);
 autobind(Switch);
 
 Switch.isReactNativeComponent = true;

@@ -87,7 +87,7 @@ let styles = StyleSheet.create({
   }
 });
 
-mixin(ProgressView.prototype, NativeMethodsMixin);
+mixin.onClass(ProgressView, NativeMethodsMixin);
 autobind(ProgressView);
 ProgressView.isReactNativeComponent = true;
 

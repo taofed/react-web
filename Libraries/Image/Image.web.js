@@ -50,8 +50,8 @@ class Image extends React.Component {
   }
 }
 
-mixin(Image.prototype, LayoutMixin);
-mixin(Image.prototype, NativeMethodsMixin);
+mixin.onClass(Image, LayoutMixin);
+mixin.onClass(Image, NativeMethodsMixin);
 
 Image.isReactNativeComponent = true;
 

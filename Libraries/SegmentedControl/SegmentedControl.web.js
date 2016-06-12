@@ -173,7 +173,7 @@ let styles = StyleSheet.create({
   },
 });
 
-mixin(SegmentedControl.prototype, NativeMethodsMixin);
+mixin.onClass(SegmentedControl, NativeMethodsMixin);
 autobind(SegmentedControl);
 
 SegmentedControl.isReactNativeComponent = true;

@@ -222,7 +222,7 @@ class ViewPager extends React.Component {
 
 };
 
-mixin(ViewPager.prototype, NativeMethodsMixin);
+mixin.onClass(ViewPager, NativeMethodsMixin);
 autobind(ViewPager);
 
 ViewPager.isReactNativeComponent = true;

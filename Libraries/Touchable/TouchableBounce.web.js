@@ -120,7 +120,7 @@ class TouchableBounce extends React.Component {
 
 };
 
-mixin(TouchableBounce.prototype, TouchableMixin);
+mixin.onClass(TouchableBounce, TouchableMixin);
 autobind(TouchableBounce);
 
 module.exports = TouchableBounce;

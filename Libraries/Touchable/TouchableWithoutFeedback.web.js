@@ -121,7 +121,7 @@ class TouchableWithoutFeedback extends React.Component {
 
 };
 
-mixin(TouchableWithoutFeedback.prototype, Touchable.Mixin);
+mixin.onClass(TouchableWithoutFeedback, Touchable.Mixin);
 autobind(TouchableWithoutFeedback);
 
 module.exports = TouchableWithoutFeedback;
