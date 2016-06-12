@@ -13,8 +13,7 @@ var config = {
   paths: {
     src: path.join(ROOT_PATH, 'Libraries'),
     demo: path.join(ROOT_PATH, DEMO_DIR),
-    // demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
-    demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/Movies/MoviesApp.web'),
+    demoIndex: path.join(ROOT_PATH, DEMO_DIR, '/UIExplorer/UIExplorerApp.web'),
   }
 };
 

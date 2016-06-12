@@ -39,6 +39,7 @@ export Touchable from 'ReactTouchable';
 export TouchableHighlight from 'ReactTouchableHighlight';
 export TouchableOpacity from 'ReactTouchableOpacity';
 export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
+export TouchableBounce from 'ReactTouchableBounce';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 
