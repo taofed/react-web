@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import View from 'ReactView';
 import Text from 'ReactText';
 import StyleSheet from 'ReactStyleSheet';
@@ -16,8 +16,7 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-class SegmentedControl extends React.Component {
-
+class SegmentedControl extends Component {
 
   static propTypes = {
     /**

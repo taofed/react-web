@@ -6,9 +6,9 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-class StaticRenderer extends React.Component {
+class StaticRenderer extends Component {
   static propTypes = {
     shouldUpdate: PropTypes.bool.isRequired,
     render: PropTypes.func.isRequired,

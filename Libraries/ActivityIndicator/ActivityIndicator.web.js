@@ -9,7 +9,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
 import assign from 'domkit/appendVendorPrefix';
@@ -31,7 +31,7 @@ const GRAY = '#999999';
 
 const animationName = insertKeyframesRule(keyframes);
 
-class ActivityIndicator extends React.Component {
+class ActivityIndicator extends Component {
 
   static propTypes = {
     /**

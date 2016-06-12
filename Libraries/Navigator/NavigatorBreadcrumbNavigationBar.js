@@ -9,7 +9,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import NavigatorBreadcrumbNavigationBarStyles from 'ReactNavigatorBreadcrumbNavigationBarStyles';
 import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
 import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
@@ -56,7 +56,7 @@ var initStyle = function(index, presentedIndex) {
     NavigatorBreadcrumbNavigationBarStyles.Right[index];
 };
 
-class NavigatorBreadcrumbNavigationBar extends React.Component {
+class NavigatorBreadcrumbNavigationBar extends Component {
   static propTypes = {
     navigator: PropTypes.shape({
       push: PropTypes.func,

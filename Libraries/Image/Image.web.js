@@ -6,14 +6,14 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {Component} from 'react';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 
-class Image extends React.Component {
+class Image extends Component {
   static resizeMode = ImageResizeMode
 
   static contextTypes = {

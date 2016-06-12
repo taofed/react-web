@@ -16,13 +16,6 @@ var shorthandProperties = {
 };
 
 // some number that react not auto add px
-var numberTransformProperties = {
-  translateX: true,
-  translateY: true,
-  translateZ: true
-};
-
-// some number that react not auto add px
 var numberProperties = {
   lineHeight: true
 };
@@ -130,13 +123,6 @@ function isValidValue(value) {
   return value !== '' && value !== null && value !== undefined;
 }
 
-function processTransformValue(value, key) {
-  if (numberTransformProperties[key] && typeof value == 'number') {
-    value += 'px';
-  }
-  return value;
-}
-
 function processValueForProp(value, prop) {
 
   if (typeof value == 'number') {
@@ -155,40 +141,6 @@ function processValueForProp(value, prop) {
   //   {scaleX: 2},
   //   {scaleY: 2}
   // ] => scaleX(2) scaleY(2)
-  if (prop == 'transform' && Array.isArray(value)) {
-    var transformations = [];
-    value.forEach(function(transformation) {
-
-      var key = Object.keys(transformation)[0];
-      var val = transformation[key];
-
-      // for animated value
-      if (val.__getValue) {
-        val = val.__getValue();
-      }
-
-      // translate matrix have an array as the value
-      if (Array.isArray(val)) {
-
-        var len = val.length;
-
-        if ((key === 'matrix' && len === 16) || (key === 'translate' && len === 3)) {
-          key += '3d';
-        }
-
-        val = val.map(function(v) {
-          return processTransformValue(v, key);
-        }).join(',');
-
-      } else {
-        val = processTransformValue(val, key);
-      }
-
-      transformations.push(key + '(' + val + ')');
-    });
-
-    value = transformations.join(' ');
-  }
 
   if (shorthandProperties[prop] && typeof value == 'string') {
     value = value.replace(/\d*\.?\d+(rem|em|in|cm|mm|pt|pc|px|vh|vw|vmin|vmax|%)*/g, function(val, unit) {

@@ -9,7 +9,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
 import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
 import Platform from 'ReactStyleSheet';
@@ -31,7 +31,7 @@ var navStatePresentedIndex = function(navState) {
   return navState.observedTopOfStack;
 };
 
-class NavigatorNavigationBar extends React.Component {
+class NavigatorNavigationBar extends Component {
 
   constructor(props) {
     super(props);

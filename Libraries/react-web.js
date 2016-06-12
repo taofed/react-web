@@ -49,7 +49,7 @@ export Animated from 'ReactAnimated';
 export AppRegistry from 'ReactAppRegistry';
 export AsyncStorage from 'ReactAsyncStorage';
 export Dimensions from 'ReactDimensions';
-export Easing from 'ReactEasing';
+export Easing from 'animated/lib/Easing';
 export InteractionManager from 'ReactInteractionManager';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';

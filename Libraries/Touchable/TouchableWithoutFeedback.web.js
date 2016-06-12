@@ -9,7 +9,7 @@
 'use strict';
 
 import 'ReactPanResponder';
-import React from 'react';
+import React, { Component } from 'react';
 import Touchable from 'ReactTouchable';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
@@ -32,7 +32,7 @@ var PRESS_RECT_OFFSET = {
  * respond to press should have a visual feedback when touched. This is
  * one of the primary reason a "web" app doesn't feel "native".
  */
-class TouchableWithoutFeedback extends React.Component {
+class TouchableWithoutFeedback extends Component {
 
 
   static propTypes = {

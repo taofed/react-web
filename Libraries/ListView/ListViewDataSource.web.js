@@ -207,7 +207,7 @@ class ListViewDataSource {
   }
 
   getRowAndSectionCount(): number {
-   return (this._cachedRowCount + this.sectionIdentities.length);
+    return (this._cachedRowCount + this.sectionIdentities.length);
   }
 
   /**
@@ -392,5 +392,4 @@ function keyedDictionaryFromArray(arr) {
   return result;
 }
 
-
-module.exports = ListViewDataSource;
+export default ListViewDataSource;

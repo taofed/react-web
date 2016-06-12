@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
@@ -38,7 +38,7 @@ var INACTIVE_UNDERLAY_PROPS = {
   style: StyleSheet.create({x: {backgroundColor: 'transparent'}}).x,
 };
 
-class TouchableHighlight extends React.Component {
+class TouchableHighlight extends Component {
   static propTypes = {
     ...TouchableWithoutFeedback.propTypes,
     /**
