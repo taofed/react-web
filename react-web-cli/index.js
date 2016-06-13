@@ -135,17 +135,17 @@ function validatePackageName(name) {
   }
 }
 
-function init(name, verbose, rnPackage) {
+function init(name, verbose, rwPackage) {
   validatePackageName(name);
 
   if (fs.existsSync(name)) {
-    createAfterConfirmation(name, verbose, rnPackage);
+    createAfterConfirmation(name, verbose, rwPackage);
   } else {
-    createProject(name, verbose, rnPackage);
+    createProject(name, verbose, rwPackage);
   }
 }
 
-function createAfterConfirmation(name, verbose, rnPackage) {
+function createAfterConfirmation(name, verbose, rwPackage) {
   prompt.start();
 
   var property = {
@@ -158,7 +158,7 @@ function createAfterConfirmation(name, verbose, rnPackage) {
 
   prompt.get(property, function (err, result) {
     if (result.yesno[0] === 'y') {
-      createProject(name, verbose, rnPackage);
+      createProject(name, verbose, rwPackage);
     } else {
       console.log('Project initialization canceled');
       process.exit();
@@ -166,7 +166,7 @@ function createAfterConfirmation(name, verbose, rnPackage) {
   });
 }
 
-function createProject(name, verbose, rnPackage) {
+function createProject(name, verbose, rwPackage) {
   var root = path.resolve(name);
   var projectName = path.basename(root);
 
@@ -195,9 +195,9 @@ function createProject(name, verbose, rnPackage) {
   console.log('Installing react-web package from npm...');
 
   if (verbose) {
-    runVerbose(root, projectName, rnPackage);
+    runVerbose(root, projectName, rwPackage);
   } else {
-    run(root, projectName, rnPackage);
+    run(root, projectName, rwPackage);
   }
 }
 
