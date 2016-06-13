@@ -26,7 +26,7 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     alias: {
-      'react-native': 'react-web',
+      'react-native': 'ReactWeb',
     },
     extensions: ['', '.js', '.jsx'],
   },
@@ -63,14 +63,14 @@ module.exports = {
       loader: 'json',
     }, {
       test: /\.jsx?$/,
-      loaders: 'react-hot',
+      loader: 'react-hot',
       include: [config.paths.src],
       exclude: [/node_modules/]
     }, {
       test: /\.jsx?$/,
-      loaders: 'babel',
+      loader: 'babel',
       query: {
-        presets: ['es2015', 'react']
+        presets: ['es2015', 'react', 'stage-1']
       },
       include: [config.paths.src],
       exclude: [/node_modules/]

@@ -23,7 +23,8 @@ function installDev(projectDir, verbose) {
     'haste-resolver-webpack-plugin@' + packageJson.devDependencies['haste-resolver-webpack-plugin'],
     'webpack-html-plugin@' + packageJson.devDependencies['webpack-html-plugin'],
     'babel-preset-es2015@' + packageJson.devDependencies['babel-preset-es2015'],
-    'babel-preset-react@' + packageJson.devDependencies['babel-preset-react']
+    'babel-preset-react@' + packageJson.devDependencies['babel-preset-react'],
+    'babel-preset-stage-1@' + packageJson.devDependencies['babel-preset-stage-1']
   ], {stdio: 'inherit'});
 
   proc.on('close', function (code) {
