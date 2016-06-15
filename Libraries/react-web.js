@@ -17,13 +17,14 @@ export * from 'react';
 
 // Components
 export ActivityIndicatorIOS from 'ReactActivityIndicator';
-// export DatePickerIOS from 'ReactDatePicker';
+// export DatePicker from 'ReactDatePicker';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
 export Image from 'ReactImage';
 export ListView from 'ReactListView';
 export Modal from 'ReactModal';
 export Navigator from 'ReactNavigator';
 export PickerIOS from 'ReactPicker';
+export Picker from 'ReactPicker';
 export ProgressViewIOS from 'ReactProgressView';
 export ScrollView from 'ReactScrollView';
 export SegmentedControlIOS from 'ReactSegmentedControl';
@@ -35,13 +36,17 @@ export TabBarIOS from 'ReactTabBar';
 export Text from 'ReactText';
 export TextInput from 'ReactTextInput';
 export ToastAndroid from 'ReactToast';
+export Toast from 'ReactToast';
 export Touchable from 'ReactTouchable';
 export TouchableHighlight from 'ReactTouchableHighlight';
 export TouchableOpacity from 'ReactTouchableOpacity';
 export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 export TouchableBounce from 'ReactTouchableBounce';
+// export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
+export ViewPager from 'ReactViewPager';
+
 
 // APIs
 export Alert from 'ReactAlert';
