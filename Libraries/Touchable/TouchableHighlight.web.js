@@ -126,7 +126,12 @@ class TouchableHighlight extends Component {
     this._showUnderlay();
     this._hideTimeout = this.setTimeout(this._hideUnderlay,
       this.props.delayPressOut || 100);
-    this.props.onPress && this.props.onPress(e);
+      
+    var touchBank = e.touchHistory.touchBank[0];
+    var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2) 
+      + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
+    var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
+    if (velocity < 100) this.props.onPress && this.props.onPress(e);
   }
 
   touchableHandleLongPress(e: Event) {
