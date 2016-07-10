@@ -108,7 +108,7 @@ class TouchableOpacity extends React.Component {
       this.props.delayPressOut || 100
     );
     
-    var touchBank = e.touchHistory.touchBank[0];
+    var touchBank = e.touchHistory.touchBank[e.touchHistory.touchBank.length - 1];
     var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2)
         + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
     var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
