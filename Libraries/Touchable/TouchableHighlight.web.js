@@ -127,7 +127,7 @@ class TouchableHighlight extends Component {
     this._hideTimeout = this.setTimeout(this._hideUnderlay,
       this.props.delayPressOut || 100);
       
-    var touchBank = e.touchHistory.touchBank[0];
+    var touchBank = e.touchHistory.touchBank[e.touchHistory.indexOfSingleActiveTouch];
     var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2) 
       + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
     var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
