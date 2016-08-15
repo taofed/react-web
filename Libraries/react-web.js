@@ -42,7 +42,7 @@ export TouchableHighlight from 'ReactTouchableHighlight';
 export TouchableOpacity from 'ReactTouchableOpacity';
 export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 export TouchableBounce from 'ReactTouchableBounce';
-// export RefreshControl from 'ReactRefreshControl';
+export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
