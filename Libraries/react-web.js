@@ -57,6 +57,7 @@ export AsyncStorage from 'ReactAsyncStorage';
 export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
 export InteractionManager from 'ReactInteractionManager';
+export LayoutAnimation from 'ReactLayoutAnimation';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';
