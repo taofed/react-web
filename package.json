@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git@github.com:taobaofed/react-web.git"
   },
-  "main": "./lib/react-web.js",
+  "main": "./Libraries/react-web.js",
   "keywords": [
     "react-native",
     "react-web",

@@ -73,7 +73,7 @@ var webpackConfig = {
         presets: ['es2015', 'react', 'stage-1']
       },
       include: [config.paths.src],
-      exclude: [/node_modules/]
+      exclude: /(node_modules\/(?!react))/
     }]
   }
 };
