@@ -13,11 +13,40 @@ import ImageResizeMode from './ImageResizeMode';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 
-class Image extends Component {
+class ComponentImage extends Component {
   static resizeMode = ImageResizeMode
 
   static contextTypes = {
     isInAParentText: React.PropTypes.bool
+  }
+
+  static getSize = function(
+    url: string,
+    success: (width: number, height: number) => void,
+    failure: (error: any) => void,
+  ) {
+    let wrap = document.createElement('div'),
+      img = new Image(),
+      loadedHandler = function loadedHandler() {
+        img.removeEventListener('load', loadedHandler);
+        success && success(img.offsetWidth, img.offsetHeight);
+      },
+      errorHandler = function errorHandler() {
+        img.removeEventListener('error', errorHandler);
+        failure && failure();
+      };
+
+    wrap.style.cssText = 'height:0px;width:0px;overflow:hidden;visibility:hidden;';
+
+    wrap.appendChild(img);
+    document.body.appendChild(wrap);
+    img.src = url;
+    if (!img.complete) {
+      img.addEventListener('error', errorHandler);
+      img.addEventListener('load', loadedHandler);
+    } else {
+      loadedHandler();
+    }
   }
 
   render() {
@@ -50,9 +79,9 @@ class Image extends Component {
   }
 }
 
-mixin.onClass(Image, LayoutMixin);
-mixin.onClass(Image, NativeMethodsMixin);
+mixin.onClass(ComponentImage, LayoutMixin);
+mixin.onClass(ComponentImage, NativeMethodsMixin);
 
-Image.isReactNativeComponent = true;
+ComponentImage.isReactNativeComponent = true;
 
-export default Image;
+export default ComponentImage;
