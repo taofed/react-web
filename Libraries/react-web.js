@@ -17,6 +17,7 @@ export * from 'react';
 
 // Components
 export ActivityIndicatorIOS from 'ReactActivityIndicator';
+export ActivityIndicator from 'ReactActivityIndicator';
 // export DatePicker from 'ReactDatePicker';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
 export Image from 'ReactImage';

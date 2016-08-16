@@ -163,6 +163,7 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
 #### Components
 
 * ActivityIndicatorIOS - ReactActivityIndicator
+* ActivityIndicator - ReactActivityIndicator
 * DatePickerIOS - ReactDatePicker *TODO*
 * DrawerLayoutAndroid - ReactDrawerLayout
 * Image - ReactImage
@@ -177,6 +178,7 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
 * Switch - ReactSwitch
 * SwitchAndroid - ReactSwitch
 * SwitchIOS - ReactSwitch
+* RefreshControl - ReactRefreshControl
 * TabBarIOS - ReactTabBar
 * Text - ReactText
 * TextInput - ReactTextInput
@@ -198,6 +200,7 @@ As mentioned above, the HasteResolverPlugin plugin will help webpack to compile 
 * Dimensions - ReactDimensions
 * Easing - ReactEasing
 * InteractionManager - ReactInteractionManager
+* LayoutAnimation - ReactLayoutAnimation
 * PanResponder - ReactPanResponder
 * PixelRatio - ReactPixelRatio
 * StyleSheet - ReactStyleSheet
