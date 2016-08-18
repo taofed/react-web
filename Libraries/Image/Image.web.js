@@ -13,7 +13,7 @@ import ImageResizeMode from './ImageResizeMode';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 
-class ComponentImage extends Component {
+class Image extends Component {
   static resizeMode = ImageResizeMode
 
   static contextTypes = {
@@ -26,7 +26,7 @@ class ComponentImage extends Component {
     failure: (error: any) => void,
   ) {
     let wrap = document.createElement('div'),
-      img = new Image(),
+      img = new window.Image(),
       loadedHandler = function loadedHandler() {
         img.removeEventListener('load', loadedHandler);
         success && success(img.offsetWidth, img.offsetHeight);
@@ -79,9 +79,9 @@ class ComponentImage extends Component {
   }
 }
 
-mixin.onClass(ComponentImage, LayoutMixin);
-mixin.onClass(ComponentImage, NativeMethodsMixin);
+mixin.onClass(Image, LayoutMixin);
+mixin.onClass(Image, NativeMethodsMixin);
 
-ComponentImage.isReactNativeComponent = true;
+Image.isReactNativeComponent = true;
 
-export default ComponentImage;
+export default Image;
