@@ -16,7 +16,7 @@
 ## 安装
 
 ```
-npm install --save git+https://github.com/flyskywhy/react-web.git
+npm install --save git+https://github.com/taobaofed/react-web.git
 ```
 
 ## 使用
