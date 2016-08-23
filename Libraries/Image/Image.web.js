@@ -20,6 +20,35 @@ class Image extends Component {
     isInAParentText: React.PropTypes.bool
   }
 
+  static getSize = function(
+    url: string,
+    success: (width: number, height: number) => void,
+    failure: (error: any) => void,
+  ) {
+    let wrap = document.createElement('div'),
+      img = new window.Image(),
+      loadedHandler = function loadedHandler() {
+        img.removeEventListener('load', loadedHandler);
+        success && success(img.offsetWidth, img.offsetHeight);
+      },
+      errorHandler = function errorHandler() {
+        img.removeEventListener('error', errorHandler);
+        failure && failure();
+      };
+
+    wrap.style.cssText = 'height:0px;width:0px;overflow:hidden;visibility:hidden;';
+
+    wrap.appendChild(img);
+    document.body.appendChild(wrap);
+    img.src = url;
+    if (!img.complete) {
+      img.addEventListener('error', errorHandler);
+      img.addEventListener('load', loadedHandler);
+    } else {
+      loadedHandler();
+    }
+  }
+
   render() {
 
     let props = {...this.props};

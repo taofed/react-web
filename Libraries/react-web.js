@@ -17,6 +17,7 @@ export * from 'react';
 
 // Components
 export ActivityIndicatorIOS from 'ReactActivityIndicator';
+export ActivityIndicator from 'ReactActivityIndicator';
 // export DatePicker from 'ReactDatePicker';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
 export Image from 'ReactImage';
@@ -42,7 +43,7 @@ export TouchableHighlight from 'ReactTouchableHighlight';
 export TouchableOpacity from 'ReactTouchableOpacity';
 export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 export TouchableBounce from 'ReactTouchableBounce';
-// export RefreshControl from 'ReactRefreshControl';
+export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
@@ -57,6 +58,7 @@ export AsyncStorage from 'ReactAsyncStorage';
 export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
 export InteractionManager from 'ReactInteractionManager';
+export LayoutAnimation from 'ReactLayoutAnimation';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';

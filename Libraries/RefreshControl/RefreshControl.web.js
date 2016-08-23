@@ -1,9 +1,9 @@
 /**
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
- 8
+ *
+ * Copyright (c) 2015, Facebook, Inc.  All rights reserved.
+ *
  * @providesModule ReactRefreshControl
  */
 'use strict';
@@ -18,7 +18,7 @@ let RefreshLayoutConsts = {SIZE: {}};
 
 class RefreshControl extends Component {
 
-  static SIZE = RefreshLayoutConsts.SIZE,
+  static SIZE = RefreshLayoutConsts.SIZE
 
   componentDidMount() {
     this._lastNativeRefreshing = this.props.refreshing;
@@ -45,7 +45,7 @@ class RefreshControl extends Component {
         onRefresh={this._onRefresh}
       />
     );
-  },
+  }
 
   _onRefresh() {
     this._lastNativeRefreshing = true;
@@ -55,8 +55,8 @@ class RefreshControl extends Component {
     // The native component will start refreshing so force an update to
     // make sure it stays in sync with the js component.
     this.forceUpdate();
-  },
-});
+  }
+}
 
 mixin.onClass(RefreshControl, NativeMethodsMixin);
 autobind(RefreshControl);

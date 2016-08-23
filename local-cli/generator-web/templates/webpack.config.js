@@ -23,7 +23,7 @@ var config = {
 var webpackConfig = {
   ip: IP,
   port: PORT,
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   resolve: {
     alias: {
       'react-native': 'ReactWeb',
@@ -73,7 +73,7 @@ var webpackConfig = {
         presets: ['es2015', 'react', 'stage-1']
       },
       include: [config.paths.src],
-      exclude: [/node_modules/]
+      exclude: /(node_modules\/(?!react))/
     }]
   }
 };
