@@ -585,7 +585,7 @@ class ListView extends Component {
       isVertical ? 'scrollHeight' : 'scrollWidth'
     ];
     this.scrollProperties.offset = target[
-      isVertical ? 'scrollTop' : 'scrollTop'
+      isVertical ? 'scrollTop' : 'scrollLeft'
     ];
     // this._updateVisibleRows(e.nativeEvent.updatedChildFrames);
     if (!this._maybeCallOnEndReached(e)) {
