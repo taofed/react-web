@@ -241,7 +241,7 @@ function runVerbose(root, projectName, rwPackage) {
 }
 
 function checkForVersionArgument() {
-  if (process.argv.indexOf('-v') >= 0 || process.argv.indexOf('--version') >= 0) {
+  if (argv._.length === 0 && (argv.v || argv.version)) {
     console.log('react-web-cli: ' + require('./package.json').version);
     try {
       console.log('react-web: ' + require(REACT_WEB_PACKAGE_JSON_PATH()).version);
