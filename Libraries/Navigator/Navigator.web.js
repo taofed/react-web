@@ -879,7 +879,8 @@ let Navigator = React.createClass({
       return;
     }
     if (n < 0) {
-      __uid += n;
+      // __uid should be non-negative
+      __uid = Math.max(__uid + n, 0);
     }
   },
 
