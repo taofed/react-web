@@ -31,6 +31,7 @@ export ScrollView from 'ReactScrollView';
 export SegmentedControlIOS from 'ReactSegmentedControl';
 export SliderIOS from 'ReactSlider';
 export Switch from 'ReactSwitch';
+export StatusBar from 'ReactStatusBar';
 export SwitchAndroid from 'ReactSwitch';
 export SwitchIOS from 'ReactSwitch';
 export TabBarIOS from 'ReactTabBar';
