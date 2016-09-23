@@ -28,7 +28,7 @@ var webpackConfig = {
     alias: {
       'react-native': 'ReactWeb',
     },
-    extensions: ['', '.js', '.ios.js', '.android.js', '.jsx'],
+    extensions: ['', '.js', '.web.js', '.ios.js', '.android.js', '.jsx'],
   },
   entry: isProd? [
     config.paths.index
