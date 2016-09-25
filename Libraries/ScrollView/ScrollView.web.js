@@ -54,10 +54,14 @@ class ScrollView extends Component {
     return this.refs[INNERVIEW];
   }
 
-  scrollTo(destY?: number, destX?: number) {
+  scrollTo(opts) {
     // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
     // this.getScrollResponder().scrollResponderScrollTo(destX || 0, destY || 0);
-    this.scrollWithoutAnimationTo(destY, destX);
+    if (typeof opts === 'number') {
+      opts = { y: opts, x: arguments[1] }
+    }
+
+    this.scrollWithoutAnimationTo(opts.y, opts.x);
   }
 
   scrollWithoutAnimationTo(destY?: number, destX?: number) {
