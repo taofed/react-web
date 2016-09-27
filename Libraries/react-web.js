@@ -22,6 +22,7 @@ export ActivityIndicator from 'ReactActivityIndicator';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
 export Image from 'ReactImage';
 export ListView from 'ReactListView';
+export Linking from 'ReactLinking';
 export Modal from 'ReactModal';
 export Navigator from 'ReactNavigator';
 export PickerIOS from 'ReactPicker';
