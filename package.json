@@ -1,15 +1,16 @@
 {
   "name": "react-web",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "A framework for building web apps with React",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git@github.com:taobaofed/react-web.git"
   },
-  "main": "./Libraries/react-web.js",
+  "main": "./Libraries/index.js",
   "keywords": [
     "react-native",
+    "react-native-web",
     "react-web",
     "react",
     "react-component"
@@ -23,15 +24,13 @@
     "postpublish": "rm -rf ./lib"
   },
   "devDependencies": {
-    "babel-eslint": "6.0.4",
-    "babel-loader": "6.2.4",
-    "babel-polyfill": "6.6.1",
-    "babel-preset-es2015": "6.6.0",
-    "babel-preset-react": "6.5.0",
-    "babel-preset-stage-1": "6.5.0",
-    "eslint": "1.10.3",
-    "eslint-loader": "1.0.0",
-    "eslint-plugin-react": "3.13.1",
+    "babel-eslint": "7.0.0",
+    "babel-loader": "6.2.5",
+    "babel-polyfill": "6.16.0",
+    "babel-preset-react-native": "1.9.0",
+    "eslint": "3.6.1",
+    "eslint-loader": "1.5.0",
+    "eslint-plugin-react": "6.3.0",
     "file-loader": "0.8.4",
     "glob": "7.0.3",
     "haste-resolver": "0.2.1",
@@ -44,27 +43,27 @@
     "webpack-merge": "0.1.1"
   },
   "peerDependencies": {
-    "react": "^15.1",
-    "react-dom": "^15.1"
+    "react": "^15.3",
+    "react-dom": "^15.3"
   },
   "dependencies": {
+    "babel-core": "6.16.0",
     "animated": "0.1.3",
     "autobind-decorator": "1.3.3",
-    "babel-core": "6.7.2",
     "chalk": "1.1.1",
-    "core-js": "1.2.3",
+    "core-js": "2.2.2",
     "domkit": "0.0.1",
     "easyfile": "0.1.0",
-    "fbjs": "0.6.1",
+    "fbjs": "0.8.3",
     "graceful-fs": "4.1.2",
     "history": "1.12.6",
-    "immutable": "3.7.5",
+    "immutable": "3.7.6",
     "object-assign": "3.0.0",
     "promise": "7.0.4",
     "react-mixin": "3.0.3",
     "react-timer-mixin": "0.13.2",
     "rebound": "0.0.13",
-    "webpack": "1.13.1",
-    "webpack-dev-server": "1.14.1"
+    "webpack": "1.13.2",
+    "webpack-dev-server": "1.16.1"
   }
 }
