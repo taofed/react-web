@@ -7,7 +7,7 @@
 
 'use strict';
 
-var emptyFunction = function(){};
+var emptyFunction = function() {};
 
 var StatusBar = {
   setHidden: emptyFunction,

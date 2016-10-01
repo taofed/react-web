@@ -6,7 +6,7 @@
  *
  * @providesModule ReactLayoutAnimation
  */
-"use strict";
+'use strict';
 
 var LayoutAnimation = {
   Types: {},

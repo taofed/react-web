@@ -7,7 +7,7 @@
 
 'use strict';
 
-var emptyFunction = function(){};
+var emptyFunction = function() {};
 
 var Linking = {
   addEventListener: emptyFunction,
@@ -17,7 +17,7 @@ var Linking = {
       window.open(url);
     }
   },
-  canOpenURL: (url) => { 
+  canOpenURL: (url) => {
     return true;
   },
   getInitialURL: emptyFunction,

@@ -15,7 +15,7 @@ const DEFAULT_BUTTON = {
   onPress: null,
 };
 
-const noop = function () {}
+const noop = function() {};
 
 /**
  * Launches an alert dialog with the specified title and message.
@@ -75,7 +75,7 @@ class AlertIOS {
         cancelCallback();
       }
     } else {
-      throw new Error('max two buttons supported: [negativeActionBtn, positiveActionBtn]')
+      throw new Error('max two buttons supported: [negativeActionBtn, positiveActionBtn]');
     }
   }
 

@@ -180,7 +180,7 @@ class ViewPager extends React.Component {
     if (range > threshold) {
       if (dx > 0) {
         selectedPage -= 1; // TODO step?
-      }else {
+      } else {
         selectedPage += 1;
       }
     }
@@ -191,7 +191,7 @@ class ViewPager extends React.Component {
   setPage(index) {
     if (index < 0) {
       index = 0;
-    }else if (index >= this.state.pageCount) {
+    } else if (index >= this.state.pageCount) {
       index = this.state.pageCount - 1;
     }
 

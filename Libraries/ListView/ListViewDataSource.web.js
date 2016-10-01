@@ -135,16 +135,16 @@ class ListViewDataSource {
    * handle merging of old and new data separately and then pass that into
    * this function as the `dataBlob`.
    */
-   cloneWithRows(
+  cloneWithRows(
        dataBlob: Array<any> | {[key: string]: any},
        rowIdentities: ?Array<string>
    ): ListViewDataSource {
-     var rowIds = rowIdentities ? [rowIdentities] : null;
-     if (!this._sectionHeaderHasChanged) {
-       this._sectionHeaderHasChanged = () => false;
-     }
-     return this.cloneWithRowsAndSections({s1: dataBlob}, ['s1'], rowIds);
-   }
+    var rowIds = rowIdentities ? [rowIdentities] : null;
+    if (!this._sectionHeaderHasChanged) {
+      this._sectionHeaderHasChanged = () => false;
+    }
+    return this.cloneWithRowsAndSections({s1: dataBlob}, ['s1'], rowIds);
+  }
 
   /**
    * This performs the same function as the `cloneWithRows` function but here
