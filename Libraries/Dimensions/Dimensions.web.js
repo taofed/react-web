@@ -9,9 +9,9 @@
 let dimensions = {
   // Not map to real window size, because that map to screen size in native env.
   window: {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight,
-    scale: window.devicePixelRatio || 1,
+    get width() { return document.documentElement.clientWidth },
+    get height() { return document.documentElement.clientHeight },
+    get scale() { return window.devicePixelRatio || 1 },
   },
   modalFullscreenView: {
     width: screen.width,
