@@ -13,7 +13,6 @@ import Dimensions from 'ReactDimensions';
 import buildStyleInterpolator from './polyfills/buildStyleInterpolator';
 import merge from './polyfills/merge';
 
-var SCREEN_WIDTH = Dimensions.get('window').width;
 var NAV_BAR_HEIGHT = 44;
 var STATUS_BAR_HEIGHT = 20;
 var NAV_HEIGHT = NAV_BAR_HEIGHT + STATUS_BAR_HEIGHT;
@@ -49,6 +48,9 @@ var BASE_STYLES = {
   },
 };
 
+var caches = {}
+var opacityRatio = 100;
+
 // There are 3 stages: left, center, right. All previous navigation
 // items are in the left stage. The current navigation item is in the
 // center stage. All upcoming navigation items are in the right stage.
@@ -56,26 +58,39 @@ var BASE_STYLES = {
 // we move forward in the navigation stack, we perform a
 // right-to-center transition on the new navigation item and a
 // center-to-left transition on the current navigation item.
-var Stages = {
-  Left: {
-    Title: merge(BASE_STYLES.Title, { left: - SCREEN_WIDTH / 2, opacity: 0 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { left: - SCREEN_WIDTH / 3, opacity: 1 }),
-    RightButton: merge(BASE_STYLES.RightButton, { left: SCREEN_WIDTH / 3, opacity: 0 }),
-  },
-  Center: {
-    Title: merge(BASE_STYLES.Title, { left: 0, opacity: 1 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 1 }),
-    RightButton: merge(BASE_STYLES.RightButton, { left: 2 * SCREEN_WIDTH / 3 - 0, opacity: 1 }),
-  },
-  Right: {
-    Title: merge(BASE_STYLES.Title, { left: SCREEN_WIDTH / 2, opacity: 0 }),
-    LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 0 }),
-    RightButton: merge(BASE_STYLES.RightButton, { left: SCREEN_WIDTH, opacity: 0 }),
-  },
+function calcStyles (screenWidth) {
+  const Stages = {
+    Left: {
+      Title: merge(BASE_STYLES.Title, { left: - screenWidth / 2, opacity: 0 }),
+      LeftButton: merge(BASE_STYLES.LeftButton, { left: - screenWidth / 3, opacity: 1 }),
+      RightButton: merge(BASE_STYLES.RightButton, { left: screenWidth / 3, opacity: 0 }),
+    },
+    Center: {
+      Title: merge(BASE_STYLES.Title, { left: 0, opacity: 1 }),
+      LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 1 }),
+      RightButton: merge(BASE_STYLES.RightButton, { left: 2 * screenWidth / 3 - 0, opacity: 1 }),
+    },
+    Right: {
+      Title: merge(BASE_STYLES.Title, { left: screenWidth / 2, opacity: 0 }),
+      LeftButton: merge(BASE_STYLES.LeftButton, { left: 0, opacity: 0 }),
+      RightButton: merge(BASE_STYLES.RightButton, { left: screenWidth, opacity: 0 }),
+    },
+  }
+
+  const Interpolators = {
+    // Animating *into* the center stage from the right
+    RightToCenter: buildSceneInterpolators(Stages.Right, Stages.Center),
+    // Animating out of the center stage, to the left
+    CenterToLeft: buildSceneInterpolators(Stages.Center, Stages.Left),
+    // Both stages (animating *past* the center stage)
+    RightToLeft: buildSceneInterpolators(Stages.Right, Stages.Left),
+  }
+
+  return {
+    Stages,
+    Interpolators
+  }
 };
-
-
-var opacityRatio = 100;
 
 function buildSceneInterpolators(startStyles, endStyles) {
   return {
@@ -134,15 +149,14 @@ function buildSceneInterpolators(startStyles, endStyles) {
   };
 }
 
-var Interpolators = {
-  // Animating *into* the center stage from the right
-  RightToCenter: buildSceneInterpolators(Stages.Right, Stages.Center),
-  // Animating out of the center stage, to the left
-  CenterToLeft: buildSceneInterpolators(Stages.Center, Stages.Left),
-  // Both stages (animating *past* the center stage)
-  RightToLeft: buildSceneInterpolators(Stages.Right, Stages.Left),
-};
+function getStyles () {
+  const screenWidth = Dimensions.get('window').width
+  if (!caches[screenWidth]) {
+    caches[screenWidth] = calcStyles(screenWidth)
+  }
 
+  return caches[screenWidth]
+}
 
 module.exports = {
   General: {
@@ -150,6 +164,10 @@ module.exports = {
     StatusBarHeight: STATUS_BAR_HEIGHT,
     TotalNavHeight: NAV_HEIGHT,
   },
-  Interpolators,
-  Stages,
+  get Interpolators() {
+    return getStyles().Interpolators
+  },
+  get Stages() {
+    return getStyles().Stages
+  },
 };
