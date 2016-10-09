@@ -16,6 +16,7 @@ import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
+import StyleSheet from 'ReactStyleSheet';
 
 // var ensurePositiveDelayProps = require('ensurePositiveDelayProps');
 var flattenStyle = require('ReactFlattenStyle');
@@ -44,6 +45,13 @@ type Event = Object;
  * ```
  */
 
+const DEFAULT_PROPS = {
+  activeOpacity: 0.2,
+  style: StyleSheet.create({
+    cursor: 'pointer'
+  })
+}
+
 class TouchableOpacity extends React.Component {
 
   static propTypes = {
@@ -53,14 +61,9 @@ class TouchableOpacity extends React.Component {
      * active.
      */
     activeOpacity: React.PropTypes.number,
-  }
+  };
 
-  static defaultProps ={
-    activeOpacity: 0.2,
-    style: {
-      cursor: 'pointer'
-    }
-  }
+  static defaultProps = DEFAULT_PROPS;
 
   state = {
     ...this.touchableGetInitialState(),
@@ -159,7 +162,7 @@ class TouchableOpacity extends React.Component {
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}
-        style={[this.props.style, {opacity: this.state.anim}]}
+        style={[DEFAULT_PROPS.style, this.props.style, {opacity: this.state.anim}]}
         testID={this.props.testID}
         onLayout={this.props.onLayout}
         onStartShouldSetResponder={this.touchableHandleStartShouldSetResponder}

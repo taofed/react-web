@@ -23,9 +23,9 @@ type Event = Object;
 var DEFAULT_PROPS = {
   activeOpacity: 0.8,
   underlayColor: 'black',
-  style: {
+  style: StyleSheet.create({
     cursor: 'pointer'
-  }
+  })
 };
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
@@ -79,6 +79,7 @@ class TouchableHighlight extends Component {
         }
       },
       underlayStyle: [
+        DEFAULT_PROPS.style,
         INACTIVE_UNDERLAY_PROPS.style,
         props.style,
       ]
