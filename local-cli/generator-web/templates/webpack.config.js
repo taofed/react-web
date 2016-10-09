@@ -70,7 +70,7 @@ var webpackConfig = {
       test: /\.jsx?$/,
       loader: 'babel',
       query: {
-        presets: ['es2015', 'react', 'stage-1']
+        presets: ['react-native', 'stage-1']
       },
       include: [config.paths.src],
       exclude: /(node_modules\/(?!react))/

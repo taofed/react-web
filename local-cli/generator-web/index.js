@@ -22,8 +22,7 @@ function installDev(projectDir, verbose) {
     'react-hot-loader@' + packageJson.devDependencies['react-hot-loader'],
     'haste-resolver-webpack-plugin@' + packageJson.devDependencies['haste-resolver-webpack-plugin'],
     'webpack-html-plugin@' + packageJson.devDependencies['webpack-html-plugin'],
-    'babel-preset-es2015@' + packageJson.devDependencies['babel-preset-es2015'],
-    'babel-preset-react@' + packageJson.devDependencies['babel-preset-react'],
+    'babel-preset-react-native@' + packageJson.devDependencies['babel-preset-react-native'],
     'babel-preset-stage-1@' + packageJson.devDependencies['babel-preset-stage-1']
   ], {stdio: 'inherit'});
 
