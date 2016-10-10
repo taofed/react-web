@@ -30,9 +30,9 @@ var webpackConfig = {
     },
     extensions: ['', '.js', '.web.js', '.ios.js', '.android.js', '.jsx'],
   },
-  entry: isProd? [
+  entry: isProd ? [
     config.paths.index
-  ]: [
+  ] : [
     'webpack-dev-server/client?http://' + IP + ':' + PORT,
     'webpack/hot/only-dev-server',
     config.paths.index,
@@ -48,12 +48,12 @@ var webpackConfig = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(isProd? PROD: DEV),
+        'NODE_ENV': JSON.stringify(isProd ? PROD : DEV),
       }
     }),
-    isProd? new webpack.ProvidePlugin({
-      React: "react"
-    }): new webpack.HotModuleReplacementPlugin(),
+    isProd ? new webpack.ProvidePlugin({
+      React: 'react'
+    }) : new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlPlugin(),
   ],
