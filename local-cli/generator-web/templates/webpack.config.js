@@ -73,7 +73,7 @@ var webpackConfig = {
         presets: ['react-native', 'stage-1']
       },
       include: [config.paths.src],
-      exclude: /(node_modules\/(?!react))/
+      exclude: [path.sep === '/' ? /(node_modules\/(?!react))/ : /(node_modules\\(?!react))/]
     }]
   }
 };
