@@ -6,7 +6,7 @@
 
 var path = require('path');
 var chalk = require('chalk');
-var spawn = require('child_process').spawn;
+var spawn = require('cross-spawn');
 var easyfile = require('easyfile');
 var packageJson = require('../../package.json');
 
