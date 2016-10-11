@@ -11,7 +11,7 @@ var easyfile = require('easyfile');
 var packageJson = require('../../package.json');
 
 function installDev(projectDir, verbose) {
-  var proc = spawn('npm', [
+  var proc = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', [
     'install',
     verbose? '--verbose': '',
     '--save-dev',

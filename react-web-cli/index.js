@@ -228,7 +228,7 @@ function run(root, projectName, rwPackage) {
 }
 
 function runVerbose(root, projectName, rwPackage) {
-  var proc = spawn('npm', ['install', '--verbose', '--save', '--save-exact', getInstallPackage(rwPackage)], {stdio: 'inherit'});
+  var proc = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['install', '--verbose', '--save', '--save-exact', getInstallPackage(rwPackage)], {stdio: 'inherit'});
   proc.on('close', function (code) {
     if (code !== 0) {
       console.error('`npm install --save --save-exact react-web` failed');
