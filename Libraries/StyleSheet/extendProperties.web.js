@@ -104,6 +104,13 @@ function prefixOldFlexbox(property, value, result) {
   }
 }
 
+function defaultFlexExpansion (style, result) {
+  const grow = style.flex
+  const shrink = style.flexShrink != null ? style.flexShrink : 1
+  const basis = style.flexBasis != null ? style.flexBasis : 'auto'
+  result.flex = `${grow} ${shrink} ${basis}`
+}
+
 function extendBoxProperties(property, value, result) {
   var padding = 'padding';
   var margin = 'margin';
@@ -182,6 +189,9 @@ function extendProperties(style) {
       extendBoxProperties(property, value, result);
     } else if (flexboxProperties[property]) {
       prefixOldFlexbox(property, value, result);
+      if (property === 'flex') {
+        defaultFlexExpansion(style, result);
+      }
     } else {
       value = processValueForProp(value, property);
       property = getVendorPropertyName(property);
