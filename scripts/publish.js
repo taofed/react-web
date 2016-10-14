@@ -39,4 +39,4 @@ resolver.getHasteMap().then(function(hasteMap){
     console.log(filePath, '->', buildPath);
 
   })
-}).done();
+});
