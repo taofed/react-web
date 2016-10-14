@@ -1,3 +1,6 @@
+# log
+*.log
+
 # OSX
 #
 .DS_Store
@@ -26,5 +29,4 @@ project.xcworkspace
 #
 lib/
 node_modules/
-npm-debug.log
-.idea/*
+.idea/
