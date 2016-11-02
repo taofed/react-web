@@ -11,17 +11,15 @@ import React from 'react';
 
 var emptyFunction = function() {};
 
-var StatusBar = React.createClass({
-  setHidden: emptyFunction,
-  setBarStyle: emptyFunction,
-  setNetworkActivityIndicatorVisible: emptyFunction,
-  setBackgroundColor: emptyFunction,
-  setTranslucent: emptyFunction,
-  render: function() {
-    return <div />;
-  },
-});
+function StatusBar() {
+  return null;
+}
 
+StatusBar.setBarStyle = emptyFunction;
+StatusBar.setHidden = emptyFunction;
+StatusBar.setNetworkActivityIndicatorVisible = emptyFunction;
+StatusBar.setBackgroundColor = emptyFunction;
+StatusBar.setTranslucent = emptyFunction;
 StatusBar.isReactNativeComponent = true;
 
 export default StatusBar;
