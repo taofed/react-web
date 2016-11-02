@@ -7,14 +7,19 @@
 
 'use strict';
 
+import React from 'react';
+
 var emptyFunction = function() {};
 
-var StatusBar = {
-  setHidden: emptyFunction,
-  setBarStyle: emptyFunction,
-  setNetworkActivityIndicatorVisible: emptyFunction,
-  setBackgroundColor: emptyFunction,
-  setTranslucent: emptyFunction,
-};
+function StatusBar() {
+  return null;
+}
 
-module.exports = StatusBar;
+StatusBar.setBarStyle = emptyFunction;
+StatusBar.setHidden = emptyFunction;
+StatusBar.setNetworkActivityIndicatorVisible = emptyFunction;
+StatusBar.setBackgroundColor = emptyFunction;
+StatusBar.setTranslucent = emptyFunction;
+StatusBar.isReactNativeComponent = true;
+
+export default StatusBar;
