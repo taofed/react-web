@@ -72,8 +72,8 @@ class ScrollView extends Component {
     // );
 
     this._scrollViewDom = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
-    _scrollViewDom.scrollTop = destY || 0;
-    _scrollViewDom.scrollLeft = destX || 0;
+    this._scrollViewDom.scrollTop = destY || 0;
+    this._scrollViewDom.scrollLeft = destX || 0;
   }
 
   handleScroll(e: Event) {
