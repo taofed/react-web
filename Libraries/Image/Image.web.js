@@ -6,7 +6,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
@@ -15,6 +15,23 @@ import mixin from 'react-mixin';
 
 class Image extends Component {
   static resizeMode = ImageResizeMode
+
+  static propTypes = {
+    source: PropTypes.oneOfType([
+      PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      // Opaque type returned by require('./image.jpg')
+      PropTypes.number,
+      // Multiple sources
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          uri: PropTypes.string,
+          width: PropTypes.number,
+          height: PropTypes.number,
+        }))
+    ]),
+  }
 
   static contextTypes = {
     isInAParentText: React.PropTypes.bool
