@@ -9,7 +9,7 @@
 'use strict';
 
 import 'ReactPanResponder';
-import React from 'react';
+import React, { Component } from 'react';
 import Touchable from 'ReactTouchable';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
@@ -32,7 +32,7 @@ var PRESS_RECT_OFFSET = {
  * respond to press should have a visual feedback when touched. This is
  * one of the primary reason a "web" app doesn't feel "native".
  */
-class TouchableWithoutFeedback extends React.Component {
+class TouchableWithoutFeedback extends Component {
 
 
   static propTypes = {
@@ -75,7 +75,15 @@ class TouchableWithoutFeedback extends React.Component {
    * defined on your component.
    */
   touchableHandlePress(e: Event) {
-    this.props.onPress && this.props.onPress(e);
+    var touchBank = e.touchHistory.touchBank[e.touchHistory.indexOfSingleActiveTouch];
+    if (touchBank) {
+      var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2)
+          + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
+      var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
+      if (velocity < 100) this.props.onPress && this.props.onPress(e);
+    } else {
+      this.props.onPress && this.props.onPress(e);
+    }
   }
 
   touchableHandleActivePressIn(e: Event) {
@@ -121,7 +129,7 @@ class TouchableWithoutFeedback extends React.Component {
 
 };
 
-mixin(TouchableWithoutFeedback.prototype, Touchable.Mixin);
+mixin.onClass(TouchableWithoutFeedback, Touchable.Mixin);
 autobind(TouchableWithoutFeedback);
 
 module.exports = TouchableWithoutFeedback;

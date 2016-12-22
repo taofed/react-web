@@ -55,6 +55,7 @@ if (NODE_ENV === 'development') {
     port: PORT,
     devtool: 'source-map',
     entry: [
+      'babel-polyfill',
       'webpack-dev-server/client?http://' + IP + ':' + PORT,
       // 'webpack/hot/only-dev-server',
       config.paths.demoIndex,
@@ -88,7 +89,7 @@ if (NODE_ENV === 'development') {
         test: /\.jsx?$/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ['es2015', 'react', 'stage-1']
+          presets: ['react-native', 'stage-1']
         },
         include: [config.paths.demo, config.paths.src],
       }]
@@ -157,7 +158,7 @@ if (NODE_ENV === 'production') {
         test: /\.jsx?$/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ['es2015', 'react', 'stage-1']
+          presets: ['react-native', 'stage-1']
         },
         include: [config.paths.demo, config.paths.src],
       }]

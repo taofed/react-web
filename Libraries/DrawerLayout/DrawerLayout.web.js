@@ -6,7 +6,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import Animated from 'ReactAnimated';
@@ -24,7 +24,7 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
-class DrawerLayout extends React.Component {
+class DrawerLayout extends Component {
 
   static positions = {
     Left: 'left',
@@ -268,7 +268,7 @@ let styles = StyleSheet.create({
 });
 
 
-mixin(DrawerLayout.prototype, NativeMethodsMixin);
+mixin.onClass(DrawerLayout, NativeMethodsMixin);
 autobind(DrawerLayout);
 
 DrawerLayout.isReactNativeComponent = true;

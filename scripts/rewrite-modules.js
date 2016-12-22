@@ -1,5 +1,5 @@
 /**
- * Copyright 2013-2015, Facebook, Inc.
+ * Copyright (c) 2013-present, Facebook, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -26,6 +26,8 @@ function mapModule(state, module) {
     var mod = getModule(module, platform);
     if (mod && mod.path) {
       module = path.relative(path.dirname(filePath), mod.path);
+      if (!module.startsWith('.'))
+        module = './' + module;
       module = module.replace('.js', '')
     }
 
@@ -88,6 +90,19 @@ module.exports = function(babel) {
   }
 
   /**
+   * Transforms `import type Bar from 'foo'`
+   */
+  function transformTypeImport(path, state) {
+    var source = path.get('source');
+    if (source.type === 'StringLiteral') {
+      var module = mapModule(state, source.node.value);
+      if (module) {
+        source.replaceWith(t.stringLiteral(module));
+      }
+    }
+  }
+
+  /**
    * Transforms either individual or chained calls to `jest.dontMock('Foo')`,
    * `jest.mock('Foo')`, and `jest.genMockFromModule('Foo')`.
    */
@@ -105,7 +120,7 @@ module.exports = function(babel) {
     ) {
       var module = mapModule(state, moduleArg.node.value);
       if (module) {
-        moduleArg.replaceWith(t.stringLiteral(module))
+        moduleArg.replaceWith(t.stringLiteral(module));
       }
     }
   }
@@ -138,6 +153,14 @@ module.exports = function(babel) {
           path.node.seen = true;
         },
       },
+      ImportDeclaration: {
+        exit(path, state) {
+          if (path.node.importKind !== 'type') {
+            return;
+          }
+          transformTypeImport(path, state);
+        }
+      }
     },
   };
 };

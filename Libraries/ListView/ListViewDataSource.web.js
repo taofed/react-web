@@ -121,7 +121,7 @@ class ListViewDataSource {
 
   /**
    * Clones this `ListViewDataSource` with the specified `dataBlob` and
-   * `rowIdentities`. The `dataBlob` is just an aribitrary blob of data. At
+   * `rowIdentities`. The `dataBlob` is just an arbitrary blob of data. At
    * construction an extractor to get the interesting information was defined
    * (or the default was used).
    *
@@ -135,16 +135,16 @@ class ListViewDataSource {
    * handle merging of old and new data separately and then pass that into
    * this function as the `dataBlob`.
    */
-   cloneWithRows(
+  cloneWithRows(
        dataBlob: Array<any> | {[key: string]: any},
        rowIdentities: ?Array<string>
    ): ListViewDataSource {
-     var rowIds = rowIdentities ? [rowIdentities] : null;
-     if (!this._sectionHeaderHasChanged) {
-       this._sectionHeaderHasChanged = () => false;
-     }
-     return this.cloneWithRowsAndSections({s1: dataBlob}, ['s1'], rowIds);
-   }
+    var rowIds = rowIdentities ? [rowIdentities] : null;
+    if (!this._sectionHeaderHasChanged) {
+      this._sectionHeaderHasChanged = () => false;
+    }
+    return this.cloneWithRowsAndSections({s1: dataBlob}, ['s1'], rowIds);
+  }
 
   /**
    * This performs the same function as the `cloneWithRows` function but here
@@ -166,6 +166,11 @@ class ListViewDataSource {
       typeof this._sectionHeaderHasChanged === 'function',
       'Must provide a sectionHeaderHasChanged function with section data.'
     );
+    invariant(
+      !sectionIdentities || !rowIdentities || sectionIdentities.length === rowIdentities.length,
+      'row and section ids lengths must be the same'
+    );
+
     var newSource = new ListViewDataSource({
       getRowData: this._getRowData,
       getSectionHeaderData: this._getSectionHeaderData,
@@ -199,6 +204,10 @@ class ListViewDataSource {
 
   getRowCount(): number {
     return this._cachedRowCount;
+  }
+
+  getRowAndSectionCount(): number {
+    return (this._cachedRowCount + this.sectionIdentities.length);
   }
 
   /**
@@ -383,5 +392,4 @@ function keyedDictionaryFromArray(arr) {
   return result;
 }
 
-
-module.exports = ListViewDataSource;
+export default ListViewDataSource;

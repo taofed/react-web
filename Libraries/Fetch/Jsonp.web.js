@@ -76,4 +76,4 @@ const fetchJsonp = function(url, options = {}) {
   });
 };
 
-export default fetchJsonp;
+module.exports = fetchJsonp;

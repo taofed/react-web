@@ -6,18 +6,64 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 
-class Image extends React.Component {
+class Image extends Component {
   static resizeMode = ImageResizeMode
+
+  static propTypes = {
+    source: PropTypes.oneOfType([
+      PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      // Opaque type returned by require('./image.jpg')
+      PropTypes.number,
+      // Multiple sources
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          uri: PropTypes.string,
+          width: PropTypes.number,
+          height: PropTypes.number,
+        }))
+    ]),
+  }
 
   static contextTypes = {
     isInAParentText: React.PropTypes.bool
+  }
+
+  static getSize = function(
+    url: string,
+    success: (width: number, height: number) => void,
+    failure: (error: any) => void,
+  ) {
+    let wrap = document.createElement('div'),
+      img = new window.Image(),
+      loadedHandler = function loadedHandler() {
+        img.removeEventListener('load', loadedHandler);
+        success && success(img.offsetWidth, img.offsetHeight);
+      },
+      errorHandler = function errorHandler() {
+        img.removeEventListener('error', errorHandler);
+        failure && failure();
+      };
+
+    wrap.style.cssText = 'height:0px;width:0px;overflow:hidden;visibility:hidden;';
+
+    wrap.appendChild(img);
+    document.body.appendChild(wrap);
+    img.src = url;
+    if (!img.complete) {
+      img.addEventListener('error', errorHandler);
+      img.addEventListener('load', loadedHandler);
+    } else {
+      loadedHandler();
+    }
   }
 
   render() {
@@ -50,8 +96,8 @@ class Image extends React.Component {
   }
 }
 
-mixin(Image.prototype, LayoutMixin);
-mixin(Image.prototype, NativeMethodsMixin);
+mixin.onClass(Image, LayoutMixin);
+mixin.onClass(Image, NativeMethodsMixin);
 
 Image.isReactNativeComponent = true;
 

@@ -19,7 +19,7 @@ resolver.getHasteMap().then(function(hasteMap){
   files.forEach(function(filePath){
 
     var options = {
-      presets: ['es2015', 'react', 'stage-1'],
+      presets: ['react-native', 'stage-1'],
       plugins: [
         [require('./rewrite-modules'), {
           getModule: hasteMap.getModule.bind(hasteMap),

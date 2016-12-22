@@ -19,6 +19,7 @@ const ROOT_CLASS_NAME = 'react-root';
 const VIEW_CLASS_NAME = 'react-view';
 
 var StyleSheet = {
+  hairlineWidth: 1,
   create: function(styles) {
     return styles;
   },
@@ -39,6 +40,7 @@ var StyleSheet = {
   setReferenceWidth: reference.setWidth,
   rootClassName: ROOT_CLASS_NAME,
   viewClassName: VIEW_CLASS_NAME,
+  flatten: flattenStyle
 };
 
 module.exports = StyleSheet;

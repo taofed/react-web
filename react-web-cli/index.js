@@ -40,10 +40,20 @@
 var fs = require('fs');
 var path = require('path');
 var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
+var spawn = require('cross-spawn');
 var chalk = require('chalk');
 var prompt = require('prompt');
 var semver = require('semver');
+/**
+ * Used arguments:
+ *   -v --version - to print current version of react-web-cli and react-web dependency
+ *   if you are in a RW app folder
+ * init - to create a new project and npm install it
+ *   --verbose - to print logs while init
+ *   --version <alternative react-web package> - override default (https://registry.npmjs.org/react-web@latest),
+ *      package to install
+ */
+var argv = require('minimist')(process.argv.slice(2));
 
 var CLI_MODULE_PATH = function() {
   return path.resolve(
@@ -71,34 +81,34 @@ if (fs.existsSync(cliPath)) {
   cli = require(cliPath);
 }
 
+// minimist api
+var commands = argv._;
 if (cli) {
   cli.run();
 } else {
-  var args = process.argv.slice(2);
-  if (args.length === 0) {
+  if (commands.length === 0) {
     console.error(
       'You did not pass any commands, did you mean to run `react-web init`?'
     );
     process.exit(1);
   }
 
-  switch (args[0]) {
+  switch (commands[0]) {
   case 'init':
-    if (args[1]) {
-      var verbose = process.argv.indexOf('--verbose') >= 0;
-      init(args[1], verbose);
-    } else {
+    if (!commands[1]) {
       console.error(
         'Usage: react-web init <ProjectName> [--verbose]'
       );
       process.exit(1);
+    } else {
+      init(commands[1], argv.verbose, argv.version);
     }
     break;
   default:
     console.error(
       'Command `%s` unrecognized. ' +
-      'Did you mean to run this inside a react-web project?',
-      args[0]
+      'Make sure that you have run `npm install` and that you are inside a react-web project.',
+      commands[0]
     );
     process.exit(1);
     break;
@@ -125,17 +135,17 @@ function validatePackageName(name) {
   }
 }
 
-function init(name, verbose) {
+function init(name, verbose, rwPackage) {
   validatePackageName(name);
 
   if (fs.existsSync(name)) {
-    createAfterConfirmation(name, verbose);
+    createAfterConfirmation(name, verbose, rwPackage);
   } else {
-    createProject(name, verbose);
+    createProject(name, verbose, rwPackage);
   }
 }
 
-function createAfterConfirmation(name, verbose) {
+function createAfterConfirmation(name, verbose, rwPackage) {
   prompt.start();
 
   var property = {
@@ -148,7 +158,7 @@ function createAfterConfirmation(name, verbose) {
 
   prompt.get(property, function (err, result) {
     if (result.yesno[0] === 'y') {
-      createProject(name, verbose);
+      createProject(name, verbose, rwPackage);
     } else {
       console.log('Project initialization canceled');
       process.exit();
@@ -156,7 +166,7 @@ function createAfterConfirmation(name, verbose) {
   });
 }
 
-function createProject(name, verbose) {
+function createProject(name, verbose, rwPackage) {
   var root = path.resolve(name);
   var projectName = path.basename(root);
 
@@ -185,18 +195,30 @@ function createProject(name, verbose) {
   console.log('Installing react-web package from npm...');
 
   if (verbose) {
-    runVerbose(root, projectName);
+    runVerbose(root, projectName, rwPackage);
   } else {
-    run(root, projectName);
+    run(root, projectName, rwPackage);
   }
 }
 
-function run(root, projectName) {
-  exec('npm install --save react-web', function(e, stdout, stderr) {
+function getInstallPackage(rwPackage) {
+  var packageToInstall = 'react-web';
+  var valideSemver = semver.valid(rwPackage);
+  if (valideSemver) {
+    packageToInstall += '@' + valideSemver;
+  } else if (rwPackage) {
+    // for tar.gz or alternative paths
+    packageToInstall = rwPackage;
+  }
+  return packageToInstall;
+}
+
+function run(root, projectName, rwPackage) {
+  exec('npm install --save --save-exact ' + getInstallPackage(rwPackage), function(e, stdout, stderr) {
     if (e) {
       console.log(stdout);
       console.error(stderr);
-      console.error('`npm install --save react-web` failed');
+      console.error('`npm install --save --save-exact react-web` failed');
       process.exit(1);
     }
 
@@ -205,11 +227,11 @@ function run(root, projectName) {
   });
 }
 
-function runVerbose(root, projectName) {
-  var proc = spawn('npm', ['install', '--verbose', '--save', 'react-web'], {stdio: 'inherit'});
+function runVerbose(root, projectName, rwPackage) {
+  var proc = spawn('npm', ['install', '--verbose', '--save', '--save-exact', getInstallPackage(rwPackage)], {stdio: 'inherit'});
   proc.on('close', function (code) {
     if (code !== 0) {
-      console.error('`npm install --save react-web` failed');
+      console.error('`npm install --save --save-exact react-web` failed');
       return;
     }
 
@@ -219,7 +241,7 @@ function runVerbose(root, projectName) {
 }
 
 function checkForVersionArgument() {
-  if (process.argv.indexOf('-v') >= 0 || process.argv.indexOf('--version') >= 0) {
+  if (argv._.length === 0 && (argv.v || argv.version)) {
     console.log('react-web-cli: ' + require('./package.json').version);
     try {
       console.log('react-web: ' + require(REACT_WEB_PACKAGE_JSON_PATH()).version);

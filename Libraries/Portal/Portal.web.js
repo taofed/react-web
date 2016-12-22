@@ -10,7 +10,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {Component} from 'react';
 import Platform from 'ReactPlatform';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
@@ -33,55 +33,53 @@ var lastUsedTag = 0;
  * Never use `<Portal>` in your code. There is only one Portal instance rendered
  * by the top-level `renderApplication`.
  */
-class Portal extends React.Component {
-  static statics = {
-    /**
-     * Use this to create a new unique tag for your component that renders
-     * modals. A good place to allocate a tag is in `componentWillMount`
-     * of your component.
-     * See `showModal` and `closeModal`.
-     */
-    allocateTag(): string {
-      return '__modal_' + (++lastUsedTag);
-    },
+class Portal extends Component {
+  /**
+   * Use this to create a new unique tag for your component that renders
+   * modals. A good place to allocate a tag is in `componentWillMount`
+   * of your component.
+   * See `showModal` and `closeModal`.
+   */
+  static allocateTag(): string {
+    return '__modal_' + (++lastUsedTag);
+  }
 
-    /**
-     * Render a new modal.
-     * @param tag A unique tag identifying the React component to render.
-     * This tag can be later used in `closeModal`.
-     * @param component A React component to be rendered.
-     */
-    showModal(tag: string, component: any) {
-      if (!_portalRef) {
-        console.error('Calling showModal but no Portal has been rendered.');
-        return;
-      }
-      _portalRef._showModal(tag, component);
-    },
+  /**
+   * Render a new modal.
+   * @param tag A unique tag identifying the React component to render.
+   * This tag can be later used in `closeModal`.
+   * @param component A React component to be rendered.
+   */
+  static showModal(tag: string, component: any) {
+    if (!_portalRef) {
+      console.error('Calling showModal but no Portal has been rendered.');
+      return;
+    }
+    _portalRef._showModal(tag, component);
+  }
 
-    /**
-     * Remove a modal from the collection of modals to be rendered.
-     * @param tag A unique tag identifying the React component to remove.
-     * Must exactly match the tag previously passed to `showModal`.
-     */
-    closeModal(tag: string) {
-      if (!_portalRef) {
-        console.error('Calling closeModal but no Portal has been rendered.');
-        return;
-      }
-      _portalRef._closeModal(tag);
-    },
+  /**
+   * Remove a modal from the collection of modals to be rendered.
+   * @param tag A unique tag identifying the React component to remove.
+   * Must exactly match the tag previously passed to `showModal`.
+   */
+  static closeModal(tag: string) {
+    if (!_portalRef) {
+      console.error('Calling closeModal but no Portal has been rendered.');
+      return;
+    }
+    _portalRef._closeModal(tag);
+  }
 
-    /**
-     * Get an array of all the open modals, as identified by their tag string.
-     */
-    getOpenModals(): Array<string> {
-      if (!_portalRef) {
-        console.error('Calling getOpenModals but no Portal has been rendered.');
-        return [];
-      }
-      return _portalRef._getOpenModals();
-    },
+  /**
+   * Get an array of all the open modals, as identified by their tag string.
+   */
+  static getOpenModals(): Array<string> {
+    if (!_portalRef) {
+      console.error('Calling getOpenModals but no Portal has been rendered.');
+      return [];
+    }
+    return _portalRef._getOpenModals();
   }
 
   state = {modals: {}}

@@ -6,14 +6,14 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-class ProgressView extends React.Component {
+class ProgressView extends Component {
 
   render() {
 
@@ -87,7 +87,7 @@ let styles = StyleSheet.create({
   }
 });
 
-mixin(ProgressView.prototype, NativeMethodsMixin);
+mixin.onClass(ProgressView, NativeMethodsMixin);
 autobind(ProgressView);
 ProgressView.isReactNativeComponent = true;
 

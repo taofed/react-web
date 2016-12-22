@@ -9,7 +9,7 @@
 'use strict';
 
 import Animated from 'ReactAnimated';
-import React from 'react';
+import React, { Component } from 'react';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
@@ -33,7 +33,7 @@ var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
  * `TouchableMixin` expects us to implement some abstract methods to handle
  * interesting interactions such as `handleTouchablePress`.
  */
-class TouchableBounce extends React.Component {
+class TouchableBounce extends Component {
 
   static propTypes = {
     onPress: React.PropTypes.func,
@@ -120,7 +120,7 @@ class TouchableBounce extends React.Component {
 
 };
 
-mixin(TouchableBounce.prototype, TouchableMixin);
+mixin.onClass(TouchableBounce, TouchableMixin);
 autobind(TouchableBounce);
 
 module.exports = TouchableBounce;

@@ -6,12 +6,12 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import autobind from 'autobind-decorator';
 
 const PICKER = 'picker';
 
-class Picker extends React.Component {
+class Picker extends Component {
   static propTypes = {
     onValueChange: PropTypes.func,
     selectedValue: PropTypes.any, // string or integer basically

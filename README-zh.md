@@ -16,7 +16,7 @@
 ## 安装
 
 ```
-npm install react-web --save
+npm install --save git+https://github.com/taobaofed/react-web.git
 ```
 
 ## 使用
@@ -147,6 +147,10 @@ var Platform = require('ReactPlatform');
   if(Platform.OS !== 'web'){
     LayoutAnimation.configureNext(...)
   }
+  ```
+5. ScrollView 需要指定高度
+  ```js
+  <ScrollView style={{height: 235}} horizontal={true}></ScrollView>
   ```
 
 ## 任务脚本

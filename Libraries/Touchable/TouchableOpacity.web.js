@@ -16,6 +16,7 @@ import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
+import StyleSheet from 'ReactStyleSheet';
 
 // var ensurePositiveDelayProps = require('ensurePositiveDelayProps');
 var flattenStyle = require('ReactFlattenStyle');
@@ -44,6 +45,13 @@ type Event = Object;
  * ```
  */
 
+const DEFAULT_PROPS = {
+  activeOpacity: 0.2,
+  style: StyleSheet.create({
+    cursor: 'pointer'
+  })
+}
+
 class TouchableOpacity extends React.Component {
 
   static propTypes = {
@@ -53,11 +61,9 @@ class TouchableOpacity extends React.Component {
      * active.
      */
     activeOpacity: React.PropTypes.number,
-  }
+  };
 
-  static defaultProps ={
-    activeOpacity: 0.2,
-  }
+  static defaultProps = DEFAULT_PROPS;
 
   state = {
     ...this.touchableGetInitialState(),
@@ -104,7 +110,16 @@ class TouchableOpacity extends React.Component {
       this._opacityInactive,
       this.props.delayPressOut || 100
     );
-    this.props.onPress && this.props.onPress(e);
+
+    var touchBank = e.touchHistory.touchBank[e.touchHistory.indexOfSingleActiveTouch];
+    if (touchBank) {
+      var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2)
+          + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
+      var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
+      if (velocity < 100) this.props.onPress && this.props.onPress(e);
+    } else {
+      this.props.onPress && this.props.onPress(e);
+    }
   }
 
   touchableHandleLongPress(e: Event) {
@@ -147,7 +162,7 @@ class TouchableOpacity extends React.Component {
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}
-        style={[this.props.style, {opacity: this.state.anim}]}
+        style={[DEFAULT_PROPS.style, this.props.style, {opacity: this.state.anim}]}
         testID={this.props.testID}
         onLayout={this.props.onLayout}
         onStartShouldSetResponder={this.touchableHandleStartShouldSetResponder}
@@ -171,9 +186,9 @@ class TouchableOpacity extends React.Component {
  */
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 
-mixin(TouchableOpacity.prototype, TimerMixin);
-mixin(TouchableOpacity.prototype, TouchableMixin);
-mixin(TouchableOpacity.prototype, NativeMethodsMixin);
+mixin.onClass(TouchableOpacity, TimerMixin);
+mixin.onClass(TouchableOpacity, TouchableMixin);
+mixin.onClass(TouchableOpacity, NativeMethodsMixin);
 autobind(TouchableOpacity);
 
 module.exports = TouchableOpacity;

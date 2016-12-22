@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import ListViewDataSource from 'ReactListViewDataSource';
 import ScrollView from 'ReactScrollView';
@@ -73,7 +73,7 @@ const SCROLLVIEW_REF = 'listviewscroll';
  *    work into smaller chunks to reduce the chance of dropping frames while
  *    rendering rows.
  */
-class ListView extends React.Component {
+class ListView extends Component {
 
   static DataSource = ListViewDataSource
 
@@ -585,7 +585,7 @@ class ListView extends React.Component {
       isVertical ? 'scrollHeight' : 'scrollWidth'
     ];
     this.scrollProperties.offset = target[
-      isVertical ? 'scrollTop' : 'scrollTop'
+      isVertical ? 'scrollTop' : 'scrollLeft'
     ];
     // this._updateVisibleRows(e.nativeEvent.updatedChildFrames);
     if (!this._maybeCallOnEndReached(e)) {
@@ -602,8 +602,8 @@ class ListView extends React.Component {
   }
 }
 
-mixin(ListView.prototype, ScrollResponder.Mixin);
-mixin(ListView.prototype, TimerMixin);
+mixin.onClass(ListView, ScrollResponder.Mixin);
+mixin.onClass(ListView, TimerMixin);
 autobind(ListView);
 
 ListView.isReactNativeComponent = true;

@@ -23,6 +23,8 @@ var {
   Text,
   View,
   Platform,
+  Animated,
+  TouchableBounce,
 } = React;
 
 function getPageXY(event){
@@ -40,9 +42,7 @@ function getPageXY(event){
   }
 }
 
-var Animated = require('ReactAnimated');
 var GameBoard = require('GameBoard');
-var TouchableBounce = require('ReactTouchableBounce');
 
 var BOARD_PADDING = 3;
 var CELL_MARGIN = 4;

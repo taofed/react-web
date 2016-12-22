@@ -120,7 +120,7 @@ class Slider extends Component {
       newValue = ratio * (maximumValue - minimumValue) + minimumValue;
     if (step > 0) {
       return Math.round(newValue / step) * step;
-    }else {
+    } else {
       return newValue;
     }
   }

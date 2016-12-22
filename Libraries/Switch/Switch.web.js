@@ -6,13 +6,13 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import StyleSheet from 'ReactStyleSheet';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-class Switch extends React.Component {
+class Switch extends Component {
 
   static propTypes = {
     value: PropTypes.bool,
@@ -131,7 +131,7 @@ class Switch extends React.Component {
 
 };
 
-mixin(Switch.prototype, NativeMethodsMixin);
+mixin.onClass(Switch, NativeMethodsMixin);
 autobind(Switch);
 
 Switch.isReactNativeComponent = true;

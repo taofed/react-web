@@ -15,6 +15,8 @@ const DEFAULT_BUTTON = {
   onPress: null,
 };
 
+const noop = function() {};
+
 /**
  * Launches an alert dialog with the specified title and message.
  *
@@ -61,7 +63,20 @@ class AlertIOS {
       buttonsSpec.push(btnDef);
     });
 
-    alert(title);
+    const confirmCallback = callbacks.pop() || noop;
+    const cancelCallback = callbacks.pop() || noop;
+    if (buttons.length === 1) {
+      alert(title);
+      confirmCallback();
+    } else if (buttons.length === 2) {
+      if (confirm(title)) {
+        confirmCallback();
+      } else {
+        cancelCallback();
+      }
+    } else {
+      throw new Error('max two buttons supported: [negativeActionBtn, positiveActionBtn]');
+    }
   }
 
   static prompt(

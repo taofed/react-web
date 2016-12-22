@@ -10,9 +10,13 @@ function extendCreateElement(React, processor) {
   React.createElement = function(type, props) {
     var args = arguments;
 
-    if (props && props.style &&
+    if (
+      props &&
+      props.style &&
       (Array.isArray(props.style) || typeof props.style === 'object') &&
-      type.isReactNativeComponent) {
+      type &&
+      type.isReactNativeComponent
+    ) {
       var style = processor(props.style);
       // should copy it, props is read only
       var target = {};

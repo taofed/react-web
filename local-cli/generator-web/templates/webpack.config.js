@@ -20,19 +20,19 @@ var config = {
   },
 };
 
-module.exports = {
+var webpackConfig = {
   ip: IP,
   port: PORT,
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   resolve: {
     alias: {
-      'react-native': 'react-web',
+      'react-native': 'ReactWeb',
     },
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.web.js', '.ios.js', '.android.js', '.native.js', '.jsx'],
   },
-  entry: isProd? [
+  entry: isProd ? [
     config.paths.index
-  ]: [
+  ] : [
     'webpack-dev-server/client?http://' + IP + ':' + PORT,
     'webpack/hot/only-dev-server',
     config.paths.index,
@@ -48,12 +48,12 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(isProd? PROD: DEV),
+        'NODE_ENV': JSON.stringify(isProd ? PROD : DEV),
       }
     }),
-    isProd? new webpack.ProvidePlugin({
-      React: "react"
-    }): new webpack.HotModuleReplacementPlugin(),
+    isProd ? new webpack.ProvidePlugin({
+      React: 'react'
+    }) : new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new HtmlPlugin(),
   ],
@@ -63,17 +63,20 @@ module.exports = {
       loader: 'json',
     }, {
       test: /\.jsx?$/,
-      loaders: 'react-hot',
+      loader: 'react-hot',
       include: [config.paths.src],
       exclude: [/node_modules/]
     }, {
       test: /\.jsx?$/,
-      loaders: 'babel',
+      loader: 'babel',
       query: {
-        presets: ['es2015', 'react']
+        presets: ['react-native', 'stage-1']
       },
       include: [config.paths.src],
-      exclude: [/node_modules/]
+      exclude: [path.sep === '/' ? /(node_modules\/(?!react-))/ : /(node_modules\\(?!react-))/]
     }]
   }
 };
+webpackConfig.resolve.alias[path.basename(ROOT_PATH, '.')] = path.join(ROOT_PATH, '.');
+
+module.exports = webpackConfig;

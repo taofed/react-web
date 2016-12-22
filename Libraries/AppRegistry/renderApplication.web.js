@@ -6,13 +6,13 @@
  */
 'use strict';
 
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 import Portal from 'ReactPortal';
 
-class AppContainer extends React.Component {
+class AppContainer extends Component {
 
   render() {
     let RootComponent = this.props.rootComponent;
@@ -31,10 +31,10 @@ class AppContainer extends React.Component {
   }
 }
 
-function renderApplication<D, P, S>(
-  RootComponent: ReactClass<D, P, S>,
-  initialProps: P,
-  rootTag: any
+function renderApplication(
+  RootComponent,
+  initialProps,
+  rootTag
 ) {
 
   ReactDOM.render(

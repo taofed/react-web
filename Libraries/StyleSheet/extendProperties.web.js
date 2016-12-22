@@ -16,13 +16,6 @@ var shorthandProperties = {
 };
 
 // some number that react not auto add px
-var numberTransformProperties = {
-  translateX: true,
-  translateY: true,
-  translateZ: true
-};
-
-// some number that react not auto add px
 var numberProperties = {
   lineHeight: true
 };
@@ -80,6 +73,10 @@ var isUCBrowser = /UCBrowser/i.test(navigator.userAgent);
 var notU3 = /UCBS/i.test(navigator.userAgent);
 if (isUCBrowser && !notU3) flexboxSpec = '2009';
 
+const isIE = /Trident/i.test(navigator.userAgent);
+const FLEX_AUTO = '1 1 auto';
+const FLEX_INITIAL = '0 1 auto';
+
 // TODO: cache the result
 function prefixOldFlexbox(property, value, result) {
 
@@ -113,6 +110,25 @@ function prefixOldFlexbox(property, value, result) {
   }
 }
 
+function defaultFlexExpansion (style, result) {
+  const grow = style.flex || 0;
+  const shrink = style.flexShrink || 1;
+  const basis = style.flexBasis || 'auto';
+  let flex;
+
+  if (grow === 'auto') {
+    flex = FLEX_AUTO;
+  } else if (grow === 'initial') {
+    flex = FLEX_INITIAL;
+  } else if (isNaN(grow)) {
+    flex = grow;
+  } else {
+    flex = `${grow} ${shrink} ${basis}`;
+  }
+
+  result.flex = flex;
+}
+
 function extendBoxProperties(property, value, result) {
   var padding = 'padding';
   var margin = 'margin';
@@ -130,13 +146,6 @@ function extendBoxProperties(property, value, result) {
 
 function isValidValue(value) {
   return value !== '' && value !== null && value !== undefined;
-}
-
-function processTransformValue(value, key) {
-  if (numberTransformProperties[key] && typeof value == 'number') {
-    value += 'px';
-  }
-  return value;
 }
 
 function processValueForProp(value, prop) {
@@ -157,40 +166,6 @@ function processValueForProp(value, prop) {
   //   {scaleX: 2},
   //   {scaleY: 2}
   // ] => scaleX(2) scaleY(2)
-  if (prop == 'transform' && Array.isArray(value)) {
-    var transformations = [];
-    value.forEach(function(transformation) {
-
-      var key = Object.keys(transformation)[0];
-      var val = transformation[key];
-
-      // for animated value
-      if (val.__getValue) {
-        val = val.__getValue();
-      }
-
-      // translate matrix have an array as the value
-      if (Array.isArray(val)) {
-
-        var len = val.length;
-
-        if ((key === 'matrix' && len === 16) || (key === 'translate' && len === 3)) {
-          key += '3d';
-        }
-
-        val = val.map(function(v) {
-          return processTransformValue(v, key);
-        }).join(',');
-
-      } else {
-        val = processTransformValue(val, key);
-      }
-
-      transformations.push(key + '(' + val + ')');
-    });
-
-    value = transformations.join(' ');
-  }
 
   if (shorthandProperties[prop] && typeof value == 'string') {
     value = value.replace(/\d*\.?\d+(rem|em|in|cm|mm|pt|pc|px|vh|vw|vmin|vmax|%)*/g, function(val, unit) {
@@ -232,6 +207,10 @@ function extendProperties(style) {
       extendBoxProperties(property, value, result);
     } else if (flexboxProperties[property]) {
       prefixOldFlexbox(property, value, result);
+      // https://roland.codes/blog/ie-flex-collapse-bug/
+      if (property === 'flex' && isIE) {
+        defaultFlexExpansion(style, result);
+      }
     } else {
       value = processValueForProp(value, property);
       property = getVendorPropertyName(property);

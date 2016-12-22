@@ -8,7 +8,7 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
@@ -23,19 +23,22 @@ type Event = Object;
 var DEFAULT_PROPS = {
   activeOpacity: 0.8,
   underlayColor: 'black',
+  style: StyleSheet.create({
+    cursor: 'pointer'
+  })
 };
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 var CHILD_REF = 'childRef';
 var UNDERLAY_REF = 'underlayRef';
-// var INACTIVE_CHILD_PROPS = {
-//   style: StyleSheet.create({x: {opacity: 1.0}}).x,
-// };
+var INACTIVE_CHILD_PROPS = {
+  style: StyleSheet.create({x: {opacity: 1.0}}).x,
+};
 var INACTIVE_UNDERLAY_PROPS = {
   style: StyleSheet.create({x: {backgroundColor: 'transparent'}}).x,
 };
 
-class TouchableHighlight extends React.Component {
+class TouchableHighlight extends Component {
   static propTypes = {
     ...TouchableWithoutFeedback.propTypes,
     /**
@@ -76,6 +79,7 @@ class TouchableHighlight extends React.Component {
         }
       },
       underlayStyle: [
+        DEFAULT_PROPS.style,
         INACTIVE_UNDERLAY_PROPS.style,
         props.style,
       ]
@@ -123,7 +127,16 @@ class TouchableHighlight extends React.Component {
     this._showUnderlay();
     this._hideTimeout = this.setTimeout(this._hideUnderlay,
       this.props.delayPressOut || 100);
-    this.props.onPress && this.props.onPress(e);
+
+    var touchBank = e.touchHistory.touchBank[e.touchHistory.indexOfSingleActiveTouch];
+    if (touchBank) {
+      var offset = Math.sqrt(Math.pow(touchBank.startPageX - touchBank.currentPageX, 2)
+          + Math.pow(touchBank.startPageY - touchBank.currentPageY, 2));
+      var velocity = (offset / (touchBank.currentTimeStamp - touchBank.startTimeStamp)) * 1000;
+      if (velocity < 100) this.props.onPress && this.props.onPress(e);
+    } else {
+      this.props.onPress && this.props.onPress(e);
+    }
   }
 
   touchableHandleLongPress(e: Event) {
@@ -151,8 +164,8 @@ class TouchableHighlight extends React.Component {
     //   return;
     // }
 
-    // this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
-    // this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
+    this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
+    this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
     this.props.onShowUnderlay && this.props.onShowUnderlay();
   }
 
@@ -160,11 +173,11 @@ class TouchableHighlight extends React.Component {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
     if (this.refs[UNDERLAY_REF]) {
-      // this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
-      // this.refs[UNDERLAY_REF].setNativeProps({
-      //  ...INACTIVE_UNDERLAY_PROPS,
-      //  style: this.state.underlayStyle,
-      // });
+      this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
+      this.refs[UNDERLAY_REF].setNativeProps({
+        ...INACTIVE_UNDERLAY_PROPS,
+        style: this.state.underlayStyle,
+      });
       this.props.onHideUnderlay && this.props.onHideUnderlay();
     }
   }
@@ -198,9 +211,9 @@ class TouchableHighlight extends React.Component {
 
 };
 
-mixin(TouchableHighlight.prototype, TimerMixin);
-mixin(TouchableHighlight.prototype, TouchableMixin);
-mixin(TouchableHighlight.prototype, NativeMethodsMixin);
+mixin.onClass(TouchableHighlight, TimerMixin);
+mixin.onClass(TouchableHighlight, TouchableMixin);
+mixin.onClass(TouchableHighlight, NativeMethodsMixin);
 autobind(TouchableHighlight);
 
 module.exports = TouchableHighlight;

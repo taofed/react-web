@@ -108,10 +108,9 @@ class ViewPager extends React.Component {
     // will handle positioning of elements, so it's not important to offset
     // them correctly.
     return React.Children.map(this.props.children, function(child) {
+      let style = assign({}, child.props.style, {width: deviceSize.width});
       let newProps = {
-        style: [child.props.style, {
-          width: deviceSize.width
-        }],
+        style: style,
         collapsable: false
       };
       return cloneElement(child, assign({}, child.props, newProps));
@@ -181,7 +180,7 @@ class ViewPager extends React.Component {
     if (range > threshold) {
       if (dx > 0) {
         selectedPage -= 1; // TODO step?
-      }else {
+      } else {
         selectedPage += 1;
       }
     }
@@ -192,7 +191,7 @@ class ViewPager extends React.Component {
   setPage(index) {
     if (index < 0) {
       index = 0;
-    }else if (index >= this.state.pageCount) {
+    } else if (index >= this.state.pageCount) {
       index = this.state.pageCount - 1;
     }
 
@@ -223,7 +222,7 @@ class ViewPager extends React.Component {
 
 };
 
-mixin(ViewPager.prototype, NativeMethodsMixin);
+mixin.onClass(ViewPager, NativeMethodsMixin);
 autobind(ViewPager);
 
 ViewPager.isReactNativeComponent = true;
