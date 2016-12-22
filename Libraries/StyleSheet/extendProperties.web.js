@@ -76,7 +76,9 @@ else flexboxSpec = '2009';
 
 // FIXME: UCBrowser is cheat
 var isUCBrowser = /UCBrowser/i.test(navigator.userAgent);
-if (isUCBrowser) flexboxSpec = '2009';
+// only U3 core need 2009 spec, and only this way can detect another core
+var notU3 = /UCBS/i.test(navigator.userAgent);
+if (isUCBrowser && !notU3) flexboxSpec = '2009';
 
 // TODO: cache the result
 function prefixOldFlexbox(property, value, result) {
