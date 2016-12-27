@@ -71,29 +71,29 @@ class AppState {
   currentState: ?string;
 
   constructor() {
-    this.currentState = 'active'
+    this.currentState = 'active';
     this._handlers = {
       change: [],
       memoryWarning: []
-    }
+    };
 
     // https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API
-    var hidden, visibilityChange
-    if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
-      hidden = "hidden";
-      visibilityChange = "visibilitychange";
-    } else if (typeof document.msHidden !== "undefined") {
-      hidden = "msHidden";
-      visibilityChange = "msvisibilitychange";
-    } else if (typeof document.webkitHidden !== "undefined") {
-      hidden = "webkitHidden";
-      visibilityChange = "webkitvisibilitychange";
+    var hidden, visibilityChange;
+    if (typeof document.hidden !== 'undefined') { // Opera 12.10 and Firefox 18 and later support
+      hidden = 'hidden';
+      visibilityChange = 'visibilitychange';
+    } else if (typeof document.msHidden !== 'undefined') {
+      hidden = 'msHidden';
+      visibilityChange = 'msvisibilitychange';
+    } else if (typeof document.webkitHidden !== 'undefined') {
+      hidden = 'webkitHidden';
+      visibilityChange = 'webkitvisibilitychange';
     }
 
     document.addEventListener(visibilityChange, () => {
-      this.currentState = document[hidden] ? 'background' : 'active'
-      this._handlers.change.forEach(handler => handler(this.currentState))
-    }, false)
+      this.currentState = document[hidden] ? 'background' : 'active';
+      this._handlers.change.forEach(handler => handler(this.currentState));
+    }, false);
   }
 
   /**
@@ -109,10 +109,10 @@ class AppState {
       'Trying to subscribe to unknown event: "%s"', type
     );
 
-    if (type !== 'change') return
+    if (type !== 'change') return;
 
-    this._handlers[type].push(handler)
-    return () => this.removeEventListener(type, handler)
+    this._handlers[type].push(handler);
+    return () => this.removeEventListener(type, handler);
   }
 
   /**
@@ -127,9 +127,9 @@ class AppState {
       'Trying to remove listener for unknown event: "%s"', type
     );
 
-    const idx = this._handlers[type]
+    const idx = this._handlers[type];
     if (idx !== -1) {
-      this._handlers[type].splice(idx, 1)
+      this._handlers[type].splice(idx, 1);
     }
   }
 }

@@ -110,7 +110,7 @@ function prefixOldFlexbox(property, value, result) {
   }
 }
 
-function defaultFlexExpansion (style, result) {
+function defaultFlexExpansion(style, result) {
   const grow = style.flex || 0;
   const shrink = style.flexShrink || 1;
   const basis = style.flexBasis || 'auto';

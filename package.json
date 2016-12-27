@@ -1,6 +1,6 @@
 {
   "name": "react-web",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "A framework for building web apps with React",
   "license": "BSD-3-Clause",
   "repository": {
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "eslint . --ext .js --ext .jsx",
+    "lint": "eslint --ext .js --ext .jsx ./",
     "start": "node local-cli/cli.js start webpack.config.js",
     "demo": "node local-cli/cli.js bundle webpack.config.js",
     "prepublish": "node scripts/publish",

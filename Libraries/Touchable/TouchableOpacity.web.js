@@ -50,7 +50,7 @@ const DEFAULT_PROPS = {
   style: StyleSheet.create({
     cursor: 'pointer'
   })
-}
+};
 
 class TouchableOpacity extends React.Component {
 
