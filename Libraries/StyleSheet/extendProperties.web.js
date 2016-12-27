@@ -68,8 +68,10 @@ else if ('webkitAlignSelf' in builtinStyle) flexboxSpec = 'finalVendor';
 else flexboxSpec = '2009';
 
 // FIXME: UCBrowser is cheat
-const isUCBrowser = /UCBrowser/i.test(navigator.userAgent);
-if (isUCBrowser) flexboxSpec = '2009';
+var isUCBrowser = /UCBrowser/i.test(navigator.userAgent);
+// only U3 core need 2009 spec, and only this way can detect another core
+var notU3 = /UCBS/i.test(navigator.userAgent);
+if (isUCBrowser && !notU3) flexboxSpec = '2009';
 
 const isIE = /Trident/i.test(navigator.userAgent);
 const FLEX_AUTO = '1 1 auto';
@@ -113,7 +115,7 @@ function defaultFlexExpansion (style, result) {
   const shrink = style.flexShrink || 1;
   const basis = style.flexBasis || 'auto';
   let flex;
-  
+
   if (grow === 'auto') {
     flex = FLEX_AUTO;
   } else if (grow === 'initial') {
