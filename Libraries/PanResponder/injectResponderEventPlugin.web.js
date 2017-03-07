@@ -5,10 +5,10 @@
  */
 'use strict';
 
-import EventPluginRegistry from 'react/lib/EventPluginRegistry';
-import ResponderEventPlugin from 'react/lib/ResponderEventPlugin';
-import EventConstants from 'react/lib/EventConstants';
-import ResponderTouchHistoryStore from 'react/lib/ResponderTouchHistoryStore';
+import EventPluginRegistry from 'react-dom/lib/EventPluginRegistry';
+import ResponderEventPlugin from 'react-dom/lib/ResponderEventPlugin';
+import EventConstants from 'react-dom/lib/EventConstants';
+import ResponderTouchHistoryStore from 'react-dom/lib/ResponderTouchHistoryStore';
 
 let topLevelTypes = EventConstants.topLevelTypes;
 
