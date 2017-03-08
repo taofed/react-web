@@ -44,8 +44,8 @@
     "webpack-merge": "0.1.1"
   },
   "peerDependencies": {
-    "react": "^15.3",
-    "react-dom": "^15.3"
+    "react": "^15.4",
+    "react-dom": "^15.4"
   },
   "dependencies": {
     "animated": "0.1.3",
