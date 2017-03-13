@@ -65,7 +65,7 @@ export LayoutAnimation from 'ReactLayoutAnimation';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';
-export AppState from 'ReactAppState'
+export AppState from 'ReactAppState';
 
 // Plugins
 export NativeModules from 'ReactNativeModules';

@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var CSSPropertyOperations = require('react/lib/CSSPropertyOperations');
+var CSSPropertyOperations = require('react-dom/lib/CSSPropertyOperations');
 
 // some number that react not auto add px
 var numberTransformProperties = {
