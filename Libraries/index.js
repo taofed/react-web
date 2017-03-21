@@ -30,6 +30,7 @@ export Picker from 'ReactPicker';
 export ProgressViewIOS from 'ReactProgressView';
 export ScrollView from 'ReactScrollView';
 export SegmentedControlIOS from 'ReactSegmentedControl';
+export Slider from 'ReactSlider';
 export SliderIOS from 'ReactSlider';
 export Switch from 'ReactSwitch';
 export StatusBar from 'ReactStatusBar';

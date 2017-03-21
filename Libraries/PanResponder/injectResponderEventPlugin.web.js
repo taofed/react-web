@@ -5,28 +5,26 @@
  */
 'use strict';
 
-import EventPluginRegistry from 'react/lib/EventPluginRegistry';
-import ResponderEventPlugin from 'react/lib/ResponderEventPlugin';
-import EventConstants from 'react/lib/EventConstants';
-import ResponderTouchHistoryStore from 'react/lib/ResponderTouchHistoryStore';
+import EventPluginRegistry from 'react-dom/lib/EventPluginRegistry';
+import ResponderEventPlugin from 'react-dom/lib/ResponderEventPlugin';
+import ResponderTouchHistoryStore from 'react-dom/lib/ResponderTouchHistoryStore';
 
-let topLevelTypes = EventConstants.topLevelTypes;
 
 let eventTypes = ResponderEventPlugin.eventTypes;
 eventTypes.startShouldSetResponder.dependencies = [
-  topLevelTypes.topTouchStart,
+  'topTouchStart',
 ];
 
 eventTypes.scrollShouldSetResponder.dependencies = [
-  topLevelTypes.topScroll,
+  'topScroll',
 ];
 
 eventTypes.selectionChangeShouldSetResponder.dependencies = [
-  topLevelTypes.topSelectionChange,
+  'topSelectionChange',
 ];
 
 eventTypes.moveShouldSetResponder.dependencies = [
-  topLevelTypes.topTouchMove,
+  'topTouchMove',
 ];
 
 ['responderStart', 'responderMove', 'responderEnd', 'responderRelease',
@@ -34,16 +32,16 @@ eventTypes.moveShouldSetResponder.dependencies = [
   let dependencies;
   if ('ontouchstart' in window) {
     dependencies = [
-      topLevelTypes.topTouchStart,
-      topLevelTypes.topTouchCancel,
-      topLevelTypes.topTouchEnd,
-      topLevelTypes.topTouchMove
+      'topTouchStart',
+      'topTouchCancel',
+      'topTouchEnd',
+      'topTouchMove'
     ];
   } else {
     // TODO: support move event
     dependencies = [
-      topLevelTypes.topMouseDown,
-      topLevelTypes.topMouseUp
+      'topMouseDown',
+      'topMouseUp'
     ];
   }
 
