@@ -164,7 +164,11 @@ class ScrollView extends Component {
       ...otherProps,
       alwaysBounceHorizontal,
       alwaysBounceVertical,
-      style: ([styles.base, this.props.style]: ?Array<any>),
+      style: ([
+        styles.base,
+        this.props.horizontal ? styles.horizontal : null,
+        this.props.style,
+      ]: ?Array<any>),
       onTouchStart: this.scrollResponderHandleTouchStart,
       onTouchMove: this.scrollResponderHandleTouchMove,
       onTouchEnd: this.scrollResponderHandleTouchEnd,
@@ -196,9 +200,14 @@ class ScrollView extends Component {
 
 let styles = StyleSheet.create({
   base: {
-    overflow: 'scroll',
+    overflowX: 'hidden',
+    overflowY: 'scroll',
     WebkitOverflowScrolling: 'touch',
     flex: 1,
+  },
+  horizontal: {
+    overflowX: 'scroll',
+    overflowY: 'hidden',
   },
   contentContainer: {
     position: 'absolute',
