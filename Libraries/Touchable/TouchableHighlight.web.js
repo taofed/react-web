@@ -17,6 +17,7 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import StyleSheet from 'ReactStyleSheet';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
+import flattenStyle from 'ReactFlattenStyle';
 
 type Event = Object;
 
@@ -37,6 +38,11 @@ var INACTIVE_CHILD_PROPS = {
 var INACTIVE_UNDERLAY_PROPS = {
   style: StyleSheet.create({x: {backgroundColor: 'transparent'}}).x,
 };
+
+var DEFAULT_UNDERLAY_STYLE = {
+  ...DEFAULT_PROPS.style,
+  ...INACTIVE_UNDERLAY_PROPS.style
+}
 
 class TouchableHighlight extends Component {
   static propTypes = {
@@ -78,11 +84,10 @@ class TouchableHighlight extends Component {
           backgroundColor: props.underlayColor,
         }
       },
-      underlayStyle: [
-        DEFAULT_PROPS.style,
-        INACTIVE_UNDERLAY_PROPS.style,
-        props.style,
-      ]
+      underlayStyle: flattenStyle([
+        DEFAULT_UNDERLAY_STYLE,
+        props.style
+      ])
     };
   }
 
