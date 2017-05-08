@@ -70,6 +70,7 @@ export StyleSheet from 'ReactStyleSheet';
 export AppState from 'ReactAppState';
 
 // Plugins
+export findNodeHandle from 'ReactfindNodeHandle';
 export NativeModules from 'ReactNativeModules';
 export Platform from 'ReactPlatform';
 export processColor from 'ReactProcessColor';
