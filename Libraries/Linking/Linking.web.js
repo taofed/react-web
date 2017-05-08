@@ -20,7 +20,7 @@ var Linking = {
   canOpenURL: (url) => {
     return true;
   },
-  getInitialURL: emptyFunction,
+  getInitialURL: () => Promise.resolve()
 };
 
 module.exports = Linking;
