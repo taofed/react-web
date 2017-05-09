@@ -27,16 +27,16 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @providesModule FlatList
+ * @providesModule ReactFlatList
  * @flow
  */
 'use strict';
 
 const MetroListView = require('MetroListView'); // Used as a fallback legacy option
-const React = require('React');
-const ReactNative = require('ReactNative');
-const View = require('View');
-const VirtualizedList = require('VirtualizedList');
+import React from 'react';
+import findNodeHandle from 'ReactfindNodeHandle';
+import View from 'ReactView';
+import VirtualizedList from 'ReactVirtualizedList';
 
 const invariant = require('fbjs/lib/invariant');
 
@@ -233,7 +233,7 @@ class FlatList<ItemT> extends React.PureComponent<DefaultProps, Props<ItemT>, vo
     if (this._listRef && this._listRef.getScrollableNode) {
       return this._listRef.getScrollableNode();
     } else {
-      return ReactNative.findNodeHandle(this._listRef);
+      return findNodeHandle(this._listRef);
     }
   }
 
@@ -387,4 +387,4 @@ class FlatList<ItemT> extends React.PureComponent<DefaultProps, Props<ItemT>, vo
   }
 }
 
-module.exports = FlatList;
+export default FlatList;

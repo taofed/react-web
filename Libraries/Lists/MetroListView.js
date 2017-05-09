@@ -32,10 +32,10 @@
  */
 'use strict';
 
-const ListView = require('ListView');
-const React = require('React');
-const RefreshControl = require('RefreshControl');
-const ScrollView = require('ScrollView');
+import ListView from 'ReactListView';
+import React from 'react';
+import RefreshControl from 'ReactRefreshControl';
+import ScrollView from 'ReactScrollView';
 
 const invariant = require('fbjs/lib/invariant');
 

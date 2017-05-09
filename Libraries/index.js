@@ -20,6 +20,7 @@ export ActivityIndicatorIOS from 'ReactActivityIndicator';
 export ActivityIndicator from 'ReactActivityIndicator';
 // export DatePicker from 'ReactDatePicker';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
+export FlatList from 'ReactFlatList';
 export Image from 'ReactImage';
 export ListView from 'ReactListView';
 export Linking from 'ReactLinking';
@@ -29,6 +30,7 @@ export PickerIOS from 'ReactPicker';
 export Picker from 'ReactPicker';
 export ProgressViewIOS from 'ReactProgressView';
 export ScrollView from 'ReactScrollView';
+export SectionList from 'ReactSectionList';
 export SegmentedControlIOS from 'ReactSegmentedControl';
 export Slider from 'ReactSlider';
 export SliderIOS from 'ReactSlider';
@@ -50,6 +52,7 @@ export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
+export VirtualizedList from 'ReactVirtualizedList';
 
 
 // APIs

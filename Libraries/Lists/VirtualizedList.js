@@ -27,17 +27,17 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @providesModule VirtualizedList
+ * @providesModule ReactVirtualizedList
  * @flow
  */
 'use strict';
 
 const Batchinator = require('Batchinator');
-const React = require('React');
-const ReactNative = require('ReactNative');
-const RefreshControl = require('RefreshControl');
-const ScrollView = require('ScrollView');
-const View = require('View');
+import React from 'react';
+import findNodeHandle from 'ReactfindNodeHandle';
+import RefreshControl from 'ReactRefreshControl';
+import ScrollView from 'ReactScrollView';
+import View from 'ReactView';
 const ViewabilityHelper = require('ViewabilityHelper');
 
 const infoLog = require('infoLog');
@@ -239,7 +239,7 @@ class VirtualizedList extends React.PureComponent<OptionalProps, Props, State> {
     if (this._scrollRef && this._scrollRef.getScrollableNode) {
       return this._scrollRef.getScrollableNode();
     } else {
-      return ReactNative.findNodeHandle(this._scrollRef);
+      return findNodeHandle(this._scrollRef);
     }
   }
 
@@ -737,4 +737,4 @@ class CellRenderer extends React.Component {
   }
 }
 
-module.exports = VirtualizedList;
+export default VirtualizedList;

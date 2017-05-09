@@ -32,9 +32,9 @@
  */
 'use strict';
 
-const React = require('React');
-const View = require('View');
-const VirtualizedList = require('VirtualizedList');
+import React from 'react';
+import View from 'ReactView';
+import VirtualizedList from 'ReactVirtualizedList';
 
 const invariant = require('fbjs/lib/invariant');
 const warning = require('fbjs/lib/warning');

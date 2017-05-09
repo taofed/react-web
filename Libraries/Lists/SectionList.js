@@ -27,13 +27,13 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THE SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @providesModule SectionList
+ * @providesModule ReactSectionList
  * @flow
  */
 'use strict';
 
 const MetroListView = require('MetroListView');
-const React = require('React');
+import React from 'react';
 const VirtualizedSectionList = require('VirtualizedSectionList');
 
 import type {ViewToken} from 'ViewabilityHelper';
@@ -188,4 +188,4 @@ class SectionList<SectionT: SectionBase<any>>
   }
 }
 
-module.exports = SectionList;
+export default SectionList;
