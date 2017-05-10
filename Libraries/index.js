@@ -67,6 +67,7 @@ export Easing from 'animated/lib/Easing';
 export I18nManager from 'ReactI18nManager';
 export InteractionManager from 'ReactInteractionManager';
 export LayoutAnimation from 'ReactLayoutAnimation';
+export NetInfo from 'ReactNetInfo';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';
