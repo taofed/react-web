@@ -1,5 +1,7 @@
 /**
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
+ * Copyright (c) 2015-present, Nicolas Gallagher.
+ * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
  *
  * @providesModule ReactNetInfo
