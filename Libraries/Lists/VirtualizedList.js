@@ -562,15 +562,16 @@ class VirtualizedList extends React.PureComponent<OptionalProps, Props, State> {
       this.props.onScroll(e);
     }
     const timestamp = e.timeStamp;
+    let isVertical = !this.props.horizontal;
     let target = ReactDOM.findDOMNode(this._scrollRef);
     const visibleLength = target[
-      !this.props.horizontal ? 'offsetHeight' : 'offsetWidth'
+      isVertical ? 'offsetHeight' : 'offsetWidth'
     ];
     const contentLength = target[
-      !this.props.horizontal ? 'scrollHeight' : 'scrollWidth'
+      isVertical ? 'scrollHeight' : 'scrollWidth'
     ];
     const offset = target[
-      !this.props.horizontal ? 'scrollTop' : 'scrollLeft'
+      isVertical ? 'scrollTop' : 'scrollLeft'
     ];
     const dt = Math.max(1, timestamp - this._scrollMetrics.timestamp);
     if (dt > 500 && this._scrollMetrics.dt > 500 && (contentLength > (5 * visibleLength)) &&
