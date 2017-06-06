@@ -34,6 +34,7 @@
 
 const Batchinator = require('Batchinator');
 import React from 'react';
+import ReactDOM from 'react-dom';
 import findNodeHandle from 'ReactfindNodeHandle';
 import RefreshControl from 'ReactRefreshControl';
 import ScrollView from 'ReactScrollView';
@@ -561,9 +562,16 @@ class VirtualizedList extends React.PureComponent<OptionalProps, Props, State> {
       this.props.onScroll(e);
     }
     const timestamp = e.timeStamp;
-    const visibleLength = this._selectLength(e.nativeEvent.layoutMeasurement);
-    const contentLength = this._selectLength(e.nativeEvent.contentSize);
-    const offset = this._selectOffset(e.nativeEvent.contentOffset);
+    let target = ReactDOM.findDOMNode(this._scrollRef);
+    const visibleLength = target[
+      !this.props.horizontal ? 'offsetHeight' : 'offsetWidth'
+    ];
+    const contentLength = target[
+      !this.props.horizontal ? 'scrollHeight' : 'scrollWidth'
+    ];
+    const offset = target[
+      !this.props.horizontal ? 'scrollTop' : 'scrollLeft'
+    ];
     const dt = Math.max(1, timestamp - this._scrollMetrics.timestamp);
     if (dt > 500 && this._scrollMetrics.dt > 500 && (contentLength > (5 * visibleLength)) &&
         !this._hasWarned.perf) {
