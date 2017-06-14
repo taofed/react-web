@@ -17,6 +17,7 @@ import flattenStyle from 'ReactFlattenStyle';
 import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';
+import ScrollView from 'ReactScrollView';
 
 // { scale: 2 } => 'scale(2)'
 function mapTransform(t) {
@@ -52,6 +53,7 @@ Animated.inject.FlattenStyle(flattenStyle);
 
 export default {
   ...Animated,
+  ScrollView: Animated.createAnimatedComponent(ScrollView),
   View: Animated.createAnimatedComponent(View),
   Text: Animated.createAnimatedComponent(Text),
   Image: Animated.createAnimatedComponent(Image),
