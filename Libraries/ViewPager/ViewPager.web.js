@@ -57,11 +57,18 @@ class ViewPager extends React.Component {
     keyboardDismissMode: PropTypes.oneOf([
       'none', // default
       'on-drag'
-    ])
+    ]),
+
+    /**
+    * When false, the content does not scroll.
+    * The default value is true.
+    */
+    scrollEnabled: PropTypes.bool
   }
 
   static defaultProps = {
-    initialPage: 0
+    initialPage: 0,
+    scrollEnabled: true
   }
 
   state = {
@@ -88,7 +95,7 @@ class ViewPager extends React.Component {
       // });
     // });
 
-    this._panResponder = PanResponder.create({
+    this._panResponder = this.props.scrollEnabled && PanResponder.create({
       onStartShouldSetResponder: () => true,
       onMoveShouldSetPanResponder: this._shouldSetPanResponder,
       onPanResponderGrant: () => { },
