@@ -11,7 +11,7 @@
 'use strict';
 
 import Animated from 'animated';
-import CSSPropertyOperations from 'react-dom/lib/CSSPropertyOperations';
+import setValueForStyles from '../Utilties/setValueForStyles.web';
 
 import flattenStyle from 'ReactFlattenStyle';
 import Image from 'ReactImage';
@@ -40,7 +40,7 @@ function ApplyAnimatedValues(instance, props) {
   if (instance.setNativeProps) {
     instance.setNativeProps(props);
   } else if (instance.nodeType && instance.setAttribute !== undefined) {
-    CSSPropertyOperations.setValueForStyles(instance, mapStyle(props.style));
+    setValueForStyles(instance, mapStyle(props.style));
   } else {
     return false;
   }
