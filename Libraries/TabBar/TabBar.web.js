@@ -7,6 +7,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import TabBarItem from './TabBarItem.web';
 import TabBarContents from './TabBarContents.web';
@@ -25,17 +26,17 @@ let TabBar = React.createClass({
   },
 
   propTypes: {
-    style: React.PropTypes.object,
+    style: PropTypes.object,
     /**
      * Color of the currently selected tab icon
      */
-    tintColor: React.PropTypes.string,
+    tintColor: PropTypes.string,
     /**
      * Background color of the tab bar
      */
-    barTintColor: React.PropTypes.string,
+    barTintColor: PropTypes.string,
 
-    clientHeight: React.PropTypes.number
+    clientHeight: PropTypes.number
   },
 
   getStyles() {

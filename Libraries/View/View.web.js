@@ -8,7 +8,8 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import StyleSheet from 'ReactStyleSheet';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
