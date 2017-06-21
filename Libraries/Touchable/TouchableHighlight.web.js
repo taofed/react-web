@@ -42,7 +42,7 @@ var INACTIVE_UNDERLAY_PROPS = {
 var DEFAULT_UNDERLAY_STYLE = {
   ...DEFAULT_PROPS.style,
   ...INACTIVE_UNDERLAY_PROPS.style
-}
+};
 
 class TouchableHighlight extends Component {
   static propTypes = {
