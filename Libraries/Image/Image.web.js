@@ -79,7 +79,7 @@ class Image extends Component {
     if ( (this.props.children || (resizeMode && resizeMode !== 'stretch')) && !this.context.isInAParentText) {
       let containerStyles = props.style ? props.style : {};
       containerStyles.backgroundImage = 'url("' + props.src + '")';
-      containerStyles.backgroundSize = resizeMode || 'cover';
+      containerStyles.backgroundSize = (!resizeMode || resizeMode=='stretch') ? '100% 100%' : resizeMode;
       containerStyles.backgroundRepeat = 'no-repeat';
       containerStyles.backgroundPosition = '50%';
 
