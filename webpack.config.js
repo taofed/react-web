@@ -61,6 +61,7 @@ if (NODE_ENV === 'development') {
       config.paths.demoIndex,
     ],
     output: {
+      publicPath:'',
       path: __dirname,
       filename: 'bundle.js'
     },
@@ -110,6 +111,7 @@ if (NODE_ENV === 'production') {
       uiexplorer: './Examples/UIExplorer/UIExplorerApp.web',
     },
     output: {
+      publicPath:'',
       path: './pages',
       filename: '[name].js',
       sourceMapFilename: '[file].map',
