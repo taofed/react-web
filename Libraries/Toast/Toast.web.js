@@ -27,12 +27,12 @@ let Toast = {
 
 let styles = StyleSheet.create({
   container: {
-    backgroundColor: 'rgba(0,0,0,.65)',
+    backgroundColor: 'rgba(0, 0, 0, .65)',
     color: '#ffffff',
-    padding: '4 8',
+    padding: '5 12',
     position: 'absolute',
     left: '50%',
-    bottom: '50%',
+    bottom: 20,
     fontSize: 14,
     lineHeight: 18,
     borderRadius: 2,
