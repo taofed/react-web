@@ -10,6 +10,7 @@
 
 import Animated from 'ReactAnimated';
 import React from 'react';
+import PropTypes from 'prop-types';
 import TimerMixin from 'react-timer-mixin';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
@@ -60,7 +61,7 @@ class TouchableOpacity extends React.Component {
      * Determines what the opacity of the wrapped view should be when touch is
      * active.
      */
-    activeOpacity: React.PropTypes.number,
+    activeOpacity: PropTypes.number,
   };
 
   static defaultProps = DEFAULT_PROPS;

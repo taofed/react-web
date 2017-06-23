@@ -6,7 +6,8 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
@@ -34,7 +35,7 @@ class Image extends Component {
   }
 
   static contextTypes = {
-    isInAParentText: React.PropTypes.bool
+    isInAParentText: PropTypes.bool
   }
 
   static getSize = function(

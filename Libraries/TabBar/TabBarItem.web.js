@@ -5,7 +5,8 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';

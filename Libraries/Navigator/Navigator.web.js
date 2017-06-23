@@ -9,7 +9,8 @@
  /* eslint-disable no-extra-boolean-cast*/
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Dimensions from 'ReactDimensions';
 import InteractionMixin from 'ReactInteractionMixin';
 import Map from 'core-js/library/fn/map';

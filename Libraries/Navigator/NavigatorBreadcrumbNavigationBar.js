@@ -9,7 +9,8 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NavigatorBreadcrumbNavigationBarStyles from 'ReactNavigatorBreadcrumbNavigationBarStyles';
 import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
 import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
@@ -70,9 +71,9 @@ class NavigatorBreadcrumbNavigationBar extends Component {
       titleContentForRoute: PropTypes.func,
       iconForRoute: PropTypes.func,
     }),
-    navState: React.PropTypes.shape({
-      routeStack: React.PropTypes.arrayOf(React.PropTypes.object),
-      presentedIndex: React.PropTypes.number,
+    navState: PropTypes.shape({
+      routeStack: PropTypes.arrayOf(PropTypes.object),
+      presentedIndex: PropTypes.number,
     }),
     style: View.propTypes.style,
   }
