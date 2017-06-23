@@ -5,15 +5,16 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';
 import StyleSheet from 'ReactStyleSheet';
+import autobind from 'autobind-decorator';
 
-let TabBarItem = React.createClass({
-  propTypes: {
+class TabBarItem extends Component {
+  static propTypes = {
     /**
      * Little red bubble that sits at the top right of the icon.
      */
@@ -52,7 +53,7 @@ let TabBarItem = React.createClass({
      * Color of the currently selected tab icon
      */
     selectedColor: PropTypes.string
-  },
+  }
 
   _onClick() {
     if (this.props.onPress) {
@@ -61,7 +62,7 @@ let TabBarItem = React.createClass({
     if (this.props.handleTouchTap) {
       this.props.handleTouchTap(this.props.index);
     }
-  },
+  }
 
   render() {
 
@@ -79,7 +80,7 @@ let TabBarItem = React.createClass({
       </li>
     );
   }
-});
+}
 
 let styles = StyleSheet.create({
   tab: {
@@ -113,5 +114,7 @@ let styles = StyleSheet.create({
     fontSize: 12
   }
 });
+
+autobind(TabBarItem);
 
 export default TabBarItem;

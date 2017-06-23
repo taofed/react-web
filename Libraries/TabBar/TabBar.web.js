@@ -6,26 +6,23 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import View from 'ReactView';
 import TabBarItem from './TabBarItem.web';
 import TabBarContents from './TabBarContents.web';
 import assign from 'object-assign';
 import StyleSheet from 'ReactStyleSheet';
+import autobind from 'autobind-decorator';
 
-let TabBar = React.createClass({
-  getInitialState() {
-    return {
-      selectedIndex: 0
-    };
-  },
+class TabBar extends Component {
+  state = {
+    selectedIndex: 0
+  }
 
-  statics: {
-    Item: TabBarItem
-  },
+  static Item = TabBarItem
 
-  propTypes: {
+  static propTypes = {
     style: PropTypes.object,
     /**
      * Color of the currently selected tab icon
@@ -37,7 +34,7 @@ let TabBar = React.createClass({
     barTintColor: PropTypes.string,
 
     clientHeight: PropTypes.number
-  },
+  }
 
   getStyles() {
     return StyleSheet.create({
@@ -64,13 +61,13 @@ let TabBar = React.createClass({
         display: 'table'
       }
     });
-  },
+  }
 
   handleTouchTap(index) {
     this.setState({
       selectedIndex: index
     });
-  },
+  }
 
   render() {
     let self = this;
@@ -115,8 +112,10 @@ let TabBar = React.createClass({
       </View>
     );
   }
-});
+}
 
 TabBar.isReactNativeComponent = true;
+
+autobind(TabBar);
 
 export default TabBar;
