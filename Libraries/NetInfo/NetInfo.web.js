@@ -9,7 +9,6 @@
 'use strict';
 
 import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
-import findIndex from 'array-find-index';
 import invariant from 'fbjs/lib/invariant';
 
 const connection =
@@ -88,7 +87,7 @@ const NetInfo = {
         type
       );
 
-      const listenerIndex = findIndex(connectionListeners, pair => pair[0] === handler);
+      const listenerIndex = connectionListeners.findIndex(pair => pair[0] === handler);
       invariant(
         listenerIndex !== -1,
         'Trying to remove NetInfo connection listener for unregistered handler'
