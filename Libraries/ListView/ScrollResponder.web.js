@@ -13,6 +13,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import warning from 'fbjs/lib/warning';
+import animatedScrollTo from '../Utilties/animatedScrollTo';
 
 /**
  * Mixin that can be integrated in order to handle scrolling that plays well
@@ -93,6 +94,7 @@ import warning from 'fbjs/lib/warning';
  */
 
 const IS_ANIMATING_TOUCH_START_THRESHOLD_MS = 16;
+const ANIMATION_DURATION_MS = 300;
 
 type State = {
     isTouching: boolean;
@@ -351,7 +353,9 @@ let ScrollResponderMixin = {
    */
   scrollResponderScrollTo: function(offsetX: number, offsetY: number) {
     // TODO: Add scroll animation
-    this.scrollResponderScrollWithouthAnimationTo(offsetX, offsetY);
+    let node = ReactDOM.findDOMNode(this);
+
+    animatedScrollTo(node, {y: offsetY, x: offsetX}, ANIMATION_DURATION_MS);
   },
 
   /**
@@ -361,8 +365,8 @@ let ScrollResponderMixin = {
   scrollResponderScrollWithouthAnimationTo: function(offsetX: number, offsetY: number) {
 
     let node = ReactDOM.findDOMNode(this);
-    node.offsetX = offsetX;
-    node.offsetY = offsetY;
+    node.scrollLeft = offsetX;
+    node.scrollTop = offsetY;
   },
 
   /**
