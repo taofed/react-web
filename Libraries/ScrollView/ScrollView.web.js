@@ -55,26 +55,18 @@ class ScrollView extends Component {
     return this.refs[INNERVIEW];
   }
 
-  scrollTo(opts) {
+  scrollTo(opts: { x?: number, y?: number, animated?: boolean }) {
     // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
     // this.getScrollResponder().scrollResponderScrollTo(destX || 0, destY || 0);
     if (typeof opts === 'number') {
       opts = { y: opts, x: arguments[1] };
     }
 
-    this.scrollWithoutAnimationTo(opts.y, opts.x);
-  }
-
-  scrollWithoutAnimationTo(destY?: number, destX?: number) {
-    // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
-    // this.getScrollResponder().scrollResponderScrollWithouthAnimationTo(
-    //   destX || 0,
-    //   destY || 0,
-    // );
-
-    this._scrollViewDom = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
-    this._scrollViewDom.scrollTop = destY || 0;
-    this._scrollViewDom.scrollLeft = destX || 0;
+    if (opts.animated) {
+      this.getScrollResponder().scrollResponderScrollTo(opts.x || 0, opts.y || 0);
+    } else {
+      this.getScrollResponder().scrollResponderScrollWithouthAnimationTo(opts.x || 0, opts.y || 0);
+    }
   }
 
   handleScroll(e: Event) {
