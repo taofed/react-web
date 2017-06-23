@@ -90,3 +90,4 @@ function setNativeProps(node, props, component) {
 }
 
 module.exports = setNativeProps;
+module.exports.convertTransform = convertTransform;

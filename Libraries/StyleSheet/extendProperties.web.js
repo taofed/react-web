@@ -7,6 +7,7 @@
 
 import getVendorPropertyName from 'domkit/getVendorPropertyName';
 import CSSProperty from 'CSSProperty';
+import { convertTransform } from '../Utilties/setNativeProps'
 
 var shorthandProperties = {
   margin: true,
@@ -217,7 +218,7 @@ function extendProperties(style) {
       result[property] = value;
     }
   }
-
+  Object.assign(result, convertTransform(result));
   return result;
 }
 
