@@ -38,6 +38,9 @@ const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLef
  * view from becoming the responder.
  */
 class ScrollView extends Component {
+  static defaultProps = {
+    scrollEnabled: true
+  };
 
   state = this.scrollResponderMixinGetInitialState();
 
