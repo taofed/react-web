@@ -49,16 +49,18 @@ class Picker extends Component {
   }
 };
 
-Picker.Item = React.createClass({
-  propTypes: {
+class Item extends Component {
+  static propTypes = {
     value: PropTypes.any, // string or integer basically
     label: PropTypes.string,
-  },
+  }
 
-  render: function() {
+  render() {
     return <option value={this.props.value}>{this.props.label}</option>;
-  },
-});
+  }
+}
+
+Picker.Item = Item;
 
 autobind(Picker);
 
