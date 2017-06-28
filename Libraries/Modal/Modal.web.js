@@ -6,7 +6,8 @@
  */
 'use strict';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
 

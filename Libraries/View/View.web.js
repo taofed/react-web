@@ -8,15 +8,16 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import StyleSheet from 'ReactStyleSheet';
+import mixin from 'react-mixin';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
-var View = React.createClass({
-  mixins: [LayoutMixin, NativeMethodsMixin],
+class View extends Component {
 
-  propTypes: {
+  static propTypes = {
     /**
      * Used to locate this view in end-to-end tests. NB: disables the 'layout-only
      * view removal' optimization for this view!
@@ -90,16 +91,19 @@ var View = React.createClass({
       PropTypes.object,
       PropTypes.array
     ]),
-  },
+  };
 
-  render: function() {
+  render() {
     return (
       <div className={StyleSheet.viewClassName} {...this.props}>
         {this.props.children}
       </div>
     );
   }
-});
+}
+
+mixin.onClass(View, LayoutMixin);
+mixin.onClass(View, NativeMethodsMixin);
 
 View.isReactNativeComponent = true;
 

@@ -9,6 +9,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
@@ -51,20 +52,20 @@ class TouchableHighlight extends Component {
      * Determines what the opacity of the wrapped view should be when touch is
      * active.
      */
-    activeOpacity: React.PropTypes.number,
+    activeOpacity: PropTypes.number,
     /**
      * The color of the underlay that will show through when the touch is
      * active.
      */
-    underlayColor: React.PropTypes.string,
+    underlayColor: PropTypes.string,
     /**
      * Called immediately after the underlay is shown
      */
-    onShowUnderlay: React.PropTypes.func,
+    onShowUnderlay: PropTypes.func,
     /**
      * Called immediately after the underlay is hidden
      */
-    onHideUnderlay: React.PropTypes.func,
+    onHideUnderlay: PropTypes.func,
   }
 
   static defaultProps = DEFAULT_PROPS

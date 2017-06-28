@@ -9,7 +9,8 @@
  /* eslint-disable no-extra-boolean-cast*/
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Dimensions from 'ReactDimensions';
 import InteractionMixin from 'ReactInteractionMixin';
 import Map from 'core-js/library/fn/map';
@@ -21,6 +22,8 @@ import PanResponder from 'ReactPanResponder';
 import StyleSheet from 'ReactStyleSheet';
 import Subscribable from './polyfills/Subscribable';
 import TimerMixin from 'react-timer-mixin';
+import mixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 import View from 'ReactView';
 import clamp from './polyfills/clamp';
 import flattenStyle from 'ReactFlattenStyle';
@@ -165,9 +168,9 @@ const GESTURE_ACTIONS = [
  *     other scene
  *
  */
-let Navigator = React.createClass({
+class Navigator extends Component {
 
-  propTypes: {
+  static propTypes = {
     /**
      * Optional function that allows configuration about scene animations and
      * gestures. Will be invoked with the route and should return a scene
@@ -237,42 +240,37 @@ let Navigator = React.createClass({
      * Styles to apply to the container of each scene
      */
     sceneStyle: View.propTypes.style,
-  },
+  };
 
-  statics: {
-    BreadcrumbNavigationBar: NavigatorBreadcrumbNavigationBar,
-    NavigationBar: NavigatorNavigationBar,
-    SceneConfigs: NavigatorSceneConfigs,
-  },
+  static BreadcrumbNavigationBar = NavigatorBreadcrumbNavigationBar;
+  static NavigationBar = NavigatorNavigationBar;
+  static  SceneConfigs = NavigatorSceneConfigs;
 
-  mixins: [TimerMixin, InteractionMixin, Subscribable.Mixin],
+  static defaultProps = {
+    configureScene: () => NavigatorSceneConfigs.PushFromRight,
+    sceneStyle: styles.defaultSceneStyle,
+  };
 
-  getDefaultProps: function() {
-    return {
-      configureScene: () => NavigatorSceneConfigs.PushFromRight,
-      sceneStyle: styles.defaultSceneStyle,
-    };
-  },
-
-  getInitialState: function() {
+  constructor(props) {
+    super(props);
     this._renderedSceneMap = new Map();
 
-    let routeStack = this.props.initialRouteStack || [this.props.initialRoute];
+    let routeStack = props.initialRouteStack || [props.initialRoute];
     invariant(
       routeStack.length >= 1,
       'Navigator requires props.initialRoute or props.initialRouteStack.'
     );
     let initialRouteIndex = routeStack.length - 1;
-    if (this.props.initialRoute) {
-      initialRouteIndex = routeStack.indexOf(this.props.initialRoute);
+    if (props.initialRoute) {
+      initialRouteIndex = routeStack.indexOf(props.initialRoute);
       invariant(
         initialRouteIndex !== -1,
         'initialRoute is not in initialRouteStack.'
       );
     }
-    return {
+    this.state = {
       sceneConfigStack: routeStack.map(
-        (route) => this.props.configureScene(route)
+        (route) => props.configureScene(route)
       ),
       routeStack,
       presentedIndex: initialRouteIndex,
@@ -281,9 +279,9 @@ let Navigator = React.createClass({
       pendingGestureProgress: null,
       transitionQueue: [],
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     // TODO(t7489503): Don't need this once ES6 Class landed.
     this.__defineGetter__('navigationContext', this._getNavigationContext);
 
@@ -317,9 +315,9 @@ let Navigator = React.createClass({
     this._interactionHandle = null;
     this._emitWillFocus(this.state.routeStack[this.state.presentedIndex]);
     this.hashChanged = false;
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     this._handleSpringUpdate();
     this._emitDidFocus(this.state.routeStack[this.state.presentedIndex]);
 
@@ -336,9 +334,9 @@ let Navigator = React.createClass({
         this.hashChanged = false;
       }
     }.bind(this));
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     if (this._navigationContext) {
       this._navigationContext.dispose();
       this._navigationContext = null;
@@ -347,7 +345,7 @@ let Navigator = React.createClass({
     // When you're finished, stop the listener.
     _unlisten();
 
-  },
+  }
 
   /**
    * @param {RouteStack} nextRouteStack Next route stack to reinitialize. This
@@ -356,7 +354,7 @@ let Navigator = React.createClass({
    * not animate, immediately replaces and rerenders navigation bar and stack
    * items.
    */
-  immediatelyResetRouteStack: function(nextRouteStack) {
+  immediatelyResetRouteStack(nextRouteStack) {
     let destIndex = nextRouteStack.length - 1;
     this.setState({
       routeStack: nextRouteStack,
@@ -370,9 +368,9 @@ let Navigator = React.createClass({
     }, () => {
       this._handleSpringUpdate();
     });
-  },
+  }
 
-  _transitionTo: function(destIndex, velocity, jumpSpringTo, cb) {
+  _transitionTo(destIndex, velocity, jumpSpringTo, cb) {
     if (destIndex === this.state.presentedIndex) {
       return;
     }
@@ -405,13 +403,13 @@ let Navigator = React.createClass({
     this.spring.getSpringConfig().tension = sceneConfig.springTension;
     this.spring.setVelocity(velocity || sceneConfig.defaultTransitionVelocity);
     this.spring.setEndValue(1);
-  },
+  }
 
   /**
    * This happens for each frame of either a gesture or a transition. If both are
    * happening, we only set values for the transition and the gesture will catch up later
    */
-  _handleSpringUpdate: function() {
+  _handleSpringUpdate() {
     // Prioritize handling transition in progress over a gesture:
     if (this.state.transitionFromIndex != null) {
       this._transitionBetween(
@@ -427,12 +425,12 @@ let Navigator = React.createClass({
         this.spring.getCurrentValue()
       );
     }
-  },
+  }
 
   /**
    * This happens at the end of a transition started by transitionTo, and when the spring catches up to a pending gesture
    */
-  _completeTransition: function() {
+  _completeTransition() {
     if (this.spring.getCurrentValue() !== 1 && this.spring.getCurrentValue() !== 0) {
       // The spring has finished catching up to a gesture in progress. Remove the pending progress
       // and we will be in a normal activeGesture state
@@ -478,17 +476,17 @@ let Navigator = React.createClass({
         queuedTransition.cb
       );
     }
-  },
+  }
 
-  _emitDidFocus: function(route) {
+  _emitDidFocus(route) {
     this.navigationContext.emit('didfocus', {route: route});
 
     if (this.props.onDidFocus) {
       this.props.onDidFocus(route);
     }
-  },
+  }
 
-  _emitWillFocus: function(route) {
+  _emitWillFocus(route) {
     this.navigationContext.emit('willfocus', {route: route});
 
     let navBar = this._navBar;
@@ -498,12 +496,12 @@ let Navigator = React.createClass({
     if (this.props.onWillFocus) {
       this.props.onWillFocus(route);
     }
-  },
+  }
 
   /**
    * Hides all scenes that we are not currently on, gesturing to, or transitioning from
    */
-  _hideScenes: function() {
+  _hideScenes() {
     let gesturingToIndex = null;
     if (this.state.activeGesture) {
       gesturingToIndex = this.state.presentedIndex + this._deltaForGestureAction(this.state.activeGesture);
@@ -516,20 +514,20 @@ let Navigator = React.createClass({
       }
       this._disableScene(i);
     }
-  },
+  }
 
   /**
    * Push a scene off the screen, so that opacity:0 scenes will not block touches sent to the presented scenes
    */
-  _disableScene: function(sceneIndex) {
+  _disableScene(sceneIndex) {
     this.refs['scene_' + sceneIndex] &&
     this.refs['scene_' + sceneIndex].setNativeProps(SCENE_DISABLED_NATIVE_PROPS);
-  },
+  }
 
   /**
    * Put the scene back into the state as defined by props.sceneStyle, so transitions can happen normally
    */
-  _enableScene: function(sceneIndex) {
+  _enableScene(sceneIndex) {
     // First, determine what the defined styles are for scenes in this navigator
     let sceneStyle = flattenStyle([styles.baseScene, this.props.sceneStyle]);
     // Then restore the pointer events and top value for this scene
@@ -548,9 +546,9 @@ let Navigator = React.createClass({
     }
     this.refs['scene_' + sceneIndex] &&
     this.refs['scene_' + sceneIndex].setNativeProps(enabledSceneNativeProps);
-  },
+  }
 
-  _onAnimationStart: function() {
+  _onAnimationStart() {
     let fromIndex = this.state.presentedIndex;
     let toIndex = this.state.presentedIndex;
     if (this.state.transitionFromIndex != null) {
@@ -564,9 +562,9 @@ let Navigator = React.createClass({
     if (navBar && navBar.onAnimationStart) {
       navBar.onAnimationStart(fromIndex, toIndex);
     }
-  },
+  }
 
-  _onAnimationEnd: function() {
+  _onAnimationEnd() {
     let max = this.state.routeStack.length - 1;
     for (let index = 0; index <= max; index++) {
       this._setRenderSceneToHardwareTextureAndroid(index, false);
@@ -576,38 +574,38 @@ let Navigator = React.createClass({
     if (navBar && navBar.onAnimationEnd) {
       navBar.onAnimationEnd();
     }
-  },
+  }
 
-  _setRenderSceneToHardwareTextureAndroid: function(sceneIndex, shouldRenderToHardwareTexture) {
+  _setRenderSceneToHardwareTextureAndroid(sceneIndex, shouldRenderToHardwareTexture) {
     let viewAtIndex = this.refs['scene_' + sceneIndex];
     if (viewAtIndex === null || viewAtIndex === undefined) {
       return;
     }
     viewAtIndex.setNativeProps( {renderToHardwareTextureAndroid: shouldRenderToHardwareTexture});
-  },
+  }
 
-  _handleTouchStart: function() {
+  _handleTouchStart() {
     this._eligibleGestures = GESTURE_ACTIONS;
-  },
+  }
 
-  _handleMoveShouldSetPanResponder: function(e, gestureState) {
+  _handleMoveShouldSetPanResponder(e, gestureState) {
     let sceneConfig = this.state.sceneConfigStack[this.state.presentedIndex];
     if (!sceneConfig) {
       return false;
     }
     this._expectingGestureGrant = this._matchGestureAction(this._eligibleGestures, sceneConfig.gestures, gestureState);
     return !!this._expectingGestureGrant;
-  },
+  }
 
-  _doesGestureOverswipe: function(gestureName) {
+  _doesGestureOverswipe(gestureName) {
     let wouldOverswipeBack = this.state.presentedIndex <= 0 &&
       (gestureName === 'pop' || gestureName === 'jumpBack');
     let wouldOverswipeForward = this.state.presentedIndex >= this.state.routeStack.length - 1 &&
       gestureName === 'jumpForward';
     return wouldOverswipeForward || wouldOverswipeBack;
-  },
+  }
 
-  _handlePanResponderGrant: function(e, gestureState) {
+  _handlePanResponderGrant(e, gestureState) {
     invariant(
       this._expectingGestureGrant,
       'Responder granted unexpectedly.'
@@ -615,9 +613,9 @@ let Navigator = React.createClass({
     this._attachGesture(this._expectingGestureGrant);
     this._onAnimationStart();
     this._expectingGestureGrant = null;
-  },
+  }
 
-  _deltaForGestureAction: function(gestureAction) {
+  _deltaForGestureAction(gestureAction) {
     switch (gestureAction) {
       case 'pop':
       case 'jumpBack':
@@ -628,9 +626,9 @@ let Navigator = React.createClass({
         invariant(false, 'Unsupported gesture action ' + gestureAction);
         return;
     }
-  },
+  }
 
-  _handlePanResponderRelease: function(e, gestureState) {
+  _handlePanResponderRelease(e, gestureState) {
     let sceneConfig = this.state.sceneConfigStack[this.state.presentedIndex];
     let releaseGestureAction = this.state.activeGesture;
     if (!releaseGestureAction) {
@@ -690,9 +688,9 @@ let Navigator = React.createClass({
       );
     }
     this._detachGesture();
-  },
+  }
 
-  _handlePanResponderTerminate: function(e, gestureState) {
+  _handlePanResponderTerminate(e, gestureState) {
     if (this.state.activeGesture == null) {
       return;
     }
@@ -706,21 +704,21 @@ let Navigator = React.createClass({
       null,
       1 - this.spring.getCurrentValue()
     );
-  },
+  }
 
-  _attachGesture: function(gestureId) {
+  _attachGesture(gestureId) {
     this.state.activeGesture = gestureId;
     let gesturingToIndex = this.state.presentedIndex + this._deltaForGestureAction(this.state.activeGesture);
     this._enableScene(gesturingToIndex);
-  },
+  }
 
-  _detachGesture: function() {
+  _detachGesture() {
     this.state.activeGesture = null;
     this.state.pendingGestureProgress = null;
     this._hideScenes();
-  },
+  }
 
-  _handlePanResponderMove: function(e, gestureState) {
+  _handlePanResponderMove(e, gestureState) {
     let sceneConfig = this.state.sceneConfigStack[this.state.presentedIndex];
     if (this.state.activeGesture) {
       let gesture = sceneConfig.gestures[this.state.activeGesture];
@@ -730,9 +728,9 @@ let Navigator = React.createClass({
     if (matchedGesture) {
       this._attachGesture(matchedGesture);
     }
-  },
+  }
 
-  _moveAttachedGesture: function(gesture, gestureState) {
+  _moveAttachedGesture(gesture, gestureState) {
     let isTravelVertical = gesture.direction === 'top-to-bottom' || gesture.direction === 'bottom-to-top';
     let isTravelInverted = gesture.direction === 'right-to-left' || gesture.direction === 'bottom-to-top';
     let distance = isTravelVertical ? gestureState.dy : gestureState.dx;
@@ -763,9 +761,9 @@ let Navigator = React.createClass({
     } else {
       this.spring.setCurrentValue(nextProgress);
     }
-  },
+  }
 
-  _matchGestureAction: function(eligibleGestures, gestures, gestureState) {
+  _matchGestureAction(eligibleGestures, gestures, gestureState) {
     if (!gestures) {
       return null;
     }
@@ -812,9 +810,9 @@ let Navigator = React.createClass({
       }
     });
     return matchedGesture;
-  },
+  }
 
-  _transitionSceneStyle: function(fromIndex, toIndex, progress, index) {
+  _transitionSceneStyle(fromIndex, toIndex, progress, index) {
     let viewAtIndex = this.refs['scene_' + index];
     if (viewAtIndex === null || viewAtIndex === undefined) {
       return;
@@ -835,22 +833,22 @@ let Navigator = React.createClass({
     if (didChange) {
       viewAtIndex.setNativeProps({style: styleToUse});
     }
-  },
+  }
 
-  _transitionBetween: function(fromIndex, toIndex, progress) {
+  _transitionBetween(fromIndex, toIndex, progress) {
     this._transitionSceneStyle(fromIndex, toIndex, progress, fromIndex);
     this._transitionSceneStyle(fromIndex, toIndex, progress, toIndex);
     let navBar = this._navBar;
     if (navBar && navBar.updateProgress && toIndex >= 0 && fromIndex >= 0) {
       navBar.updateProgress(progress, fromIndex, toIndex);
     }
-  },
+  }
 
-  _handleResponderTerminationRequest: function() {
+  _handleResponderTerminationRequest() {
     return false;
-  },
+  }
 
-  _getDestIndexWithinBounds: function(n) {
+  _getDestIndexWithinBounds(n) {
     let currentIndex = this.state.presentedIndex;
     let destIndex = currentIndex + n;
     invariant(
@@ -863,9 +861,9 @@ let Navigator = React.createClass({
       'Cannot jump past the last route.'
     );
     return destIndex;
-  },
+  }
 
-  _jumpN: function(n) {
+  _jumpN(n) {
     let destIndex = this._getDestIndexWithinBounds(n);
     this._enableScene(destIndex);
     this._emitWillFocus(this.state.routeStack[destIndex]);
@@ -882,26 +880,26 @@ let Navigator = React.createClass({
       // __uid should be non-negative
       __uid = Math.max(__uid + n, 0);
     }
-  },
+  }
 
-  jumpTo: function(route) {
+  jumpTo(route) {
     let destIndex = this.state.routeStack.indexOf(route);
     invariant(
       destIndex !== -1,
       'Cannot jump to route that is not in the route stack'
     );
     this._jumpN(destIndex - this.state.presentedIndex);
-  },
+  }
 
-  jumpForward: function() {
+  jumpForward() {
     this._jumpN(1);
-  },
+  }
 
-  jumpBack: function() {
+  jumpBack() {
     this._jumpN(-1);
-  },
+  }
 
-  push: function(route) {
+  push(route) {
     invariant(!!route, 'Must supply route to push');
     let activeLength = this.state.presentedIndex + 1;
     let activeStack = this.state.routeStack.slice(0, activeLength);
@@ -920,9 +918,9 @@ let Navigator = React.createClass({
       this._enableScene(destIndex);
       this._transitionTo(destIndex);
     });
-  },
+  }
 
-  _popN: function(n) {
+  _popN(n) {
     if (n === 0) {
       return;
     }
@@ -942,9 +940,9 @@ let Navigator = React.createClass({
         this._cleanScenesPastIndex(popIndex);
       }
     );
-  },
+  }
 
-  pop: function() {
+  pop() {
     if (this.state.transitionQueue.length) {
       // This is the workaround to prevent user from firing multiple `pop()`
       // calls that may pop the routes beyond the limit.
@@ -958,7 +956,7 @@ let Navigator = React.createClass({
     if (this.state.presentedIndex > 0) {
       this._popN(1);
     }
-  },
+  }
 
   /**
    * Replace a route in the navigation stack.
@@ -966,7 +964,7 @@ let Navigator = React.createClass({
    * `index` specifies the route in the stack that should be replaced.
    * If it's negative, it counts from the back.
    */
-  replaceAtIndex: function(route, index, cb) {
+  replaceAtIndex(route, index, cb) {
     invariant(!!route, 'Must supply route to replace');
     if (index < 0) {
       index += this.state.routeStack.length;
@@ -993,27 +991,27 @@ let Navigator = React.createClass({
       }
       cb && cb();
     });
-  },
+  }
 
   /**
    * Replaces the current scene in the stack.
    */
-  replace: function(route) {
+  replace(route) {
     this.replaceAtIndex(route, this.state.presentedIndex);
-  },
+  }
 
   /**
    * Replace the current route's parent.
    */
-  replacePrevious: function(route) {
+  replacePrevious(route) {
     this.replaceAtIndex(route, this.state.presentedIndex - 1);
-  },
+  }
 
-  popToTop: function() {
+  popToTop() {
     this.popToRoute(this.state.routeStack[0]);
-  },
+  }
 
-  popToRoute: function(route) {
+  popToRoute(route) {
     let indexOfRoute = this.state.routeStack.indexOf(route);
     invariant(
       indexOfRoute !== -1,
@@ -1021,17 +1019,17 @@ let Navigator = React.createClass({
     );
     let numToPop = this.state.presentedIndex - indexOfRoute;
     this._popN(numToPop);
-  },
+  }
 
-  replacePreviousAndPop: function(route) {
+  replacePreviousAndPop(route) {
     if (this.state.routeStack.length < 2) {
       return;
     }
     this.replacePrevious(route);
     this.pop();
-  },
+  }
 
-  resetTo: function(route) {
+  resetTo(route) {
     invariant(!!route, 'Must supply route to push');
     this.replaceAtIndex(route, 0, () => {
       // Do not use popToRoute here, because race conditions could prevent the
@@ -1040,14 +1038,14 @@ let Navigator = React.createClass({
         this._popN(this.state.presentedIndex);
       }
     });
-  },
+  }
 
-  getCurrentRoutes: function() {
+  getCurrentRoutes() {
     // Clone before returning to avoid caller mutating the stack
     return this.state.routeStack.slice();
-  },
+  }
 
-  _cleanScenesPastIndex: function(index) {
+  _cleanScenesPastIndex(index) {
     let newStackLength = index + 1;
     // Remove any unneeded rendered routes.
     if (newStackLength < this.state.routeStack.length) {
@@ -1056,9 +1054,9 @@ let Navigator = React.createClass({
         routeStack: this.state.routeStack.slice(0, newStackLength),
       });
     }
-  },
+  }
 
-  _renderScene: function(route, i) {
+  _renderScene(route, i) {
     let disabledSceneStyle = null;
     let disabledScenePointerEvents = 'auto';
     if (i !== this.state.presentedIndex) {
@@ -1081,9 +1079,9 @@ let Navigator = React.createClass({
         )}
       </View>
     );
-  },
+  }
 
-  _renderNavigationBar: function() {
+  _renderNavigationBar() {
     if (!this.props.navigationBar) {
       return null;
     }
@@ -1094,9 +1092,9 @@ let Navigator = React.createClass({
       navigator: this,
       navState: this.state,
     });
-  },
+  }
 
-  render: function() {
+  render() {
     let newRenderedSceneMap = new Map();
     let scenes = this.state.routeStack.map((route, index) => {
       let renderedScene;
@@ -1124,15 +1122,20 @@ let Navigator = React.createClass({
         {this._renderNavigationBar()}
       </View>
     );
-  },
+  }
 
-  _getNavigationContext: function() {
+  _getNavigationContext() {
     if (!this._navigationContext) {
       this._navigationContext = new NavigationContext();
     }
     return this._navigationContext;
   }
-});
+}
+
+mixin.onClass(Navigator, TimerMixin);
+mixin.onClass(Navigator, InteractionMixin);
+mixin.onClass(Navigator, Subscribable.Mixin);
+autobind(Navigator);
 
 Navigator.isReactNativeComponent = true;
 

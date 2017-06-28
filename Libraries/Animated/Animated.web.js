@@ -11,12 +11,13 @@
 'use strict';
 
 import Animated from 'animated';
-import CSSPropertyOperations from 'react-dom/lib/CSSPropertyOperations';
+import setValueForStyles from '../Utilties/setValueForStyles.web';
 
 import flattenStyle from 'ReactFlattenStyle';
 import Image from 'ReactImage';
 import Text from 'ReactText';
 import View from 'ReactView';
+import ScrollView from 'ReactScrollView';
 
 // { scale: 2 } => 'scale(2)'
 function mapTransform(t) {
@@ -39,7 +40,7 @@ function ApplyAnimatedValues(instance, props) {
   if (instance.setNativeProps) {
     instance.setNativeProps(props);
   } else if (instance.nodeType && instance.setAttribute !== undefined) {
-    CSSPropertyOperations.setValueForStyles(instance, mapStyle(props.style));
+    setValueForStyles(instance, mapStyle(props.style));
   } else {
     return false;
   }
@@ -52,6 +53,7 @@ Animated.inject.FlattenStyle(flattenStyle);
 
 export default {
   ...Animated,
+  ScrollView: Animated.createAnimatedComponent(ScrollView),
   View: Animated.createAnimatedComponent(View),
   Text: Animated.createAnimatedComponent(Text),
   Image: Animated.createAnimatedComponent(Image),
