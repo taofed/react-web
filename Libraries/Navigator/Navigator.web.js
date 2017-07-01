@@ -520,8 +520,8 @@ class Navigator extends Component {
    * Push a scene off the screen, so that opacity:0 scenes will not block touches sent to the presented scenes
    */
   _disableScene(sceneIndex) {
-    this.refs['scene_' + sceneIndex] &&
-    this.refs['scene_' + sceneIndex].setNativeProps(SCENE_DISABLED_NATIVE_PROPS);
+    this._sceneRefs[sceneIndex] &&
+    this._sceneRefs[sceneIndex].setNativeProps(SCENE_DISABLED_NATIVE_PROPS);
   }
 
   /**
@@ -544,8 +544,8 @@ class Navigator extends Component {
       // to prevent the enabled scene from flashing over the presented scene
       enabledSceneNativeProps.style.opacity = 0;
     }
-    this.refs['scene_' + sceneIndex] &&
-    this.refs['scene_' + sceneIndex].setNativeProps(enabledSceneNativeProps);
+    this._sceneRefs[sceneIndex] &&
+    this._sceneRefs[sceneIndex].setNativeProps(enabledSceneNativeProps);
   }
 
   _onAnimationStart() {
@@ -577,7 +577,7 @@ class Navigator extends Component {
   }
 
   _setRenderSceneToHardwareTextureAndroid(sceneIndex, shouldRenderToHardwareTexture) {
-    let viewAtIndex = this.refs['scene_' + sceneIndex];
+    let viewAtIndex = this._sceneRefs[sceneIndex];
     if (viewAtIndex === null || viewAtIndex === undefined) {
       return;
     }
@@ -813,7 +813,7 @@ class Navigator extends Component {
   }
 
   _transitionSceneStyle(fromIndex, toIndex, progress, index) {
-    let viewAtIndex = this.refs['scene_' + index];
+    let viewAtIndex = this._sceneRefs[index];
     if (viewAtIndex === null || viewAtIndex === undefined) {
       return;
     }
@@ -1045,6 +1045,14 @@ class Navigator extends Component {
     return this.state.routeStack.slice();
   }
 
+  _sceneRefs = {}
+
+  _captureSceneRef(index) {
+    return ref => {
+      this._sceneRefs[index] = ref;
+    }
+  }
+
   _cleanScenesPastIndex(index) {
     let newStackLength = index + 1;
     // Remove any unneeded rendered routes.
@@ -1067,7 +1075,7 @@ class Navigator extends Component {
     return (
       <View
         key={'scene_' + getRouteID(route)}
-        ref={'scene_' + i}
+        ref={this._captureSceneRef(i)}
         onStartShouldSetResponderCapture={() => {
           return (this.state.transitionFromIndex != null) || (this.state.transitionFromIndex != null);
         }}

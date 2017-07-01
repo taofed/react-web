@@ -10,8 +10,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
 
-const PICKER = 'picker';
-
 class Picker extends Component {
   static propTypes = {
     onValueChange: PropTypes.func,
@@ -20,7 +18,7 @@ class Picker extends Component {
 
   _onChange(event) {
     // shim the native event
-    event.nativeEvent.newValue = this.refs[PICKER].value;
+    event.nativeEvent.newValue = this._ref.value;
 
     if (this.props.onChange) {
       this.props.onChange(event);
@@ -31,10 +29,13 @@ class Picker extends Component {
     }
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   render() {
     return (
       <select
-        ref={PICKER}
         value={this.props.selectedValue}
         style={{
           margin: 10,

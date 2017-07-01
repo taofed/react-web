@@ -31,8 +31,6 @@ var DEFAULT_PROPS = {
 };
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
-var CHILD_REF = 'childRef';
-var UNDERLAY_REF = 'underlayRef';
 var INACTIVE_CHILD_PROPS = {
   style: StyleSheet.create({x: {opacity: 1.0}}).x,
 };
@@ -94,11 +92,11 @@ class TouchableHighlight extends Component {
 
   // componentDidMount() {
   //   // ensurePositiveDelayProps(this.props);
-  //   // ensureComponentIsNative(this.refs[CHILD_REF]);
+  //   // ensureComponentIsNative(this._childRef);
   // },
 
   componentDidUpdate() {
-    // ensureComponentIsNative(this.refs[CHILD_REF]);
+    // ensureComponentIsNative(this._childRef);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -170,22 +168,30 @@ class TouchableHighlight extends Component {
     //   return;
     // }
 
-    this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
-    this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
+    this._ref.setNativeProps(this.state.activeUnderlayProps);
+    this._childRef.setNativeProps(this.state.activeProps);
     this.props.onShowUnderlay && this.props.onShowUnderlay();
   }
 
   _hideUnderlay() {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
-    if (this.refs[UNDERLAY_REF]) {
-      this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
-      this.refs[UNDERLAY_REF].setNativeProps({
+    if (this._ref) {
+      this._childRef.setNativeProps(INACTIVE_CHILD_PROPS);
+      this._ref.setNativeProps({
         ...INACTIVE_UNDERLAY_PROPS,
         style: this.state.underlayStyle,
       });
       this.props.onHideUnderlay && this.props.onHideUnderlay();
     }
+  }
+
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
+  _captureChildRef = ref => {
+    this._childRef = ref;
   }
 
   render() {
@@ -195,7 +201,7 @@ class TouchableHighlight extends Component {
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}
-        ref={UNDERLAY_REF}
+        ref={this._captureRef}
         style={this.state.underlayStyle}
         onLayout={this.props.onLayout}
         onStartShouldSetResponder={this.touchableHandleStartShouldSetResponder}
@@ -208,7 +214,7 @@ class TouchableHighlight extends Component {
         {React.cloneElement(
           React.Children.only(this.props.children),
           {
-            ref: CHILD_REF,
+            ref: this._captureChildRef,
           }
         )}
       </View>

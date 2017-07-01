@@ -84,9 +84,13 @@ class TextInput extends Component {
     }
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   componentDidMount() {
     if (this.props.autoFocus) {
-      ReactDOM.findDOMNode(this.refs.input).focus();
+      ReactDOM.findDOMNode(this._ref).focus();
     }
   }
 
@@ -119,7 +123,7 @@ class TextInput extends Component {
     } = this.props;
 
     const propsCommon = {
-      ref: 'input',
+      ref: this._captureRef,
       'aria-label': accessibilityLabel,
       autoComplete: autoComplete && 'on',
       autoFocus,

@@ -18,8 +18,6 @@ import throttle from 'domkit/throttle';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-const SCROLLVIEW = 'ScrollView';
-const INNERVIEW = 'InnerScrollView';
 const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'];
 
 /**
@@ -55,7 +53,7 @@ class ScrollView extends Component {
   }
 
   getInnerViewNode() {
-    return this.refs[INNERVIEW];
+    return this._innerRef;
   }
 
   scrollTo(opts: { x?: number, y?: number, animated?: boolean }) {
@@ -91,12 +89,20 @@ class ScrollView extends Component {
     // }
 
     if (!this._scrollViewDom)
-      this._scrollViewDom = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
+      this._scrollViewDom = ReactDOM.findDOMNode(this._ref);
 
     e.nativeEvent = e.nativeEvent || {};
     e.nativeEvent.contentOffset = {x:this._scrollViewDom.scrollLeft, y:this._scrollViewDom.scrollTop};
 
     this.props.onScroll && this.props.onScroll(e);
+  }
+
+  _captureInnerRef = ref => {
+    this._innerRef = ref;
+  }
+
+  _captureRef = ref => {
+    this._ref = ref;
   }
 
   render() {
@@ -134,7 +140,7 @@ class ScrollView extends Component {
 
     let contentContainer =
       <View
-        ref={INNERVIEW}
+        ref={this._captureInnerRef}
         style={contentContainerStyle}
         removeClippedSubviews={this.props.removeClippedSubviews}
         collapsable={false}>
@@ -187,7 +193,7 @@ class ScrollView extends Component {
     };
 
     return (
-      <View {...props} ref={SCROLLVIEW}>
+      <View {...props} ref={this._captureRef}>
         {contentContainer}
       </View>
     );

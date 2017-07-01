@@ -25,7 +25,6 @@ const DEFAULT_INITIAL_ROWS = 10;
 const DEFAULT_SCROLL_RENDER_AHEAD = 1000;
 const DEFAULT_END_REACHED_THRESHOLD = 1000;
 const DEFAULT_SCROLL_CALLBACK_THROTTLE = 50;
-const SCROLLVIEW_REF = 'listviewscroll';
 
 /**
  * ListView - A core component designed for efficient display of vertically
@@ -229,24 +228,24 @@ class ListView extends Component {
    * need to check that it responds to `getScrollResponder` before calling it.
    */
   getScrollResponder() {
-    return this.refs[SCROLLVIEW_REF] &&
-      this.refs[SCROLLVIEW_REF].getScrollResponder &&
-      this.refs[SCROLLVIEW_REF].getScrollResponder();
+    return this._ref &&
+      this._ref.getScrollResponder &&
+      this._ref.getScrollResponder();
   }
 
   scrollTo(...args) {
-    this.refs[SCROLLVIEW_REF] &&
-    this.refs[SCROLLVIEW_REF].scrollTo &&
-    this.refs[SCROLLVIEW_REF].scrollTo(...args);
+    this._ref &&
+    this._ref.scrollTo &&
+    this._ref.scrollTo(...args);
   }
 
   setNativeProps(props) {
-    this.refs[SCROLLVIEW_REF] &&
-    this.refs[SCROLLVIEW_REF].setNativeProps(props);
+    this._ref &&
+    this._ref.setNativeProps(props);
   }
 
   getInnerViewNode() {
-    return this.refs[SCROLLVIEW_REF].getInnerViewNode();
+    return this._ref.getInnerViewNode();
   }
 
   componentWillMount() {
@@ -405,10 +404,14 @@ class ListView extends Component {
     // TODO(ide): Use function refs so we can compose with the scroll
     // component's original ref instead of clobbering it
     return React.cloneElement(renderScrollComponent(props), {
-      ref: SCROLLVIEW_REF,
+      ref: this._captureRef,
       onContentSizeChange: this._onContentSizeChange,
       onLayout: this._onLayout,
     }, header, bodyComponents, footer);
+  }
+
+  _captureRef = ref => {
+    this._ref = ref;
   }
 
   /**
@@ -578,7 +581,7 @@ class ListView extends Component {
     //   isVertical ? 'y' : 'x'
     // ];
 
-    let target = ReactDOM.findDOMNode(this.refs[SCROLLVIEW_REF]);
+    let target = ReactDOM.findDOMNode(this._ref);
     this.scrollProperties.visibleLength = target[
       isVertical ? 'offsetHeight' : 'offsetWidth'
     ];

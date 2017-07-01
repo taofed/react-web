@@ -20,7 +20,6 @@ import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
 const deviceSize = Dimensions.get('window');
-const VIEWPAGER_REF = 'viewpager';
 
 class ViewPager extends React.Component {
 
@@ -80,7 +79,7 @@ class ViewPager extends React.Component {
   }
 
   getInnerViewNode() {
-    return this.refs[VIEWPAGER_REF].childNodes[0];
+    return this._ref.childNodes[0];
   }
 
   componentWillMount() {
@@ -125,6 +124,10 @@ class ViewPager extends React.Component {
     });
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   render() {
     let children = this._childrenWithOverridenStyle();
 
@@ -138,7 +141,7 @@ class ViewPager extends React.Component {
       extrapolate: 'clamp'
     });
 
-    return (<View ref={VIEWPAGER_REF}
+    return (<View ref={this._captureRef}
       style={this.props.style}
       {...this._panResponder.panHandlers}
     >
