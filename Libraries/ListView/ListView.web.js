@@ -224,7 +224,7 @@ class ListView extends Component {
 
   /**
    * Provides a handle to the underlying scroll responder.
-   * Note that the view in `SCROLLVIEW_REF` may not be a `ScrollView`, so we
+   * Note that the view in `_ref` may not be a `ScrollView`, so we
    * need to check that it responds to `getScrollResponder` before calling it.
    */
   getScrollResponder() {
