@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import View from 'ReactView';
 import autobind from 'autobind-decorator';
+import TextInputState from './TextInputState';
 
 let typeMap = {
   'default': 'text',
@@ -197,5 +198,7 @@ const styles = {
 autobind(TextInput);
 
 TextInput.isReactNativeComponent = true;
+
+TextInput.State = TextInputState;
 
 export default TextInput;
