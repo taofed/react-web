@@ -36,6 +36,7 @@ class Picker extends Component {
   render() {
     return (
       <select
+        ref={this._captureRef}
         value={this.props.selectedValue}
         style={{
           margin: 10,
