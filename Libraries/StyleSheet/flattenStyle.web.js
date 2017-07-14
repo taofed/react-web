@@ -25,7 +25,7 @@ function flattenStyle(style, processor) {
       }
     }
 
-    return (processor && processor(result)) || result;;
+    return (processor && processor(result)) || result;
   }
 
 }
