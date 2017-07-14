@@ -218,7 +218,11 @@ function extendProperties(style) {
       result[property] = value;
     }
   }
-  Object.assign(result, convertTransform(result));
+
+  if ('transformMatrix' in result || 'transform' in result) {
+    result = convertTransform(result);
+  }
+
   return result;
 }
 
