@@ -66,10 +66,10 @@ class AlertIOS {
     const confirmCallback = callbacks.pop() || noop;
     const cancelCallback = callbacks.pop() || noop;
     if (buttons.length === 1) {
-      alert(title);
+      alert(title + '\n' +  message);
       confirmCallback();
     } else if (buttons.length === 2) {
-      if (confirm(title)) {
+      if (confirm(title + '\n' +  message)) {
         confirmCallback();
       } else {
         cancelCallback();
