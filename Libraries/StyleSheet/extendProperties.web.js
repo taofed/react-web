@@ -219,9 +219,7 @@ function extendProperties(style) {
     }
   }
 
-  if ('transformMatrix' in result || 'transform' in result) {
-    result = convertTransform(result);
-  }
+  Object.assign(result, convertTransform(result));
 
   return result;
 }
