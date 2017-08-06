@@ -7,7 +7,7 @@
 
 import getVendorPropertyName from 'domkit/getVendorPropertyName';
 import CSSProperty from 'CSSProperty';
-import { convertTransform } from '../Utilties/setNativeProps'
+import { convertTransform } from '../Utilties/setNativeProps.web'
 
 var shorthandProperties = {
   margin: true,

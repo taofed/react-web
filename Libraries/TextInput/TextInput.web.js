@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import View from 'ReactView';
 import autobind from 'autobind-decorator';
-import TextInputState from './TextInputState';
+import TextInputState from 'TextInputState';
 
 let typeMap = {
   'default': 'text',
