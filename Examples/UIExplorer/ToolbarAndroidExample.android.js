@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -27,7 +28,7 @@ var UIExplorerPage = require('./UIExplorerPage');
 var SwitchAndroid = require('SwitchAndroid');
 var ToolbarAndroid = require('ToolbarAndroid');
 
-var ToolbarAndroidExample = React.createClass({
+var ToolbarAndroidExample = createClass({
   statics: {
     title: '<ToolbarAndroid>',
     description: 'Examples of using the Android toolbar.'

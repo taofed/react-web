@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   PixelRatio,
@@ -29,7 +30,7 @@ var getImageSource = require('./getImageSource');
 var getStyleFromScore = require('./getStyleFromScore');
 var getTextFromScore = require('./getTextFromScore');
 
-var MovieScreen = React.createClass({
+var MovieScreen = createClass({
   render: function() {
     return (
       <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -63,7 +64,7 @@ var MovieScreen = React.createClass({
   },
 });
 
-var Ratings = React.createClass({
+var Ratings = createClass({
   render: function() {
     var criticsScore = this.props.ratings.critics_score;
     var audienceScore = this.props.ratings.audience_score;
@@ -87,7 +88,7 @@ var Ratings = React.createClass({
   },
 });
 
-var Cast = React.createClass({
+var Cast = createClass({
   render: function() {
     if (!this.props.actors) {
       return null;

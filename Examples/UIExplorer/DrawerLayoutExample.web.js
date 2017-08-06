@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppRegistry,
   StyleSheet,
@@ -9,7 +10,7 @@ var {
   DrawerLayoutAndroid,
   } = React;
 
-var DrawerLayoutExample = React.createClass({
+var DrawerLayoutExample = createClass({
   statics: {
     title: '<DrawerLayout>',
     description: 'DrawerLayout',

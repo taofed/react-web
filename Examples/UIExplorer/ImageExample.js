@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -28,7 +29,7 @@ var base64Icon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAQAAACS
 
 // var ImageCapInsetsExample = require('./ImageCapInsetsExample');
 
-var NetworkImageExample = React.createClass({
+var NetworkImageExample = createClass({
   watchID: (null: ?number),
 
   getInitialState: function() {

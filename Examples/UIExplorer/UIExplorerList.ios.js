@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppRegistry,
   Settings,
@@ -81,7 +82,7 @@ var APIS = [
 // Register suitable examples for snapshot tests
 COMPONENTS.concat(APIS).forEach((Example) => {
   if (Example.displayName) {
-    var Snapshotter = React.createClass({
+    var Snapshotter = createClass({
       render: function() {
         var Renderable = UIExplorerListBase.makeRenderable(Example);
         return (

@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ActionSheetIOS,
   StyleSheet,
@@ -33,7 +34,7 @@ var BUTTONS = [
 var DESTRUCTIVE_INDEX = 3;
 var CANCEL_INDEX = 4;
 
-var ActionSheetExample = React.createClass({
+var ActionSheetExample = createClass({
   getInitialState() {
     return {
       clicked: 'none',
@@ -65,7 +66,7 @@ var ActionSheetExample = React.createClass({
   }
 });
 
-var ShareActionSheetExample = React.createClass({
+var ShareActionSheetExample = createClass({
   getInitialState() {
     return {
       text: ''

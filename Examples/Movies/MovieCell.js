@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   PixelRatio,
@@ -31,7 +32,7 @@ var getStyleFromScore = require('./getStyleFromScore');
 var getImageSource = require('./getImageSource');
 var getTextFromScore = require('./getTextFromScore');
 
-var MovieCell = React.createClass({
+var MovieCell = createClass({
   render: function() {
     var criticsScore = this.props.movie.ratings.critics_score;
     var TouchableElement = TouchableHighlight;

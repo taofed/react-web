@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -24,7 +25,7 @@ var {
 var UIExplorerBlock = require('./UIExplorerBlock');
 var UIExplorerPage = require('./UIExplorerPage');
 
-var Entity = React.createClass({
+var Entity = createClass({
   render: function() {
     return (
       <Text style={{fontWeight: 'bold', color: '#527fe4'}}>
@@ -34,7 +35,7 @@ var Entity = React.createClass({
   }
 });
 
-var AttributeToggler = React.createClass({
+var AttributeToggler = createClass({
   getInitialState: function() {
     return {fontWeight: 'bold', fontSize: 15};
   },
@@ -70,7 +71,7 @@ var AttributeToggler = React.createClass({
   }
 });
 
-var TextExample = React.createClass({
+var TextExample = createClass({
   statics: {
     title: '<Text>',
     description: 'Base component for rendering styled text.',

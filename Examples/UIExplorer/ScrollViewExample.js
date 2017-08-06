@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ScrollView,
   StyleSheet,
@@ -56,7 +57,7 @@ exports.examples = [
   }
 }];
 
-var Thumb = React.createClass({
+var Thumb = createClass({
   shouldComponentUpdate: function(nextProps, nextState) {
     return false;
   },

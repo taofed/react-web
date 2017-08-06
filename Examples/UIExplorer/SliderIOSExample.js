@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   SliderIOS,
   Text,
@@ -23,7 +24,7 @@ var {
   View,
 } = React;
 
-var SliderExample = React.createClass({
+var SliderExample = createClass({
   getInitialState() {
     return {
       value: 0.2,

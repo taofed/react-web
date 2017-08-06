@@ -16,13 +16,14 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   NetInfo,
   Text,
   View
 } = React;
 
-var ReachabilitySubscription = React.createClass({
+var ReachabilitySubscription = createClass({
   getInitialState() {
     return {
       reachabilityHistory: [],
@@ -56,7 +57,7 @@ var ReachabilitySubscription = React.createClass({
   }
 });
 
-var ReachabilityCurrent = React.createClass({
+var ReachabilityCurrent = createClass({
   getInitialState() {
     return {
       reachability: null,
@@ -91,7 +92,7 @@ var ReachabilityCurrent = React.createClass({
   }
 });
 
-var IsConnected = React.createClass({
+var IsConnected = createClass({
   getInitialState() {
     return {
       isConnected: null,

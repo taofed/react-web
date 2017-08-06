@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   CameraRoll,
   Image,
@@ -32,7 +33,7 @@ var AssetScaledImageExampleView = require('./AssetScaledImageExample');
 
 var CAMERA_ROLL_VIEW = 'camera_roll_view';
 
-var CameraRollExample = React.createClass({
+var CameraRollExample = createClass({
 
   getInitialState() {
     return {

@@ -17,10 +17,11 @@
 
 var ProgressBar = require('ProgressBarAndroid');
 var React = require('React');
+var createClass = require('create-react-class');
 var UIExplorerBlock = require('UIExplorerBlock');
 var UIExplorerPage = require('UIExplorerPage');
 
-var ProgressBarAndroidExample = React.createClass({
+var ProgressBarAndroidExample = createClass({
 
   statics: {
     title: '<ProgressBarAndroid>',

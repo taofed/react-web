@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppRegistry,
   NavigatorIOS,
@@ -25,7 +26,7 @@ var {
 
 var SearchScreen = require('./SearchScreen');
 
-var MoviesApp = React.createClass({
+var MoviesApp = createClass({
   render: function() {
     return (
       <NavigatorIOS

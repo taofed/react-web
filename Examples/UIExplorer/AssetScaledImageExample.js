@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -23,7 +24,7 @@ var {
   ScrollView
 } = React;
 
-var AssetScaledImageExample = React.createClass({
+var AssetScaledImageExample = createClass({
 
   getInitialState() {
     return {

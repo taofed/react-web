@@ -17,6 +17,8 @@
 'use strict';
 
 var React = require('react-native');
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class')
 var {
   ActivityIndicatorIOS,
   CameraRoll,
@@ -35,7 +37,7 @@ var propTypes = {
    * values are 'Album', 'All', 'Event', 'Faces', 'Library', 'PhotoStream'
    * and SavedPhotos.
    */
-  groupTypes: React.PropTypes.oneOf([
+  groupTypes: PropTypes.oneOf([
     'Album',
     'All',
     'Event',
@@ -48,22 +50,22 @@ var propTypes = {
   /**
    * Number of images that will be fetched in one page.
    */
-  batchSize: React.PropTypes.number,
+  batchSize: PropTypes.number,
 
   /**
    * A function that takes a single image as a parameter and renders it.
    */
-  renderImage: React.PropTypes.func,
+  renderImage: PropTypes.func,
 
   /**
    * imagesPerRow: Number of images to be shown in each row.
    */
-  imagesPerRow: React.PropTypes.number,
+  imagesPerRow: PropTypes.number,
 
    /**
    * The asset type, one of 'Photos', 'Videos' or 'All'
    */
-  assetType: React.PropTypes.oneOf([
+  assetType: PropTypes.oneOf([
     'Photos',
     'Videos',
     'All',
@@ -71,7 +73,7 @@ var propTypes = {
 
 };
 
-var CameraRollView = React.createClass({
+var CameraRollView = createClass({
   propTypes: propTypes,
 
   getDefaultProps: function(): Object {

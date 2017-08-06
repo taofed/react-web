@@ -16,13 +16,14 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   SwitchIOS,
   Text,
   View
 } = React;
 
-var BasicSwitchExample = React.createClass({
+var BasicSwitchExample = createClass({
   getInitialState() {
     return {
       trueSwitchIsOn: true,
@@ -44,7 +45,7 @@ var BasicSwitchExample = React.createClass({
   }
 });
 
-var DisabledSwitchExample = React.createClass({
+var DisabledSwitchExample = createClass({
   render() {
     return (
       <View>
@@ -60,7 +61,7 @@ var DisabledSwitchExample = React.createClass({
   },
 });
 
-var ColorSwitchExample = React.createClass({
+var ColorSwitchExample = createClass({
   getInitialState() {
     return {
       colorTrueSwitchIsOn: true,
@@ -88,7 +89,7 @@ var ColorSwitchExample = React.createClass({
   },
 });
 
-var EventSwitchExample = React.createClass({
+var EventSwitchExample = createClass({
   getInitialState() {
     return {
       eventSwitchIsOn: false,

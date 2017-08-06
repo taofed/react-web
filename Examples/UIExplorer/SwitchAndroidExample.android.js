@@ -4,13 +4,14 @@
 'use strict';
 
 var React = require('React');
+var createClass = require('create-react-class');
 
 var SwitchAndroid = require('SwitchAndroid');
 var Text = require('Text');
 var UIExplorerBlock = require('UIExplorerBlock');
 var UIExplorerPage = require('UIExplorerPage');
 
-var SwitchAndroidExample = React.createClass({
+var SwitchAndroidExample = createClass({
   statics: {
     title: '<SwitchAndroid>',
     description: 'Standard Android two-state toggle component.'

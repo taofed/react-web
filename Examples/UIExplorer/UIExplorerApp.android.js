@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppRegistry,
   BackAndroid,
@@ -30,7 +31,7 @@ var UIExplorerList = require('./UIExplorerList.android');
 
 var DRAWER_WIDTH_LEFT = 56;
 
-var UIExplorerApp = React.createClass({
+var UIExplorerApp = createClass({
   getInitialState: function() {
     return {
       example: this._getUIExplorerHome(),
@@ -82,7 +83,7 @@ var UIExplorerApp = React.createClass({
 
   _renderHome: function() {
     var onSelectExample = this.onSelectExample;
-    return React.createClass({
+    return createClass({
       render: function() {
         return (
           <UIExplorerList

@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Platform,
 } = React;
@@ -28,7 +29,7 @@ import type { Example, ExampleModule } from 'ExampleTypes';
 var createExamplePage = function(title: ?string, exampleModule: ExampleModule)
   : ReactClass<any, any, any> {
 
-  var ExamplePage = React.createClass({
+  var ExamplePage = createClass({
     statics: {
       title: exampleModule.title,
       description: exampleModule.description,

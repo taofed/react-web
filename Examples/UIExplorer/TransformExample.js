@@ -14,6 +14,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Animated,
   StyleSheet,
@@ -21,7 +22,7 @@ var {
   View,
 } = React;
 
-var Flip = React.createClass({
+var Flip = createClass({
   getInitialState() {
     return {
       theta: new Animated.Value(45),

@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var ViewExample = require('./ViewExample');
 var createExamplePage = require('./createExamplePage');
 var {
@@ -28,7 +29,7 @@ var {
   View,
 } = React;
 
-var EmptyPage = React.createClass({
+var EmptyPage = createClass({
 
   render: function() {
     return (
@@ -42,7 +43,7 @@ var EmptyPage = React.createClass({
 
 });
 
-var NavigatorIOSExample = React.createClass({
+var NavigatorIOSExample = createClass({
 
   statics: {
     title: '<NavigatorIOS>',
