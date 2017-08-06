@@ -14,6 +14,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   PixelRatio,
   Navigator,
@@ -43,7 +44,7 @@ class NavButton extends React.Component {
   }
 }
 
-var BreadcrumbNavSample = React.createClass({
+var BreadcrumbNavSample = createClass({
 
   componentWillMount: function() {
     this._navBarRouteMapper = {

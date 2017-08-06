@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AlertIOS,
   Platform,
@@ -25,7 +26,7 @@ var {
 var TimerMixin = require('react-timer-mixin');
 var UIExplorerButton = require('./UIExplorerButton');
 
-var TimerTester = React.createClass({
+var TimerTester = createClass({
   mixins: [TimerMixin],
 
   _ii: 0,
@@ -149,7 +150,7 @@ exports.examples = [
     description: 'Execute function fn every t milliseconds until cancelled ' +
       'or component is unmounted.',
     render: function(): ReactElement {
-      var IntervalExample = React.createClass({
+      var IntervalExample = createClass({
         getInitialState: function() {
           return {
             showTimer: true,

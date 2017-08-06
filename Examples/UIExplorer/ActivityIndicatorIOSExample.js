@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ActivityIndicatorIOS,
   StyleSheet,
@@ -23,7 +24,7 @@ var {
 } = React;
 var TimerMixin = require('react-timer-mixin');
 
-var ToggleAnimatingActivityIndicator = React.createClass({
+var ToggleAnimatingActivityIndicator = createClass({
   mixins: [TimerMixin],
 
   getInitialState: function() {

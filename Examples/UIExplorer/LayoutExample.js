@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -25,7 +26,7 @@ var {
 var UIExplorerBlock = require('./UIExplorerBlock');
 var UIExplorerPage = require('./UIExplorerPage');
 
-var Circle = React.createClass({
+var Circle = createClass({
   render: function() {
     var size = this.props.size || 20;
     return (
@@ -42,7 +43,7 @@ var Circle = React.createClass({
   }
 });
 
-var CircleBlock = React.createClass({
+var CircleBlock = createClass({
   render: function() {
     var circleStyle = {
       flexDirection: 'row',
@@ -59,7 +60,7 @@ var CircleBlock = React.createClass({
   }
 });
 
-var LayoutExample = React.createClass({
+var LayoutExample = createClass({
   statics: {
     title: 'Layout - Flexbox',
     description: 'Examples of using the flexbox API to layout views.',

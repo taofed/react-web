@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ScrollView,
   StyleSheet,
@@ -25,7 +26,7 @@ var {
 
 var NUM_ITEMS = 20;
 
-var ScrollViewSimpleExample = React.createClass({
+var ScrollViewSimpleExample = createClass({
   statics: {
     title: '<ScrollView>',
     description: 'Component that enables scrolling through child components.'

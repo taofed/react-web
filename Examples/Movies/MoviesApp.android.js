@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppRegistry,
   BackAndroid,
@@ -64,7 +65,7 @@ var RouteMapper = function(route, navigationOperations, onComponentRef) {
   }
 };
 
-var MoviesApp = React.createClass({
+var MoviesApp = createClass({
   render: function() {
     var initialRoute = {name: 'search'};
     return (

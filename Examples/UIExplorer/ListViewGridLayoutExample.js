@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   ListView,
@@ -40,7 +41,7 @@ var THUMB_URLS = [
   'https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-prn1/t39.1997/p128x128/851583_767334573292952_1519550680_n.png',
 ];
 
-var ListViewGridLayoutExample = React.createClass({
+var ListViewGridLayoutExample = createClass({
 
   statics: {
     title: '<ListView> - Grid Layout',

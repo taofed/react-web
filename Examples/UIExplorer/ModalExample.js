@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Modal,
   StyleSheet,
@@ -30,7 +31,7 @@ exports.framework = 'React';
 exports.title = '<Modal>';
 exports.description = 'Component for presenting modal views.';
 
-var Button = React.createClass({
+var Button = createClass({
   getInitialState() {
     return {
       active: false,
@@ -62,7 +63,7 @@ var Button = React.createClass({
   }
 });
 
-var ModalExample = React.createClass({
+var ModalExample = createClass({
   getInitialState() {
     return {
       animated: true,

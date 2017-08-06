@@ -14,6 +14,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   NavigatorIOS,
   StatusBarIOS,
@@ -22,7 +23,7 @@ var {
   View
 } = React;
 
-var EmptyPage = React.createClass({
+var EmptyPage = createClass({
 
   render: function() {
     return (
@@ -36,7 +37,7 @@ var EmptyPage = React.createClass({
 
 });
 
-var NavigatorIOSColors = React.createClass({
+var NavigatorIOSColors = createClass({
 
   statics: {
     title: '<NavigatorIOS> - Custom',

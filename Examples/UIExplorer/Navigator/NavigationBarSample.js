@@ -15,6 +15,7 @@
 
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   PixelRatio,
   Navigator,
@@ -87,7 +88,7 @@ function newRandomRoute() {
   };
 }
 
-var NavigationBarSample = React.createClass({
+var NavigationBarSample = createClass({
 
   componentWillMount: function() {
     var navigator = this.props.navigator;

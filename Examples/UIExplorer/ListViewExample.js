@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   ListView,
@@ -27,7 +28,7 @@ var {
 
 var UIExplorerPage = require('./UIExplorerPage');
 
-var ListViewSimpleExample = React.createClass({
+var ListViewSimpleExample = createClass({
   statics: {
     title: '<ListView> - Simple',
     description: 'Performant, scrollable list of data.'

@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -27,7 +28,7 @@ var {
 var UIExplorerBlock = require('UIExplorerBlock');
 var UIExplorerPage = require('UIExplorerPage');
 
-var ToastExample = React.createClass({
+var ToastExample = createClass({
 
   statics: {
     title: 'Toast Example',

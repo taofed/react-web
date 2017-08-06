@@ -18,6 +18,7 @@
 
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -37,7 +38,7 @@ exports.examples = [
   }
 ];
 
-var GeolocationExample = React.createClass({
+var GeolocationExample = createClass({
   watchID: (null: ?number),
 
   getInitialState: function() {

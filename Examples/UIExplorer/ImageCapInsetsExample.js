@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -24,7 +25,7 @@ var {
   View,
 } = React;
 
-var ImageCapInsetsExample = React.createClass({
+var ImageCapInsetsExample = createClass({
   render: function() {
     return (
       <View>

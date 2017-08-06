@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   PickerIOS,
   Text,
@@ -65,7 +66,7 @@ var CAR_MAKES_AND_MODELS = {
   },
 };
 
-var PickerExample = React.createClass({
+var PickerExample = createClass({
   getInitialState: function() {
     return {
       carMake: 'cadillac',
