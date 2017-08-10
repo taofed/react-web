@@ -94,8 +94,16 @@ class View extends Component {
   };
 
   render() {
+    const {
+      pointerEvents
+    } = this.props;
+    var mergedProps = this.props;
+    if (pointerEvents) {
+      mergedProps.style.pointerEvents = pointerEvents;
+    }
+
     return (
-      <div className={StyleSheet.viewClassName} {...this.props}>
+      <div className={StyleSheet.viewClassName} {...mergedProps}>
         {this.props.children}
       </div>
     );

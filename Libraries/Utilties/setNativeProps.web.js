@@ -76,8 +76,15 @@ function convertTransform(style) {
 function setNativeProps(node, props, component) {
 
   for (var name in props) {
-    if (name === 'style') {
+    if (name === 'style' || name === 'pointerEvents') {
       var style = props[name];
+      if (name === 'pointerEvents') {
+        style = {pointerEvents: props[name]};
+
+        // even browser actually use pointer-events in style instead of in attribute,
+        // still keep them equal to avoid confusion.
+        node.setAttribute('pointer-events', props[name]);
+      }
       if ('transformMatrix' in style || 'transform' in style) {
         style = convertTransform(style);
       }
