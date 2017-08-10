@@ -99,7 +99,7 @@ class View extends Component {
     } = this.props;
     var mergedProps = this.props;
     if (pointerEvents) {
-      mergedProps.style.pointerEvents = pointerEvents;
+      mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
     }
 
     return (
