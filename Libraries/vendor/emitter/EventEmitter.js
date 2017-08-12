@@ -83,6 +83,15 @@ class EventEmitter {
   }
 
   /**
+   * Remove a specific listener.
+   *
+   * @param {Object} listener -  Created by addListener
+   */
+  removeListener(listener: Object) {
+    this._subscriber.removeSubscription(listener)
+  }
+
+  /**
    * Removes all of the registered listeners, including those registered as
    * listener maps.
    *
