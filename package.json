@@ -65,7 +65,7 @@
     "object-assign": "3.0.0",
     "promise": "7.0.4",
     "prop-types": "^15.5.10",
-    "react-mixin": "^3.1.0",
+    "react-mixin": "3.1.0",
     "react-timer-mixin": "0.13.2",
     "rebound": "0.0.13",
     "webpack": "1.13.2",
