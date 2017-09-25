@@ -198,6 +198,7 @@ class TouchableHighlight extends Component {
 
     return (
       <View
+        accessibilityLabel={this.props.accessibilityLabel}
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}

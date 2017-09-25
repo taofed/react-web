@@ -36,6 +36,7 @@ class Picker extends Component {
   render() {
     return (
       <select
+        aria-label={this.props.accessibilityLabel}
         ref={this._captureRef}
         value={this.props.selectedValue}
         style={{

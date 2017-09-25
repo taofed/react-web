@@ -103,7 +103,7 @@ class View extends Component {
     }
 
     return (
-      <div className={StyleSheet.viewClassName} {...mergedProps}>
+      <div className={StyleSheet.viewClassName} {...mergedProps} aria-label={mergedProps.accessibilityLabel}>
         {this.props.children}
       </div>
     );

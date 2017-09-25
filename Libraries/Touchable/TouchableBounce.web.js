@@ -105,6 +105,7 @@ class TouchableBounce extends Component {
   render(): ReactElement {
     return (
       <Animated.View
+        accessibilityLabel={this.props.accessibilityLabel}
         style={[{transform: [{scale: this.state.scale}]}, this.props.style]}
         accessible={true}
         testID={this.props.testID}

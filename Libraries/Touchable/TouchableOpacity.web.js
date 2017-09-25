@@ -160,6 +160,7 @@ class TouchableOpacity extends React.Component {
   render() {
     return (
       <Animated.View
+        accessibilityLabel={this.props.accessibilityLabel}
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}

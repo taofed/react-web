@@ -119,6 +119,7 @@ class TouchableWithoutFeedback extends Component {
   render(): ReactElement {
     // Note(avik): remove dynamic typecast once Flow has been upgraded
     return (React: any).cloneElement(React.Children.only(this.props.children), {
+      accessibilityLabel: this.props.accessibilityLabel,
       onStartShouldSetResponder: this.touchableHandleStartShouldSetResponder,
       onResponderTerminationRequest: this.touchableHandleResponderTerminationRequest,
       onResponderGrant: this.touchableHandleResponderGrant,
