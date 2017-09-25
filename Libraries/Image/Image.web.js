@@ -6,7 +6,8 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
@@ -34,7 +35,7 @@ class Image extends Component {
   }
 
   static contextTypes = {
-    isInAParentText: React.PropTypes.bool
+    isInAParentText: PropTypes.bool
   }
 
   static getSize = function(
@@ -68,7 +69,10 @@ class Image extends Component {
 
   render() {
 
-    let props = {...this.props};
+    let props = {
+      ...this.props,
+      'aria-label': this.props.accessibilityLabel
+    };
     props.src = typeof props.source === 'string' ? props.source : props.source.uri;
 
     // TODO: lazyload image when not in viewport

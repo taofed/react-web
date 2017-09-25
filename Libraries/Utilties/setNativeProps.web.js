@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var CSSPropertyOperations = require('react-dom/lib/CSSPropertyOperations');
+import setValueForStyles from '../Utilties/setValueForStyles.web';
 
 // some number that react not auto add px
 var numberTransformProperties = {
@@ -76,13 +76,20 @@ function convertTransform(style) {
 function setNativeProps(node, props, component) {
 
   for (var name in props) {
-    if (name === 'style') {
+    if (name === 'style' || name === 'pointerEvents') {
       var style = props[name];
+      if (name === 'pointerEvents') {
+        style = {pointerEvents: props[name]};
+
+        // even browser actually use pointer-events in style instead of in attribute,
+        // still keep them equal to avoid confusion.
+        node.setAttribute('pointer-events', props[name]);
+      }
       if ('transformMatrix' in style || 'transform' in style) {
         style = convertTransform(style);
       }
 
-      CSSPropertyOperations.setValueForStyles(node, style, component);
+      setValueForStyles(node, style, component);
     } else {
       node.setAttribute(name, props[name]);
     }
@@ -90,3 +97,4 @@ function setNativeProps(node, props, component) {
 }
 
 module.exports = setNativeProps;
+module.exports.convertTransform = convertTransform;

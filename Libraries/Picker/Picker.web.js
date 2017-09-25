@@ -6,10 +6,9 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import autobind from 'autobind-decorator';
-
-const PICKER = 'picker';
 
 class Picker extends Component {
   static propTypes = {
@@ -19,7 +18,7 @@ class Picker extends Component {
 
   _onChange(event) {
     // shim the native event
-    event.nativeEvent.newValue = this.refs[PICKER].value;
+    event.nativeEvent.newValue = this._ref.value;
 
     if (this.props.onChange) {
       this.props.onChange(event);
@@ -30,10 +29,15 @@ class Picker extends Component {
     }
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   render() {
     return (
       <select
-        ref={PICKER}
+        aria-label={this.props.accessibilityLabel}
+        ref={this._captureRef}
         value={this.props.selectedValue}
         style={{
           margin: 10,
@@ -48,16 +52,18 @@ class Picker extends Component {
   }
 };
 
-Picker.Item = React.createClass({
-  propTypes: {
+class Item extends Component {
+  static propTypes = {
     value: PropTypes.any, // string or integer basically
     label: PropTypes.string,
-  },
+  }
 
-  render: function() {
+  render() {
     return <option value={this.props.value}>{this.props.label}</option>;
-  },
-});
+  }
+}
+
+Picker.Item = Item;
 
 autobind(Picker);
 

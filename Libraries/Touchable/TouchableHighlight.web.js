@@ -9,6 +9,7 @@
 'use strict';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import TimerMixin from 'react-timer-mixin';
 import TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
@@ -30,8 +31,6 @@ var DEFAULT_PROPS = {
 };
 
 var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
-var CHILD_REF = 'childRef';
-var UNDERLAY_REF = 'underlayRef';
 var INACTIVE_CHILD_PROPS = {
   style: StyleSheet.create({x: {opacity: 1.0}}).x,
 };
@@ -51,20 +50,20 @@ class TouchableHighlight extends Component {
      * Determines what the opacity of the wrapped view should be when touch is
      * active.
      */
-    activeOpacity: React.PropTypes.number,
+    activeOpacity: PropTypes.number,
     /**
      * The color of the underlay that will show through when the touch is
      * active.
      */
-    underlayColor: React.PropTypes.string,
+    underlayColor: PropTypes.string,
     /**
      * Called immediately after the underlay is shown
      */
-    onShowUnderlay: React.PropTypes.func,
+    onShowUnderlay: PropTypes.func,
     /**
      * Called immediately after the underlay is hidden
      */
-    onHideUnderlay: React.PropTypes.func,
+    onHideUnderlay: PropTypes.func,
   }
 
   static defaultProps = DEFAULT_PROPS
@@ -93,11 +92,11 @@ class TouchableHighlight extends Component {
 
   // componentDidMount() {
   //   // ensurePositiveDelayProps(this.props);
-  //   // ensureComponentIsNative(this.refs[CHILD_REF]);
+  //   // ensureComponentIsNative(this._childRef);
   // },
 
   componentDidUpdate() {
-    // ensureComponentIsNative(this.refs[CHILD_REF]);
+    // ensureComponentIsNative(this._childRef);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -169,17 +168,17 @@ class TouchableHighlight extends Component {
     //   return;
     // }
 
-    this.refs[UNDERLAY_REF].setNativeProps(this.state.activeUnderlayProps);
-    this.refs[CHILD_REF].setNativeProps(this.state.activeProps);
+    this._ref.setNativeProps(this.state.activeUnderlayProps);
+    this._childRef.setNativeProps(this.state.activeProps);
     this.props.onShowUnderlay && this.props.onShowUnderlay();
   }
 
   _hideUnderlay() {
     this.clearTimeout(this._hideTimeout);
     this._hideTimeout = null;
-    if (this.refs[UNDERLAY_REF]) {
-      this.refs[CHILD_REF].setNativeProps(INACTIVE_CHILD_PROPS);
-      this.refs[UNDERLAY_REF].setNativeProps({
+    if (this._ref) {
+      this._childRef.setNativeProps(INACTIVE_CHILD_PROPS);
+      this._ref.setNativeProps({
         ...INACTIVE_UNDERLAY_PROPS,
         style: this.state.underlayStyle,
       });
@@ -187,14 +186,23 @@ class TouchableHighlight extends Component {
     }
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
+  _captureChildRef = ref => {
+    this._childRef = ref;
+  }
+
   render() {
 
     return (
       <View
+        accessibilityLabel={this.props.accessibilityLabel}
         accessible={true}
         accessibilityComponentType={this.props.accessibilityComponentType}
         accessibilityTraits={this.props.accessibilityTraits}
-        ref={UNDERLAY_REF}
+        ref={this._captureRef}
         style={this.state.underlayStyle}
         onLayout={this.props.onLayout}
         onStartShouldSetResponder={this.touchableHandleStartShouldSetResponder}
@@ -207,7 +215,7 @@ class TouchableHighlight extends Component {
         {React.cloneElement(
           React.Children.only(this.props.children),
           {
-            ref: CHILD_REF,
+            ref: this._captureChildRef,
           }
         )}
       </View>

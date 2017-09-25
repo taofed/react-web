@@ -8,10 +8,12 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import View from 'ReactView';
 import autobind from 'autobind-decorator';
+import TextInputState from './TextInputState';
 
 let typeMap = {
   'default': 'text',
@@ -82,9 +84,13 @@ class TextInput extends Component {
     }
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   componentDidMount() {
     if (this.props.autoFocus) {
-      ReactDOM.findDOMNode(this.refs.input).focus();
+      ReactDOM.findDOMNode(this._ref).focus();
     }
   }
 
@@ -117,7 +123,7 @@ class TextInput extends Component {
     } = this.props;
 
     const propsCommon = {
-      ref: 'input',
+      ref: this._captureRef,
       'aria-label': accessibilityLabel,
       autoComplete: autoComplete && 'on',
       autoFocus,
@@ -196,5 +202,7 @@ const styles = {
 autobind(TextInput);
 
 TextInput.isReactNativeComponent = true;
+
+TextInput.State = TextInputState;
 
 export default TextInput;

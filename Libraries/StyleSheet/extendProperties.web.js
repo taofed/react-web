@@ -7,6 +7,7 @@
 
 import getVendorPropertyName from 'domkit/getVendorPropertyName';
 import CSSProperty from 'CSSProperty';
+import { convertTransform } from '../Utilties/setNativeProps'
 
 var shorthandProperties = {
   margin: true,
@@ -71,6 +72,7 @@ else flexboxSpec = '2009';
 var isUCBrowser = /UCBrowser/i.test(navigator.userAgent);
 // only U3 core need 2009 spec, and only this way can detect another core
 var notU3 = /UCBS/i.test(navigator.userAgent);
+notU3 = !(/U3/i.test(navigator.userAgent));
 if (isUCBrowser && !notU3) flexboxSpec = '2009';
 
 const isIE = /Trident/i.test(navigator.userAgent);
@@ -217,6 +219,8 @@ function extendProperties(style) {
       result[property] = value;
     }
   }
+
+  Object.assign(result, convertTransform(result));
 
   return result;
 }

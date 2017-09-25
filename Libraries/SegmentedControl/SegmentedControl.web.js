@@ -8,7 +8,8 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import Text from 'ReactText';
 import StyleSheet from 'ReactStyleSheet';

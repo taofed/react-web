@@ -9,7 +9,8 @@
  */
 'use strict';
 
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
@@ -38,6 +39,16 @@ class Slider extends Component {
       onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
     });
   }
+  _captureTotalTrackRef = ref => {
+    this._totalTrackRef = ref;
+  }
+  _captureMinTrackRef = ref => {
+    this._minTrackRef = ref;
+  }
+  _captureThumbRef = ref => {
+    this._thumbRef = ref;
+  }
+  _capture
   render() {
     let {
       minimumTrackTintColor,
@@ -62,22 +73,22 @@ class Slider extends Component {
     };
     return (
       <View style={[mainStyles.container, style]}>
-        <View ref="totalTrack"
+        <View ref={this._captureTotalTrackRef}
           style={[
             {backgroundColor: maximumTrackTintColor},
             mainStyles.track, trackStyle,
             disabled && {backgroundColor: mainStyles.disabled.backgroundColor},
           ]} />
-        <View ref="minTrack" style={[mainStyles.track, trackStyle, minimumTrackStyle]} />
+        <View ref={this._captureMinTrackRef} style={[mainStyles.track, trackStyle, minimumTrackStyle]} />
         {
           thumbImage && thumbImage.uri &&
-          <Image ref="thumb" source={thumbImage} style={[
+          <Image ref={this._captureThumbRef} source={thumbImage} style={[
             {width: mainStyles.thumb.width, height: mainStyles.thumb.height},
             thumbStyle, {left: minTrackWidth, position: 'relative', display: 'block'},
             {marginLeft: - thumbHeight / 2, marginTop: -(thumbHeight + trackHeight) / 2},
           ]}
           {...this._panResponder.panHandlers} /> ||
-          <View ref="thumb" style={[
+          <View ref={this._captureThumbRef} style={[
             {backgroundColor: thumbTintColor, left: minTrackWidth},
             mainStyles.thumb, thumbStyle,
             {marginLeft: - thumbHeight / 2, marginTop: -(thumbHeight + trackHeight) / 2},
@@ -94,7 +105,7 @@ class Slider extends Component {
     return false;
   }
   _handlePanResponderGrant(e, gestureState) {
-    this.previousLeft = this._getWidth('minTrack');
+    this.previousLeft = this._getWidth(this._minTrackRef);
     this.previousValue = this.state.value;
     this._fireProcessEvent('onSlidingStart');
   }
@@ -113,7 +124,7 @@ class Slider extends Component {
   }
   _getValue(gestureState) {
     const {step, maximumValue, minimumValue} = this.props;
-    let totalWidth = this._getWidth('totalTrack');
+    let totalWidth = this._getWidth(this._totalTrackRef);
     let thumbLeft = Math.min(totalWidth,
       Math.max(0, this.previousLeft + gestureState.dx)),
       ratio = thumbLeft / totalWidth,
@@ -125,8 +136,8 @@ class Slider extends Component {
     }
   }
   _getWidth(ref) {
-    if (this.refs[ref]) {
-      let node = ReactDOM.findDOMNode(this.refs[ref]),
+    if (ref) {
+      let node = ReactDOM.findDOMNode(ref),
         rect = node.getBoundingClientRect();
       return rect.width;
     }

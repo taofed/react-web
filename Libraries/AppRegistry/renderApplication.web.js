@@ -18,7 +18,6 @@ class AppContainer extends Component {
     let RootComponent = this.props.rootComponent;
     let appView =
       <View
-        ref="main"
         className={StyleSheet.rootClassName}
         style={styles.appContainer}>
         <RootComponent

@@ -7,7 +7,8 @@
  */
 'use strict';
 
-import React, { PropTypes, cloneElement } from 'react';
+import React, { cloneElement } from 'react';
+import PropTypes from 'prop-types';
 import assign from 'object-assign';
 import View from 'ReactView';
 import Animated from 'ReactAnimated';
@@ -19,7 +20,6 @@ import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
 const deviceSize = Dimensions.get('window');
-const VIEWPAGER_REF = 'viewpager';
 
 class ViewPager extends React.Component {
 
@@ -57,22 +57,29 @@ class ViewPager extends React.Component {
     keyboardDismissMode: PropTypes.oneOf([
       'none', // default
       'on-drag'
-    ])
+    ]),
+
+    /**
+    * When false, the content does not scroll.
+    * The default value is true.
+    */
+    scrollEnabled: PropTypes.bool
   }
 
   static defaultProps = {
-    initialPage: 0
+    initialPage: 0,
+    scrollEnabled: true
   }
 
   state = {
     selectedPage: this.props.initialPage,
     pageWidth: deviceSize.width,
-    pageCount: this.props.children.length,
+    pageCount: this.props.children.length || 1,
     offsetLeft: new Animated.Value(0)
   }
 
   getInnerViewNode() {
-    return this.refs[VIEWPAGER_REF].childNodes[0];
+    return this._ref.childNodes[0];
   }
 
   componentWillMount() {
@@ -88,7 +95,7 @@ class ViewPager extends React.Component {
       // });
     // });
 
-    this._panResponder = PanResponder.create({
+    this._panResponder = this.props.scrollEnabled && PanResponder.create({
       onStartShouldSetResponder: () => true,
       onMoveShouldSetPanResponder: this._shouldSetPanResponder,
       onPanResponderGrant: () => { },
@@ -117,6 +124,10 @@ class ViewPager extends React.Component {
     });
   }
 
+  _captureRef = ref => {
+    this._ref = ref;
+  }
+
   render() {
     let children = this._childrenWithOverridenStyle();
 
@@ -130,7 +141,7 @@ class ViewPager extends React.Component {
       extrapolate: 'clamp'
     });
 
-    return (<View ref={VIEWPAGER_REF}
+    return (<View ref={this._captureRef}
       style={this.props.style}
       {...this._panResponder.panHandlers}
     >

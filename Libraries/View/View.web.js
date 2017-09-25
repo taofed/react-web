@@ -8,15 +8,16 @@
  */
 'use strict';
 
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import StyleSheet from 'ReactStyleSheet';
+import mixin from 'react-mixin';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
-var View = React.createClass({
-  mixins: [LayoutMixin, NativeMethodsMixin],
+class View extends Component {
 
-  propTypes: {
+  static propTypes = {
     /**
      * Used to locate this view in end-to-end tests. NB: disables the 'layout-only
      * view removal' optimization for this view!
@@ -90,16 +91,27 @@ var View = React.createClass({
       PropTypes.object,
       PropTypes.array
     ]),
-  },
+  };
 
-  render: function() {
+  render() {
+    const {
+      pointerEvents
+    } = this.props;
+    var mergedProps = this.props;
+    if (pointerEvents) {
+      mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
+    }
+
     return (
-      <div className={StyleSheet.viewClassName} {...this.props}>
+      <div className={StyleSheet.viewClassName} {...mergedProps} aria-label={mergedProps.accessibilityLabel}>
         {this.props.children}
       </div>
     );
   }
-});
+}
+
+mixin.onClass(View, LayoutMixin);
+mixin.onClass(View, NativeMethodsMixin);
 
 View.isReactNativeComponent = true;
 

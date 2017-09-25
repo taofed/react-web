@@ -9,7 +9,8 @@
  */
 'use strict';
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import NavigatorBreadcrumbNavigationBarStyles from 'ReactNavigatorBreadcrumbNavigationBarStyles';
 import NavigatorNavigationBarStylesAndroid from 'ReactNavigatorNavigationBarStylesAndroid';
 import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIOS';
@@ -70,9 +71,9 @@ class NavigatorBreadcrumbNavigationBar extends Component {
       titleContentForRoute: PropTypes.func,
       iconForRoute: PropTypes.func,
     }),
-    navState: React.PropTypes.shape({
-      routeStack: React.PropTypes.arrayOf(React.PropTypes.object),
-      presentedIndex: React.PropTypes.number,
+    navState: PropTypes.shape({
+      routeStack: PropTypes.arrayOf(PropTypes.object),
+      presentedIndex: PropTypes.number,
     }),
     style: View.propTypes.style,
   }
@@ -103,18 +104,18 @@ class NavigatorBreadcrumbNavigationBar extends Component {
     }
 
     if (interpolate.Crumb(CRUMB_PROPS[index].style, amount)) {
-      this._setPropsIfExists('crumb_' + index, CRUMB_PROPS[index]);
+      this._setPropsIfExists(this._crumbRefs[index], CRUMB_PROPS[index]);
     }
     if (interpolate.Icon(ICON_PROPS[index].style, amount)) {
-      this._setPropsIfExists('icon_' + index, ICON_PROPS[index]);
+      this._setPropsIfExists(this._iconRefs[index], ICON_PROPS[index]);
     }
     if (interpolate.Separator(SEPARATOR_PROPS[index].style, amount)) {
-      this._setPropsIfExists('separator_' + index, SEPARATOR_PROPS[index]);
+      this._setPropsIfExists(this._separatorRefs[index], SEPARATOR_PROPS[index]);
     }
     if (interpolate.Title(TITLE_PROPS[index].style, amount)) {
-      this._setPropsIfExists('title_' + index, TITLE_PROPS[index]);
+      this._setPropsIfExists(this._titleRefs[index], TITLE_PROPS[index]);
     }
-    var right = this.refs['right_' + index];
+    var right = this._rightRefs[index];
     if (right &&
         interpolate.RightItem(RIGHT_BUTTON_PROPS[index].style, amount)) {
       right.setNativeProps(RIGHT_BUTTON_PROPS[index])
@@ -149,10 +150,10 @@ class NavigatorBreadcrumbNavigationBar extends Component {
       renderToHardwareTextureAndroid: renderToHardwareTexture,
     };
 
-    this._setPropsIfExists('icon_' + index, props);
-    this._setPropsIfExists('separator_' + index, props);
-    this._setPropsIfExists('title_' + index, props);
-    this._setPropsIfExists('right_' + index, props);
+    this._setPropsIfExists(this._iconRefs[index], props);
+    this._setPropsIfExists(this._separatorRefs[index], props);
+    this._setPropsIfExists(this._titleRefs[index], props);
+    this._setPropsIfExists(this._rightRefs[index], props);
   }
 
   componentWillMount() {
@@ -177,6 +178,38 @@ class NavigatorBreadcrumbNavigationBar extends Component {
     );
   }
 
+  _crumbRefs = {}
+  _iconRefs = {}
+  _separatorRefs = {}
+  _titleRefs = {}
+  _rightRefs = {}
+
+  _captureCrumbRef(index) {
+    return ref => {
+      this._crumbRefs[index] = ref;
+    }
+  }
+  _captureIconRef(index) {
+    return ref => {
+      this._iconRefs[index] = ref;
+    }
+  }
+  _captureSeparatorRef(index) {
+    return ref => {
+      this._separatorRefs[index] = ref;
+    }
+  }
+  _captureTitleRef(index) {
+    return ref => {
+      this._titleRefs[index] = ref;
+    }
+  }
+  _captureRightRef(index) {
+    return ref => {
+      this._rightRefs[index] = ref;
+    }
+  }
+
   _getBreadcrumb(route, index) {
     if (this._descriptors.crumb.has(route)) {
       return this._descriptors.crumb.get(route);
@@ -186,11 +219,11 @@ class NavigatorBreadcrumbNavigationBar extends Component {
     var firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
 
     var breadcrumbDescriptor = (
-      <View ref={'crumb_' + index} style={firstStyles.Crumb}>
-        <View ref={'icon_' + index} style={firstStyles.Icon}>
+      <View ref={this._captureCrumbRef(index)} style={firstStyles.Crumb}>
+        <View ref={this._captureIconRef(index)} style={firstStyles.Icon}>
           {navBarRouteMapper.iconForRoute(route, this.props.navigator)}
         </View>
-        <View ref={'separator_' + index} style={firstStyles.Separator}>
+        <View ref={this._captureSeparatorRef(index)} style={firstStyles.Separator}>
           {navBarRouteMapper.separatorForRoute(route, this.props.navigator)}
         </View>
       </View>
@@ -212,7 +245,7 @@ class NavigatorBreadcrumbNavigationBar extends Component {
     var firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
 
     var titleDescriptor = (
-      <View ref={'title_' + index} style={firstStyles.Title}>
+      <View ref={this._captureTitleRef(index)} style={firstStyles.Title}>
         {titleContent}
       </View>
     );
@@ -234,7 +267,7 @@ class NavigatorBreadcrumbNavigationBar extends Component {
     }
     var firstStyles = initStyle(index, navStatePresentedIndex(this.props.navState));
     var rightButtonDescriptor = (
-      <View ref={'right_' + index} style={firstStyles.RightItem}>
+      <View ref={this._captureRightRef(index)} style={firstStyles.RightItem}>
         {rightContent}
       </View>
     );
@@ -243,7 +276,6 @@ class NavigatorBreadcrumbNavigationBar extends Component {
   }
 
   _setPropsIfExists(ref, props) {
-    var ref = this.refs[ref];
     ref && ref.setNativeProps(props);
   }
 

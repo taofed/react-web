@@ -8,7 +8,8 @@
  */
 'use strict';
 
-import React, { PropTypes, Component} from 'react';
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import ScrollResponder from 'ReactScrollResponder';
 import StyleSheet from 'ReactStyleSheet';
@@ -17,8 +18,6 @@ import throttle from 'domkit/throttle';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-const SCROLLVIEW = 'ScrollView';
-const INNERVIEW = 'InnerScrollView';
 const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'];
 
 /**
@@ -37,6 +36,9 @@ const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLef
  * view from becoming the responder.
  */
 class ScrollView extends Component {
+  static defaultProps = {
+    scrollEnabled: true
+  };
 
   state = this.scrollResponderMixinGetInitialState();
 
@@ -51,29 +53,21 @@ class ScrollView extends Component {
   }
 
   getInnerViewNode() {
-    return this.refs[INNERVIEW];
+    return this._innerRef;
   }
 
-  scrollTo(opts) {
+  scrollTo(opts: { x?: number, y?: number, animated?: boolean }) {
     // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
     // this.getScrollResponder().scrollResponderScrollTo(destX || 0, destY || 0);
     if (typeof opts === 'number') {
       opts = { y: opts, x: arguments[1] };
     }
 
-    this.scrollWithoutAnimationTo(opts.y, opts.x);
-  }
-
-  scrollWithoutAnimationTo(destY?: number, destX?: number) {
-    // $FlowFixMe - Don't know how to pass Mixin correctly. Postpone for now
-    // this.getScrollResponder().scrollResponderScrollWithouthAnimationTo(
-    //   destX || 0,
-    //   destY || 0,
-    // );
-
-    this._scrollViewDom = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
-    this._scrollViewDom.scrollTop = destY || 0;
-    this._scrollViewDom.scrollLeft = destX || 0;
+    if (opts.animated) {
+      this.getScrollResponder().scrollResponderScrollTo(opts.x || 0, opts.y || 0);
+    } else {
+      this.getScrollResponder().scrollResponderScrollWithouthAnimationTo(opts.x || 0, opts.y || 0);
+    }
   }
 
   handleScroll(e: Event) {
@@ -95,12 +89,20 @@ class ScrollView extends Component {
     // }
 
     if (!this._scrollViewDom)
-      this._scrollViewDom = ReactDOM.findDOMNode(this.refs[SCROLLVIEW]);
+      this._scrollViewDom = ReactDOM.findDOMNode(this._ref);
 
     e.nativeEvent = e.nativeEvent || {};
     e.nativeEvent.contentOffset = {x:this._scrollViewDom.scrollLeft, y:this._scrollViewDom.scrollTop};
 
     this.props.onScroll && this.props.onScroll(e);
+  }
+
+  _captureInnerRef = ref => {
+    this._innerRef = ref;
+  }
+
+  _captureRef = ref => {
+    this._ref = ref;
   }
 
   render() {
@@ -138,7 +140,7 @@ class ScrollView extends Component {
 
     let contentContainer =
       <View
-        ref={INNERVIEW}
+        ref={this._captureInnerRef}
         style={contentContainerStyle}
         removeClippedSubviews={this.props.removeClippedSubviews}
         collapsable={false}>
@@ -166,7 +168,7 @@ class ScrollView extends Component {
       alwaysBounceVertical,
       style: ([
         styles.base,
-        this.props.horizontal ? styles.horizontal : null,
+        (this.props.horizontal && this.props.scrollEnabled) ? styles.horizontal : null,
         this.props.style,
       ]: ?Array<any>),
       onTouchStart: this.scrollResponderHandleTouchStart,
@@ -191,7 +193,7 @@ class ScrollView extends Component {
     };
 
     return (
-      <View {...props} ref={SCROLLVIEW}>
+      <View {...props} ref={this._captureRef}>
         {contentContainer}
       </View>
     );
