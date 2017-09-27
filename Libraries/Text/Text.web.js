@@ -8,10 +8,13 @@
  */
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import mixin from 'react-mixin';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
+import autobind from 'autobind-decorator';
 
 /**
  * A React component for displaying text which supports nesting,
@@ -46,54 +49,52 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
  * ```
  */
 
-let Text = React.createClass({
+class Text extends Component {
 
-  mixins: [LayoutMixin, TouchableMixin, NativeMethodsMixin],
-
-  propTypes: {
+  static propTypes = {
     /**
      * Used to truncate the text with an elipsis after computing the text
      * layout, including line wrapping, such that the total number of lines
      * does not exceed this number.
      */
-    numberOfLines: React.PropTypes.number,
+    numberOfLines: PropTypes.number,
     /**
      * Invoked on mount and layout changes with
      *
      *   `{nativeEvent: {layout: {x, y, width, height}}}`
      */
-    onLayout: React.PropTypes.func,
+    onLayout: PropTypes.func,
     /**
      * This function is called on press.
      */
-    onPress: React.PropTypes.func,
+    onPress: PropTypes.func,
     /**
      * When true, no visual change is made when text is pressed down. By
      * default, a gray oval highlights the text on press down.
      * @platform ios
      */
-    suppressHighlighting: React.PropTypes.bool,
+    suppressHighlighting: PropTypes.bool,
     /**
      * Used to locate this view in end-to-end tests.
      */
-    testID: React.PropTypes.string,
+    testID: PropTypes.string,
     /**
      * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
      */
-    allowFontScaling: React.PropTypes.bool,
-  },
+    allowFontScaling: PropTypes.bool,
+  };
 
-  getInitialState(): Object {
-    return {...this.touchableGetInitialState(), ...{
+  static defaultProps: Object = {
+    allowFontScaling: true
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.touchableGetInitialState(),
       isHighlighted: false,
-    }};
-  },
-
-  getDefaultProps(): Object {
-    return {
-      allowFontScaling: true,
     };
-  },
+  }
 
   // componentDidMount() {
   //   console.log('mount')
@@ -107,7 +108,7 @@ let Text = React.createClass({
     let shouldSetFromProps = this.props.onStartShouldSetResponder &&
       this.props.onStartShouldSetResponder();
     return shouldSetFromProps || !!this.props.onPress;
-  },
+  }
 
   /*
    * Returns true to allow responder termination
@@ -120,31 +121,31 @@ let Text = React.createClass({
       allowTermination = this.props.onResponderTerminationRequest();
     }
     return allowTermination;
-  },
+  }
 
   handleResponderGrant(e: SyntheticEvent, dispatchID: string) {
     this.touchableHandleResponderGrant(e, dispatchID);
     this.props.onResponderGrant &&
       this.props.onResponderGrant.apply(this, arguments);
-  },
+  }
 
   handleResponderMove(e: SyntheticEvent) {
     this.touchableHandleResponderMove(e);
     this.props.onResponderMove &&
       this.props.onResponderMove.apply(this, arguments);
-  },
+  }
 
   handleResponderRelease(e: SyntheticEvent) {
     this.touchableHandleResponderRelease(e);
     this.props.onResponderRelease &&
       this.props.onResponderRelease.apply(this, arguments);
-  },
+  }
 
   handleResponderTerminate(e: SyntheticEvent) {
     this.touchableHandleResponderTerminate(e);
     this.props.onResponderTerminate &&
       this.props.onResponderTerminate.apply(this, arguments);
-  },
+  }
 
   touchableHandleActivePressIn() {
     if (this.props.suppressHighlighting || !this.props.onPress) {
@@ -153,7 +154,7 @@ let Text = React.createClass({
     this.setState({
       isHighlighted: true,
     });
-  },
+  }
 
   touchableHandleActivePressOut() {
     if (this.props.suppressHighlighting || !this.props.onPress) {
@@ -162,27 +163,27 @@ let Text = React.createClass({
     this.setState({
       isHighlighted: false,
     });
-  },
+  }
 
   touchableHandlePress() {
     this.props.onPress && this.props.onPress();
-  },
+  }
 
   touchableGetPressRectOffset(): RectOffset {
     return PRESS_RECT_OFFSET;
-  },
+  }
 
   getChildContext(): Object {
     return {isInAParentText: true};
-  },
+  }
 
-  contextTypes: {
-    isInAParentText: React.PropTypes.bool
-  },
+  static contextTypes = {
+    isInAParentText: PropTypes.bool
+  };
 
-  childContextTypes: {
-    isInAParentText: React.PropTypes.bool
-  },
+  static childContextTypes = {
+    isInAParentText: PropTypes.bool
+  };
 
   render() {
     let props = {...this.props};
@@ -247,8 +248,8 @@ let Text = React.createClass({
           })
         }} />
     );
-  },
-});
+  }
+}
 
 type RectOffset = {
   top: number;
@@ -258,6 +259,11 @@ type RectOffset = {
 }
 
 let PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
+
+mixin.onClass(Text, LayoutMixin);
+mixin.onClass(Text, TouchableMixin);
+mixin.onClass(Text, NativeMethodsMixin);
+autobind(Text);
 
 Text.isReactNativeComponent = true;
 

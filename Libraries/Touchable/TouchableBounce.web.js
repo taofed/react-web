@@ -10,6 +10,7 @@
 
 import Animated from 'ReactAnimated';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Mixin as TouchableMixin } from 'ReactTouchable';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
@@ -36,15 +37,15 @@ var PRESS_RECT_OFFSET = {top: 20, left: 20, right: 20, bottom: 30};
 class TouchableBounce extends Component {
 
   static propTypes = {
-    onPress: React.PropTypes.func,
-    onPressIn: React.PropTypes.func,
-    onPressOut: React.PropTypes.func,
+    onPress: PropTypes.func,
+    onPressIn: PropTypes.func,
+    onPressOut: PropTypes.func,
     // The function passed takes a callback to start the animation which should
     // be run after this onPress handler is done. You can use this (for example)
     // to update UI before starting the animation.
-    onPressWithCompletion: React.PropTypes.func,
+    onPressWithCompletion: PropTypes.func,
     // the function passed is called after the animation is complete
-    onPressAnimationComplete: React.PropTypes.func,
+    onPressAnimationComplete: PropTypes.func,
   }
 
   state = {

@@ -6,7 +6,8 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import View from 'ReactView';
 import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
 import ImageResizeMode from './ImageResizeMode';
@@ -34,7 +35,7 @@ class Image extends Component {
   }
 
   static contextTypes = {
-    isInAParentText: React.PropTypes.bool
+    isInAParentText: PropTypes.bool
   }
 
   static getSize = function(
@@ -79,7 +80,7 @@ class Image extends Component {
     if ( (this.props.children || (resizeMode && resizeMode !== 'stretch')) && !this.context.isInAParentText) {
       let containerStyles = props.style ? props.style : {};
       containerStyles.backgroundImage = 'url("' + props.src + '")';
-      containerStyles.backgroundSize = resizeMode || 'cover';
+      containerStyles.backgroundSize = (!resizeMode || resizeMode=='stretch') ? '100% 100%' : resizeMode;
       containerStyles.backgroundRepeat = 'no-repeat';
       containerStyles.backgroundPosition = '50%';
 

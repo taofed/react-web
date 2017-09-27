@@ -8,7 +8,8 @@
  */
 'use strict';
 
-import React, { PropTypes, Component} from 'react';
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import ScrollResponder from 'ReactScrollResponder';
 import StyleSheet from 'ReactStyleSheet';
@@ -166,7 +167,7 @@ class ScrollView extends Component {
       alwaysBounceVertical,
       style: ([
         styles.base,
-        this.props.horizontal ? styles.horizontal : null,
+        (this.props.horizontal && this.props.scrollEnabled) ? styles.horizontal : null,
         this.props.style,
       ]: ?Array<any>),
       onTouchStart: this.scrollResponderHandleTouchStart,

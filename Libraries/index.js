@@ -20,6 +20,7 @@ export ActivityIndicatorIOS from 'ReactActivityIndicator';
 export ActivityIndicator from 'ReactActivityIndicator';
 // export DatePicker from 'ReactDatePicker';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
+export FlatList from 'ReactFlatList';
 export Image from 'ReactImage';
 export ListView from 'ReactListView';
 export Linking from 'ReactLinking';
@@ -29,6 +30,7 @@ export PickerIOS from 'ReactPicker';
 export Picker from 'ReactPicker';
 export ProgressViewIOS from 'ReactProgressView';
 export ScrollView from 'ReactScrollView';
+export SectionList from 'ReactSectionList';
 export SegmentedControlIOS from 'ReactSegmentedControl';
 export Slider from 'ReactSlider';
 export SliderIOS from 'ReactSlider';
@@ -50,6 +52,7 @@ export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
+export VirtualizedList from 'ReactVirtualizedList';
 
 
 // APIs
@@ -58,16 +61,20 @@ export AlertIOS from 'ReactAlert';
 export Animated from 'ReactAnimated';
 export AppRegistry from 'ReactAppRegistry';
 export AsyncStorage from 'ReactAsyncStorage';
+export BackAndroid from 'ReactBackAndroid';
 export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
+export I18nManager from 'ReactI18nManager';
 export InteractionManager from 'ReactInteractionManager';
 export LayoutAnimation from 'ReactLayoutAnimation';
+export NetInfo from 'ReactNetInfo';
 export PanResponder from 'ReactPanResponder';
 export PixelRatio from 'ReactPixelRatio';
 export StyleSheet from 'ReactStyleSheet';
 export AppState from 'ReactAppState';
 
 // Plugins
+export findNodeHandle from 'ReactfindNodeHandle';
 export NativeModules from 'ReactNativeModules';
 export Platform from 'ReactPlatform';
 export processColor from 'ReactProcessColor';
