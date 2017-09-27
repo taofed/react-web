@@ -16,6 +16,7 @@ import NavigatorNavigationBarStylesIOS from 'ReactNavigatorNavigationBarStylesIO
 import Platform from 'ReactStyleSheet';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
+import Dimensions from 'ReactDimensions';
 import { Map } from 'immutable';
 import autobind from 'autobind-decorator';
 
@@ -45,6 +46,7 @@ class NavigatorNavigationBar extends Component {
       this._descriptors[componentName] = new Map();
     });
 
+    this._handleResize = this._handleResize.bind(this)
   }
 
   static propTypes = {
@@ -131,6 +133,24 @@ class NavigatorNavigationBar extends Component {
     for (var index = min; index <= max; index++) {
       this._updateIndexProgress(progress, index, fromIndex, toIndex);
     }
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this._handleResize)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._handleResize)
+    clearTimeout(this._resizeTimeout)
+  }
+
+  _handleResize() {
+    const self = this
+    clearTimeout(this._resizeTimeout)
+    // debounce
+    this._resizeTimeout = setTimeout(function () {
+      self.setState({ dimensions: Dimensions.get('window') })
+    }, 100)
   }
 
   render() {
