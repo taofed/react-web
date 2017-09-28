@@ -19,8 +19,6 @@ import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-const deviceSize = Dimensions.get('window');
-
 class ViewPager extends React.Component {
 
   static propTypes = {
@@ -73,7 +71,6 @@ class ViewPager extends React.Component {
 
   state = {
     selectedPage: this.props.initialPage,
-    pageWidth: deviceSize.width,
     pageCount: this.props.children.length || 1,
     offsetLeft: new Animated.Value(0)
   }
@@ -115,7 +112,7 @@ class ViewPager extends React.Component {
     // will handle positioning of elements, so it's not important to offset
     // them correctly.
     return React.Children.map(this.props.children, function(child) {
-      let style = assign({}, child.props.style, {width: deviceSize.width});
+      let style = assign({}, child.props.style, {width: Dimensions.get('window').width});
       let newProps = {
         style: style,
         collapsable: false
@@ -131,7 +128,8 @@ class ViewPager extends React.Component {
   render() {
     let children = this._childrenWithOverridenStyle();
 
-    let { offsetLeft, pageWidth, pageCount } = this.state;
+    let { offsetLeft, pageCount } = this.state;
+    let pageWidth = Dimensions.get('window').width;
     let width = pageWidth * pageCount;
     let count = pageCount - 1;
 
@@ -179,13 +177,13 @@ class ViewPager extends React.Component {
   }
 
   _panResponderMove(ev, {dx}) {
-    let val = this.state.selectedPage + dx / this.state.pageWidth * -1;
+    let val = this.state.selectedPage + dx / Dimensions.get('window').width * -1;
     this.state.offsetLeft.setValue(val);
   }
 
   _panResponderRelease(ev, {dx}) {
-    let { selectedPage, pageWidth } = this.state;
-    let range = Math.abs(dx) / pageWidth;
+    let { selectedPage } = this.state;
+    let range = Math.abs(dx) / Dimensions.get('window').width;
     let threshold = 1 / 5;
 
     if (range > threshold) {
