@@ -14,6 +14,9 @@ import ReactDOM from 'react-dom';
 import View from 'ReactView';
 import autobind from 'autobind-decorator';
 import TextInputState from './TextInputState';
+import mixin from 'react-mixin';
+import { Mixin as LayoutMixin } from 'ReactLayoutMixin';
+import { Mixin as NativeMethodsMixin } from 'NativeMethodsMixin';
 
 let typeMap = {
   'default': 'text',
@@ -200,6 +203,9 @@ const styles = {
 };
 
 autobind(TextInput);
+
+mixin.onClass(TextInput, LayoutMixin);
+mixin.onClass(TextInput, NativeMethodsMixin);
 
 TextInput.isReactNativeComponent = true;
 
