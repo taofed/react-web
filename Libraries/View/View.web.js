@@ -94,8 +94,16 @@ class View extends Component {
   };
 
   render() {
+    const {
+      pointerEvents
+    } = this.props;
+    var mergedProps = this.props;
+    if (pointerEvents) {
+      mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
+    }
+
     return (
-      <div className={StyleSheet.viewClassName} {...this.props}>
+      <div className={StyleSheet.viewClassName} {...mergedProps} aria-label={mergedProps.accessibilityLabel}>
         {this.props.children}
       </div>
     );

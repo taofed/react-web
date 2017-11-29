@@ -186,7 +186,10 @@ class Text extends Component {
   };
 
   render() {
-    let props = {...this.props};
+    let props = {
+      ...this.props,
+      'aria-label': this.props.accessibilityLabel
+    };
     // Text is accessible by default
     if (props.accessible !== false) {
       props.accessible = true;
