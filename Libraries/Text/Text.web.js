@@ -82,6 +82,11 @@ class Text extends Component {
      * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
      */
     allowFontScaling: PropTypes.bool,
+
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
   };
 
   static defaultProps: Object = {
