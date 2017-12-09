@@ -24,6 +24,7 @@ class Image extends Component {
       }),
       // Opaque type returned by require('./image.jpg')
       PropTypes.number,
+      PropTypes.string,
       // Multiple sources
       PropTypes.arrayOf(
         PropTypes.shape({
