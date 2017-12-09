@@ -234,6 +234,13 @@ class Text extends Component {
       // TODO set a linebreak
     }
 
+    delete props.accessibilityLabel;
+    delete props.allowFontScaling;
+    delete props.accessible;
+    delete props.isHighlighted;
+    delete props.numberOfLines;
+    delete props.onPress;
+
     return (
       <span {...props}
         style={{

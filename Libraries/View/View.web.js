@@ -102,8 +102,56 @@ class View extends Component {
       mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
     }
 
+    mergedProps = {
+        ...mergedProps,
+        'aria-label': mergedProps.accessibilityLabel,
+    }
+
+    delete mergedProps.accessibilityLabel;
+    delete mergedProps.accessible;
+    delete mergedProps.accessibilityComponentType;
+    delete mergedProps.accessibilityTraits;
+    delete mergedProps.testID;
+    delete mergedProps.onLayout;
+    delete mergedProps.collapsable;
+    delete mergedProps.showsVerticalScrollIndicator;
+    delete mergedProps.removeClippedSubviews;
+    delete mergedProps.enableEmptySections;
+    delete mergedProps.initialListSize;
+    delete mergedProps.pagingEnabled;
+    delete mergedProps.scrollRenderAheadDistance;
+    delete mergedProps.dataSource;
+    delete mergedProps.renderRow;
+    delete mergedProps.onEndReachedThreshold;
+    delete mergedProps.onEndReached;
+    delete mergedProps.renderFooter;
+    delete mergedProps.refreshControl;
+    delete mergedProps.pageSize;
+    delete mergedProps.stickyHeaderIndices;
+    delete mergedProps.scrollEventThrottle;
+    delete mergedProps.onKeyboardWillShow;
+    delete mergedProps.onKeyboardWillHide;
+    delete mergedProps.onKeyboardDidShow;
+    delete mergedProps.onKeyboardDidHide;
+    delete mergedProps.scrollEnabled;
+    delete mergedProps.onContentSizeChange;
+    delete mergedProps.alwaysBounceHorizontal;
+    delete mergedProps.alwaysBounceVertical;
+    delete mergedProps.onScrollBeginDrag;
+    delete mergedProps.onScrollEndDrag;
+    delete mergedProps.onMomentumScrollBegin;
+    delete mergedProps.onMomentumScrollEnd;
+    delete mergedProps.horizontal;
+    delete mergedProps.automaticallyAdjustContentInsets;
+    delete mergedProps.contentOffset;
+    delete mergedProps.scrollsToTop;
+    delete mergedProps.showsHorizontalScrollIndicator;
+    delete mergedProps.directionalLockEnabled;
+    delete mergedProps.keyboardDismissMode;
+    delete mergedProps.tabLabel;
+
     return (
-      <div className={StyleSheet.viewClassName} {...mergedProps} aria-label={mergedProps.accessibilityLabel}>
+      <div className={StyleSheet.viewClassName} {...mergedProps}>
         {this.props.children}
       </div>
     );
