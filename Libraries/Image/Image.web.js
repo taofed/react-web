@@ -99,6 +99,7 @@ class Image extends Component {
       );
     } else {
       delete props.source;
+      delete props.resizeMode;
 
       return (
         <img {...props}/>
