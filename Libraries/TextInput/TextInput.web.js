@@ -141,7 +141,6 @@ class TextInput extends Component {
         ...styles.initial,
         ...style
       },
-      testID,
       value,
       onKeyDown,
       onKeyUp,
