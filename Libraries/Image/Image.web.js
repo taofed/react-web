@@ -33,6 +33,10 @@ class Image extends Component {
           height: PropTypes.number,
         }))
     ]),
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ])
   }
 
   static contextTypes = {
