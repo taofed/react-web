@@ -93,6 +93,8 @@ class Image extends Component {
         </View>
       );
     } else {
+      delete props.source;
+
       return (
         <img {...props}/>
       );
