@@ -151,8 +151,7 @@ class TextInput extends Component {
     if (multiline) {
       const propsMultiline = {
         ...propsCommon,
-        maxRows: maxNumberOfLines || numberOfLines,
-        minRows: numberOfLines
+        rows: maxNumberOfLines || numberOfLines,
       };
 
       input = <textarea {...propsMultiline} />;
