@@ -149,6 +149,32 @@ class View extends Component {
     delete mergedProps.directionalLockEnabled;
     delete mergedProps.keyboardDismissMode;
     delete mergedProps.tabLabel;
+    delete mergedProps.ItemSeparatorComponent;
+    delete mergedProps.ListFooterComponent;
+    delete mergedProps.ListHeaderComponent;
+    delete mergedProps.debug;
+    delete mergedProps.disableVirtualization;
+    delete mergedProps.getItemLayout;
+    delete mergedProps.keyboardShouldPersistTaps;
+    delete mergedProps.legacyImplementation;
+    delete mergedProps.numColumns;
+    delete mergedProps.onRefresh;
+    delete mergedProps.refreshing;
+    delete mergedProps.renderItem;
+    delete mergedProps.contentContainerStyle;
+    delete mergedProps.viewabilityConfig;
+    delete mergedProps.keyExtractor;
+    delete mergedProps.getItem;
+    delete mergedProps.getItemCount;
+    delete mergedProps.initialNumToRender;
+    delete mergedProps.maxToRenderPerBatch;
+    delete mergedProps.renderScrollComponent;
+    delete mergedProps.shouldItemUpdate;
+    delete mergedProps.updateCellsBatchingPeriod;
+    delete mergedProps.windowSize;
+    delete mergedProps.onViewableItemsChanged;
+    delete mergedProps.foo;
+    delete mergedProps.accessibilityViewIsModal;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
