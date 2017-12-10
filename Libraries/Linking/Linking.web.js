@@ -18,7 +18,7 @@ var Linking = {
     }
   },
   canOpenURL: (url) => {
-    return true;
+    return Promise.resolve(true);
   },
   getInitialURL: () => Promise.resolve()
 };
