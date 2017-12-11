@@ -50,6 +50,7 @@ export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 export TouchableBounce from 'ReactTouchableBounce';
 export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
+export ViewPropTypes from 'ReactViewPropTypes';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
 export VirtualizedList from 'ReactVirtualizedList';
