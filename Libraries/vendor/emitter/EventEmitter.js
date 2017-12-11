@@ -87,8 +87,19 @@ class EventEmitter {
    *
    * @param {Object} listener -  Created by addListener
    */
-  removeListener(listener: Object) {
-    this._subscriber.removeSubscription(listener)
+  removeListener(eventType: String, listener) {
+    const subscriptions: ?[EmitterSubscription] = (this._subscriber.getSubscriptionsForType(eventType): any);
+    if (subscriptions) {
+      for (let i = 0, l = subscriptions.length; i < l; i++) {
+        const subscription = subscriptions[i];
+
+        // The subscription may have been removed during this event loop.
+        // its listener matches the listener in method parameters
+        if (subscription && subscription.listener === listener) {
+          subscription.remove();
+        }
+      }
+    }
   }
 
   /**
