@@ -63,6 +63,7 @@ export Animated from 'ReactAnimated';
 export AppRegistry from 'ReactAppRegistry';
 export AsyncStorage from 'ReactAsyncStorage';
 export BackAndroid from 'ReactBackAndroid';
+export BackHandler from 'ReactBackHandler';
 export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
 export I18nManager from 'ReactI18nManager';
