@@ -53,6 +53,7 @@ export View from 'ReactView';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
 export VirtualizedList from 'ReactVirtualizedList';
+export WebView from 'ReactWebView';
 
 
 // APIs
