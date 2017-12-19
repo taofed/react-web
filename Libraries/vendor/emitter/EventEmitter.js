@@ -85,6 +85,7 @@ class EventEmitter {
   /**
    * Remove a specific listener.
    *
+   * @param {string} eventType - Name of the event to listen to
    * @param {Object} listener -  Created by addListener
    */
   removeListener(eventType: String, listener) {

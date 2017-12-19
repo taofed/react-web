@@ -37,6 +37,14 @@ class Dimensions {
   static get(dim: string): Object {
     return dimensions[dim];
   }
+
+  static addEventListener(event, handler) {
+
+  }
+
+  static removeEventListener(event, handler) {
+
+  }
 }
 
 export default Dimensions;
