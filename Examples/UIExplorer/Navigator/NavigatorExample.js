@@ -14,6 +14,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Navigator,
   PixelRatio,
@@ -103,7 +104,7 @@ class NavMenu extends React.Component {
   }
 }
 
-var TabBarExample = React.createClass({
+var TabBarExample = createClass({
 
   statics: {
     title: '<Navigator>',

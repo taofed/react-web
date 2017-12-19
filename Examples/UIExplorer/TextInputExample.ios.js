@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Text,
   TextInput,
@@ -23,7 +24,7 @@ var {
   StyleSheet,
 } = React;
 
-var WithLabel = React.createClass({
+var WithLabel = createClass({
   render: function() {
     return (
       <View style={styles.labelContainer}>
@@ -36,7 +37,7 @@ var WithLabel = React.createClass({
   },
 });
 
-var TextEventsExample = React.createClass({
+var TextEventsExample = createClass({
   getInitialState: function() {
     return {
       curText: '<No Event>',

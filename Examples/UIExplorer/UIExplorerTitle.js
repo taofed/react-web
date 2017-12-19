@@ -17,13 +17,14 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
   View,
 } = React;
 
-var UIExplorerTitle = React.createClass({
+var UIExplorerTitle = createClass({
   render: function() {
     return (
       <View style={styles.container}>

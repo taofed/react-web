@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AsyncStorage,
   PickerIOS,
@@ -27,7 +28,7 @@ var PickerItemIOS = PickerIOS.Item;
 var STORAGE_KEY = '@AsyncStorageExample:key';
 var COLORS = ['red', 'orange', 'yellow', 'green', 'blue'];
 
-var BasicStorageExample = React.createClass({
+var BasicStorageExample = createClass({
   componentDidMount() {
     this._loadInitialState().done();
   },

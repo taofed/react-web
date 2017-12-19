@@ -15,6 +15,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -28,7 +29,7 @@ var UIExplorerPage = require('./UIExplorerPage');
 
 var importantForAccessibilityValues = ['auto', 'yes', 'no', 'no-hide-descendants'];
 
-var AccessibilityAndroidExample = React.createClass({
+var AccessibilityAndroidExample = createClass({
 
   statics: {
     title: 'Accessibility',

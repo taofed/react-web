@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   DatePickerIOS,
   StyleSheet,
@@ -24,7 +25,7 @@ var {
   View,
 } = React;
 
-var DatePickerExample = React.createClass({
+var DatePickerExample = createClass({
   getDefaultProps: function () {
     return {
       date: new Date(),
@@ -98,7 +99,7 @@ var DatePickerExample = React.createClass({
   },
 });
 
-var WithLabel = React.createClass({
+var WithLabel = createClass({
   render: function() {
     return (
       <View style={styles.labelContainer}>
@@ -113,7 +114,7 @@ var WithLabel = React.createClass({
   }
 });
 
-var Heading = React.createClass({
+var Heading = createClass({
   render: function() {
     return (
       <View style={styles.headingContainer}>

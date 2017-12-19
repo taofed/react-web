@@ -16,15 +16,17 @@
 'use strict';
 
 var React = require('react-native');
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
   TouchableHighlight,
 } = React;
 
-var UIExplorerButton = React.createClass({
+var UIExplorerButton = createClass({
   propTypes: {
-    onPress: React.PropTypes.func,
+    onPress: PropTypes.func,
   },
   render: function() {
     return (

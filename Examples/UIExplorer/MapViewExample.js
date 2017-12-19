@@ -16,6 +16,8 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
+var PropTypes = require('prop-types');
 var {
   MapView,
   StyleSheet,
@@ -31,16 +33,16 @@ var regionText = {
   longitudeDelta: '0',
 };
 
-var MapRegionInput = React.createClass({
+var MapRegionInput = createClass({
 
   propTypes: {
-    region: React.PropTypes.shape({
-      latitude: React.PropTypes.number.isRequired,
-      longitude: React.PropTypes.number.isRequired,
-      latitudeDelta: React.PropTypes.number.isRequired,
-      longitudeDelta: React.PropTypes.number.isRequired,
+    region: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      latitudeDelta: PropTypes.number.isRequired,
+      longitudeDelta: PropTypes.number.isRequired,
     }),
-    onChange: React.PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   },
 
   getInitialState: function() {
@@ -145,7 +147,7 @@ var MapRegionInput = React.createClass({
 
 });
 
-var MapViewExample = React.createClass({
+var MapViewExample = createClass({
 
   getInitialState() {
     return {

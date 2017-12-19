@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AdSupportIOS,
   StyleSheet,
@@ -36,7 +37,7 @@ exports.examples = [
   }
 ];
 
-var AdSupportIOSExample = React.createClass({
+var AdSupportIOSExample = createClass({
   getInitialState: function() {
     return {
       deviceID: 'No IDFA yet',

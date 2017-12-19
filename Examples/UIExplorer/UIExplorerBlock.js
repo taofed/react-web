@@ -17,16 +17,18 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
+var PropTypes = require('prop-types');
 var {
   StyleSheet,
   Text,
   View,
 } = React;
 
-var UIExplorerBlock = React.createClass({
+var UIExplorerBlock = createClass({
   propTypes: {
-    title: React.PropTypes.string,
-    description: React.PropTypes.string,
+    title: PropTypes.string,
+    description: PropTypes.string,
   },
 
   getInitialState: function() {

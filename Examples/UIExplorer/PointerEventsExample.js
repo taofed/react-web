@@ -16,13 +16,14 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
   View,
 } = React;
 
-var ExampleBox = React.createClass({
+var ExampleBox = createClass({
   getInitialState: function() {
     return {
       log: [],
@@ -61,7 +62,7 @@ var ExampleBox = React.createClass({
 });
 
 
-var NoneExample = React.createClass({
+var NoneExample = createClass({
   render: function() {
     return (
       <View
@@ -94,7 +95,7 @@ var NoneExample = React.createClass({
  * Special demo text that makes itself untouchable so that it doesn't destroy
  * the experiment and confuse the output.
  */
-var DemoText = React.createClass({
+var DemoText = createClass({
   render: function() {
     return (
       <View pointerEvents="none">
@@ -107,7 +108,7 @@ var DemoText = React.createClass({
   }
 });
 
-var BoxNoneExample = React.createClass({
+var BoxNoneExample = createClass({
   render: function() {
     return (
       <View
@@ -144,7 +145,7 @@ var BoxNoneExample = React.createClass({
   }
 });
 
-var BoxOnlyExample = React.createClass({
+var BoxOnlyExample = createClass({
   render: function() {
     return (
       <View

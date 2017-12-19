@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var UIExplorerList = require('./UIExplorerList.web');
 var {
   AppRegistry,
@@ -61,7 +62,7 @@ var NavigationBarRouteMapper = {
 
 };
 
-var UIExplorerApp = React.createClass({
+var UIExplorerApp = createClass({
 
   getInitialState: function() {
     return {
