@@ -85,7 +85,7 @@ var NativeMethodsMixin = {
  */
 var mountSafeCallback = function(context, callback) {
   return function() {
-    if (!callback || context.isMounted && !context.isMounted()) {
+    if (!callback) {
       return;
     }
     return callback.apply(context, arguments);

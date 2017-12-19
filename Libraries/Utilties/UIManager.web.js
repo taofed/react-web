@@ -7,8 +7,7 @@
 
 const UIManager = {
   measure: (ref, callback) => {
-    const rect = ref.getBoundingClientRect();
-    callback(0, 0, rect.width, rect.height, rect.left, rect.top);
+    callback(0, 0, ref.scrollWidth, ref.scrollHeight, ref.scrollLeft, ref.scrollTop);
   },
   measureLayout: (ref, relativeTo, errorCallback, callback) => {
     const rect = ref.getBoundingClientRect();

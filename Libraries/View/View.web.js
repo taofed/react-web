@@ -94,8 +94,90 @@ class View extends Component {
   };
 
   render() {
+    const {
+      pointerEvents
+    } = this.props;
+    var mergedProps = this.props;
+    if (pointerEvents) {
+      mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
+    }
+
+    mergedProps = {
+        ...mergedProps,
+        'aria-label': mergedProps.accessibilityLabel,
+    }
+
+    delete mergedProps.accessibilityLabel;
+    delete mergedProps.accessible;
+    delete mergedProps.accessibilityComponentType;
+    delete mergedProps.accessibilityTraits;
+    delete mergedProps.testID;
+    delete mergedProps.onLayout;
+    delete mergedProps.collapsable;
+    delete mergedProps.showsVerticalScrollIndicator;
+    delete mergedProps.removeClippedSubviews;
+    delete mergedProps.enableEmptySections;
+    delete mergedProps.initialListSize;
+    delete mergedProps.pagingEnabled;
+    delete mergedProps.scrollRenderAheadDistance;
+    delete mergedProps.dataSource;
+    delete mergedProps.renderRow;
+    delete mergedProps.onEndReachedThreshold;
+    delete mergedProps.onEndReached;
+    delete mergedProps.renderFooter;
+    delete mergedProps.refreshControl;
+    delete mergedProps.pageSize;
+    delete mergedProps.stickyHeaderIndices;
+    delete mergedProps.scrollEventThrottle;
+    delete mergedProps.onKeyboardWillShow;
+    delete mergedProps.onKeyboardWillHide;
+    delete mergedProps.onKeyboardDidShow;
+    delete mergedProps.onKeyboardDidHide;
+    delete mergedProps.scrollEnabled;
+    delete mergedProps.onContentSizeChange;
+    delete mergedProps.alwaysBounceHorizontal;
+    delete mergedProps.alwaysBounceVertical;
+    delete mergedProps.onScrollBeginDrag;
+    delete mergedProps.onScrollEndDrag;
+    delete mergedProps.onMomentumScrollBegin;
+    delete mergedProps.onMomentumScrollEnd;
+    delete mergedProps.horizontal;
+    delete mergedProps.automaticallyAdjustContentInsets;
+    delete mergedProps.contentOffset;
+    delete mergedProps.scrollsToTop;
+    delete mergedProps.showsHorizontalScrollIndicator;
+    delete mergedProps.directionalLockEnabled;
+    delete mergedProps.keyboardDismissMode;
+    delete mergedProps.tabLabel;
+    delete mergedProps.ItemSeparatorComponent;
+    delete mergedProps.ListFooterComponent;
+    delete mergedProps.ListHeaderComponent;
+    delete mergedProps.debug;
+    delete mergedProps.disableVirtualization;
+    delete mergedProps.getItemLayout;
+    delete mergedProps.keyboardShouldPersistTaps;
+    delete mergedProps.legacyImplementation;
+    delete mergedProps.numColumns;
+    delete mergedProps.onRefresh;
+    delete mergedProps.refreshing;
+    delete mergedProps.renderItem;
+    delete mergedProps.contentContainerStyle;
+    delete mergedProps.viewabilityConfig;
+    delete mergedProps.keyExtractor;
+    delete mergedProps.getItem;
+    delete mergedProps.getItemCount;
+    delete mergedProps.initialNumToRender;
+    delete mergedProps.maxToRenderPerBatch;
+    delete mergedProps.renderScrollComponent;
+    delete mergedProps.shouldItemUpdate;
+    delete mergedProps.updateCellsBatchingPeriod;
+    delete mergedProps.windowSize;
+    delete mergedProps.onViewableItemsChanged;
+    delete mergedProps.foo;
+    delete mergedProps.accessibilityViewIsModal;
+
     return (
-      <div className={StyleSheet.viewClassName} {...this.props}>
+      <div className={StyleSheet.viewClassName} {...mergedProps}>
         {this.props.children}
       </div>
     );
