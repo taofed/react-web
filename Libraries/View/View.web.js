@@ -175,6 +175,7 @@ class View extends Component {
     delete mergedProps.onViewableItemsChanged;
     delete mergedProps.foo;
     delete mergedProps.accessibilityViewIsModal;
+    delete mergedProps.viewabilityConfigCallbackPairs;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
