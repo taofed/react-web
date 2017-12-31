@@ -176,6 +176,8 @@ class View extends Component {
     delete mergedProps.foo;
     delete mergedProps.accessibilityViewIsModal;
     delete mergedProps.viewabilityConfigCallbackPairs;
+    delete mergedProps.stickySectionHeadersEnabled;
+    delete mergedProps.DEPRECATED_sendUpdatedChildFrames;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
