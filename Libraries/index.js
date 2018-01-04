@@ -70,6 +70,7 @@ export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
 export I18nManager from 'ReactI18nManager';
 export InteractionManager from 'ReactInteractionManager';
+export Keyboard from 'ReactKeyboard';
 export LayoutAnimation from 'ReactLayoutAnimation';
 export NetInfo from 'ReactNetInfo';
 export PanResponder from 'ReactPanResponder';
