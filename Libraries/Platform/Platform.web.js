@@ -9,8 +9,8 @@
 
 const Platform = {
   OS: 'web',
-  select:(platform) => {
-    return platform.web || platform.ios;
+  select:(obj) => {
+    return 'web' in obj ? obj.web : obj.default;
   },
 };
 
