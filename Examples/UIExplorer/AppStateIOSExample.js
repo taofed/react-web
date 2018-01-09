@@ -17,13 +17,14 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   AppStateIOS,
   Text,
   View
 } = React;
 
-var AppStateSubscription = React.createClass({
+var AppStateSubscription = createClass({
   getInitialState() {
     return {
       appState: AppStateIOS.currentState,

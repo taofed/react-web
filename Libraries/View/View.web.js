@@ -102,8 +102,132 @@ class View extends Component {
       mergedProps = Object.assign({}, this.props, {style: {...mergedProps.style, pointerEvents}});
     }
 
+    mergedProps = {
+        ...mergedProps,
+        'aria-label': mergedProps.accessibilityLabel,
+    }
+
+    delete mergedProps.accessibilityLabel;
+    delete mergedProps.accessible;
+    delete mergedProps.accessibilityComponentType;
+    delete mergedProps.accessibilityTraits;
+    delete mergedProps.testID;
+    delete mergedProps.onLayout;
+    delete mergedProps.collapsable;
+    delete mergedProps.showsVerticalScrollIndicator;
+    delete mergedProps.removeClippedSubviews;
+    delete mergedProps.enableEmptySections;
+    delete mergedProps.initialListSize;
+    delete mergedProps.pagingEnabled;
+    delete mergedProps.scrollRenderAheadDistance;
+    delete mergedProps.dataSource;
+    delete mergedProps.renderRow;
+    delete mergedProps.onEndReachedThreshold;
+    delete mergedProps.onEndReached;
+    delete mergedProps.renderFooter;
+    delete mergedProps.refreshControl;
+    delete mergedProps.pageSize;
+    delete mergedProps.stickyHeaderIndices;
+    delete mergedProps.scrollEventThrottle;
+    delete mergedProps.onKeyboardWillShow;
+    delete mergedProps.onKeyboardWillHide;
+    delete mergedProps.onKeyboardDidShow;
+    delete mergedProps.onKeyboardDidHide;
+    delete mergedProps.scrollEnabled;
+    delete mergedProps.onContentSizeChange;
+    delete mergedProps.alwaysBounceHorizontal;
+    delete mergedProps.alwaysBounceVertical;
+    delete mergedProps.onScrollBeginDrag;
+    delete mergedProps.onScrollEndDrag;
+    delete mergedProps.onMomentumScrollBegin;
+    delete mergedProps.onMomentumScrollEnd;
+    delete mergedProps.horizontal;
+    delete mergedProps.automaticallyAdjustContentInsets;
+    delete mergedProps.contentOffset;
+    delete mergedProps.scrollsToTop;
+    delete mergedProps.showsHorizontalScrollIndicator;
+    delete mergedProps.directionalLockEnabled;
+    delete mergedProps.keyboardDismissMode;
+    delete mergedProps.tabLabel;
+    delete mergedProps.ItemSeparatorComponent;
+    delete mergedProps.ListFooterComponent;
+    delete mergedProps.ListHeaderComponent;
+    delete mergedProps.debug;
+    delete mergedProps.disableVirtualization;
+    delete mergedProps.getItemLayout;
+    delete mergedProps.keyboardShouldPersistTaps;
+    delete mergedProps.legacyImplementation;
+    delete mergedProps.numColumns;
+    delete mergedProps.onRefresh;
+    delete mergedProps.refreshing;
+    delete mergedProps.renderItem;
+    delete mergedProps.contentContainerStyle;
+    delete mergedProps.viewabilityConfig;
+    delete mergedProps.keyExtractor;
+    delete mergedProps.getItem;
+    delete mergedProps.getItemCount;
+    delete mergedProps.initialNumToRender;
+    delete mergedProps.maxToRenderPerBatch;
+    delete mergedProps.renderScrollComponent;
+    delete mergedProps.shouldItemUpdate;
+    delete mergedProps.updateCellsBatchingPeriod;
+    delete mergedProps.windowSize;
+    delete mergedProps.onViewableItemsChanged;
+    delete mergedProps.foo;
+    delete mergedProps.accessibilityViewIsModal;
+    delete mergedProps.viewabilityConfigCallbackPairs;
+    delete mergedProps.stickySectionHeadersEnabled;
+    delete mergedProps.DEPRECATED_sendUpdatedChildFrames;
+    delete mergedProps.onLeftActionActivate;
+    delete mergedProps.onLeftActionDeactivate;
+    delete mergedProps.onLeftActionRelease;
+    delete mergedProps.onLeftActionComplete;
+    delete mergedProps.leftActionActivationDistance;
+    delete mergedProps.leftActionReleaseAnimationFn;
+    delete mergedProps.leftActionReleaseAnimationConfig;
+    delete mergedProps.onRightActionActivate;
+    delete mergedProps.onRightActionDeactivate;
+    delete mergedProps.onRightActionRelease;
+    delete mergedProps.onRightActionComplete;
+    delete mergedProps.rightActionActivationDistance;
+    delete mergedProps.rightActionReleaseAnimationFn;
+    delete mergedProps.rightActionReleaseAnimationConfig;
+    delete mergedProps.onLeftButtonsActivate;
+    delete mergedProps.onLeftButtonsDeactivate;
+    delete mergedProps.onLeftButtonsOpenRelease;
+    delete mergedProps.onLeftButtonsOpenComplete;
+    delete mergedProps.onLeftButtonsCloseRelease;
+    delete mergedProps.onLeftButtonsCloseComplete;
+    delete mergedProps.leftButtonWidth;
+    delete mergedProps.leftButtonsActivationDistance;
+    delete mergedProps.leftButtonsOpenReleaseAnimationFn;
+    delete mergedProps.leftButtonsOpenReleaseAnimationConfig;
+    delete mergedProps.leftButtonsCloseReleaseAnimationFn;
+    delete mergedProps.leftButtonsCloseReleaseAnimationConfig;
+    delete mergedProps.onRightButtonsActivate;
+    delete mergedProps.onRightButtonsDeactivate;
+    delete mergedProps.onRightButtonsOpenRelease;
+    delete mergedProps.onRightButtonsOpenComplete;
+    delete mergedProps.onRightButtonsCloseRelease;
+    delete mergedProps.onRightButtonsCloseComplete;
+    delete mergedProps.rightButtonWidth;
+    delete mergedProps.rightButtonsActivationDistance;
+    delete mergedProps.rightButtonsOpenReleaseAnimationFn;
+    delete mergedProps.rightButtonsOpenReleaseAnimationConfig;
+    delete mergedProps.rightButtonsCloseReleaseAnimationFn;
+    delete mergedProps.rightButtonsCloseReleaseAnimationConfig;
+    delete mergedProps.onSwipeStart;
+    delete mergedProps.onSwipeMove;
+    delete mergedProps.onSwipeRelease;
+    delete mergedProps.onSwipeComplete;
+    delete mergedProps.swipeReleaseAnimationFn;
+    delete mergedProps.swipeReleaseAnimationConfig;
+    delete mergedProps.onRef;
+    delete mergedProps.onPanAnimatedValueRef;
+    delete mergedProps.swipeStartMinDistance;
+
     return (
-      <div className={StyleSheet.viewClassName} {...mergedProps} aria-label={mergedProps.accessibilityLabel}>
+      <div className={StyleSheet.viewClassName} {...mergedProps}>
         {this.props.children}
       </div>
     );

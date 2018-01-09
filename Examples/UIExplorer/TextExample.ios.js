@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -23,7 +24,7 @@ var {
   View,
 } = React;
 
-var Entity = React.createClass({
+var Entity = createClass({
   render: function() {
     return (
       <Text style={{fontWeight: '500', color: '#527fe4'}}>
@@ -33,7 +34,7 @@ var Entity = React.createClass({
   }
 });
 
-var AttributeToggler = React.createClass({
+var AttributeToggler = createClass({
   getInitialState: function() {
     return {fontWeight: 'bold', fontSize: 15};
   },

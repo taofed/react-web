@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -32,7 +33,7 @@ var styles = StyleSheet.create({
   }
 });
 
-var ViewBorderStyleExample = React.createClass({
+var ViewBorderStyleExample = createClass({
   getInitialState() {
     return {
       showBorder: true

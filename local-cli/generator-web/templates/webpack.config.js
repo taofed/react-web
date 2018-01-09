@@ -63,7 +63,7 @@ var webpackConfig = {
       loader: 'json',
     }, {
       test: /\.jsx?$/,
-      loader: 'react-hot',
+      loader: 'react-hot/webpack',
       include: [config.paths.src],
       exclude: [/node_modules/]
     }, {

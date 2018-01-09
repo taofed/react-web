@@ -82,6 +82,11 @@ class Text extends Component {
      * Specifies should fonts scale to respect Text Size accessibility setting on iOS.
      */
     allowFontScaling: PropTypes.bool,
+
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
   };
 
   static defaultProps: Object = {
@@ -228,6 +233,13 @@ class Text extends Component {
     if (!props.children) {
       // TODO set a linebreak
     }
+
+    delete props.accessibilityLabel;
+    delete props.allowFontScaling;
+    delete props.accessible;
+    delete props.isHighlighted;
+    delete props.numberOfLines;
+    delete props.onPress;
 
     return (
       <span {...props}

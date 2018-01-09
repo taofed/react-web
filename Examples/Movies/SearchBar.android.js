@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   Platform,
@@ -29,7 +30,7 @@ var {
 
 var IS_RIPPLE_EFFECT_SUPPORTED = Platform.Version >= 21;
 
-var SearchBar = React.createClass({
+var SearchBar = createClass({
   render: function() {
     var loadingView;
     if (this.props.isLoading) {

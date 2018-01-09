@@ -22,6 +22,7 @@ export ActivityIndicator from 'ReactActivityIndicator';
 export DrawerLayoutAndroid from 'ReactDrawerLayout';
 export FlatList from 'ReactFlatList';
 export Image from 'ReactImage';
+export ImageBackground from 'ReactImageBackground';
 export ListView from 'ReactListView';
 export Linking from 'ReactLinking';
 export Modal from 'ReactModal';
@@ -50,9 +51,11 @@ export TouchableWithoutFeedback from 'ReactTouchableWithoutFeedback';
 export TouchableBounce from 'ReactTouchableBounce';
 export RefreshControl from 'ReactRefreshControl';
 export View from 'ReactView';
+export ViewPropTypes from 'ReactViewPropTypes';
 export ViewPagerAndroid from 'ReactViewPager';
 export ViewPager from 'ReactViewPager';
 export VirtualizedList from 'ReactVirtualizedList';
+export WebView from 'ReactWebView';
 
 
 // APIs
@@ -62,10 +65,12 @@ export Animated from 'ReactAnimated';
 export AppRegistry from 'ReactAppRegistry';
 export AsyncStorage from 'ReactAsyncStorage';
 export BackAndroid from 'ReactBackAndroid';
+export BackHandler from 'ReactBackHandler';
 export Dimensions from 'ReactDimensions';
 export Easing from 'animated/lib/Easing';
 export I18nManager from 'ReactI18nManager';
 export InteractionManager from 'ReactInteractionManager';
+export Keyboard from 'ReactKeyboard';
 export LayoutAnimation from 'ReactLayoutAnimation';
 export NetInfo from 'ReactNetInfo';
 export PanResponder from 'ReactPanResponder';

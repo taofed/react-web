@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   PixelRatio,
   Image,
@@ -87,7 +88,7 @@ exports.examples = [
   },
 }];
 
-var TextOnPressBox = React.createClass({
+var TextOnPressBox = createClass({
   getInitialState: function() {
     return {
       timesPressed: 0,
@@ -123,7 +124,7 @@ var TextOnPressBox = React.createClass({
   }
 });
 
-var TouchableFeedbackEvents = React.createClass({
+var TouchableFeedbackEvents = createClass({
   getInitialState: function() {
     return {
       eventLog: [],
@@ -159,7 +160,7 @@ var TouchableFeedbackEvents = React.createClass({
   },
 });
 
-var TouchableDelayEvents = React.createClass({
+var TouchableDelayEvents = createClass({
   getInitialState: function() {
     return {
       eventLog: [],

@@ -16,12 +16,13 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Text,
   View,
 } = React;
 
-var AccessibilityIOSExample = React.createClass({
+var AccessibilityIOSExample = createClass({
   render() {
     return (
       <View>

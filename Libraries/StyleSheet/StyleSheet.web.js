@@ -18,7 +18,18 @@ var inited = false;
 const ROOT_CLASS_NAME = 'react-root';
 const VIEW_CLASS_NAME = 'react-view';
 
+const absoluteFillObject = {
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+};
+const absoluteFill = absoluteFillObject;
+
 var StyleSheet = {
+  absoluteFill,
+  absoluteFillObject,
   hairlineWidth: 1,
   create: function(styles) {
     return styles;

@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   StyleSheet,
   Text,
@@ -33,7 +34,7 @@ var TEXT_INPUT_REF = 'urlInput';
 var WEBVIEW_REF = 'webview';
 var DEFAULT_URL = 'https://m.facebook.com';
 
-var WebViewExample = React.createClass({
+var WebViewExample = createClass({
 
   getInitialState: function() {
     return {

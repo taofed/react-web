@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   SegmentedControlIOS,
   Text,
@@ -23,7 +24,7 @@ var {
   StyleSheet
 } = React;
 
-var BasicSegmentedControlExample = React.createClass({
+var BasicSegmentedControlExample = createClass({
   render() {
     return (
       <View>
@@ -38,7 +39,7 @@ var BasicSegmentedControlExample = React.createClass({
   }
 });
 
-var PreSelectedSegmentedControlExample = React.createClass({
+var PreSelectedSegmentedControlExample = createClass({
   render() {
     return (
       <View>
@@ -50,7 +51,7 @@ var PreSelectedSegmentedControlExample = React.createClass({
   }
 });
 
-var MomentarySegmentedControlExample = React.createClass({
+var MomentarySegmentedControlExample = createClass({
   render() {
     return (
       <View>
@@ -62,7 +63,7 @@ var MomentarySegmentedControlExample = React.createClass({
   }
 });
 
-var DisabledSegmentedControlExample = React.createClass({
+var DisabledSegmentedControlExample = createClass({
   render() {
     return (
       <View>
@@ -74,7 +75,7 @@ var DisabledSegmentedControlExample = React.createClass({
   },
 });
 
-var ColorSegmentedControlExample = React.createClass({
+var ColorSegmentedControlExample = createClass({
   render() {
     return (
       <View>
@@ -89,7 +90,7 @@ var ColorSegmentedControlExample = React.createClass({
   },
 });
 
-var EventSegmentedControlExample = React.createClass({
+var EventSegmentedControlExample = createClass({
   getInitialState() {
     return {
       values: ['One', 'Two', 'Three'],

@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ActivityIndicatorIOS,
   ListView,
@@ -59,7 +60,7 @@ var resultsCache = {
 
 var LOADING = {};
 
-var SearchScreen = React.createClass({
+var SearchScreen = createClass({
   mixins: [TimerMixin],
 
   timeoutID: (null: any),
@@ -335,7 +336,7 @@ var SearchScreen = React.createClass({
   },
 });
 
-var NoMovies = React.createClass({
+var NoMovies = createClass({
   render: function() {
     var text = '';
     if (this.props.filter) {

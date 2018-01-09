@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -34,7 +35,7 @@ type LayoutEvent = {
   };
 };
 
-var LayoutEventExample = React.createClass({
+var LayoutEventExample = createClass({
   getInitialState: function() {
     return {
       viewStyle: {

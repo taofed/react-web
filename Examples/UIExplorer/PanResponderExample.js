@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   PanResponder,
   StyleSheet,
@@ -28,7 +29,7 @@ var CIRCLE_SIZE = 80;
 var CIRCLE_COLOR = 'blue';
 var CIRCLE_HIGHLIGHT_COLOR = 'green';
 
-var PanResponderExample = React.createClass({
+var PanResponderExample = createClass({
 
   statics: {
     title: 'PanResponder Sample',

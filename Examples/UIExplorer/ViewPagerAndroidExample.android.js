@@ -15,6 +15,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   StyleSheet,
@@ -35,7 +36,7 @@ var IMAGE_URIS = [
   'http://apod.nasa.gov/apod/image/1510/lunareclipse_27Sep_beletskycrop4.jpg',
 ];
 
-var LikeCount = React.createClass({
+var LikeCount = createClass({
   getInitialState: function() {
     return {
       likes: 7,
@@ -61,7 +62,7 @@ var LikeCount = React.createClass({
   },
 });
 
-var Button = React.createClass({
+var Button = createClass({
   _handlePress: function() {
     if (this.props.enabled && this.props.onPress) {
       this.props.onPress();
@@ -78,7 +79,7 @@ var Button = React.createClass({
   }
 });
 
-var ProgressBar = React.createClass({
+var ProgressBar = createClass({
   render: function() {
     var fractionalPosition = (this.props.progress.position + this.props.progress.offset);
     var progressBarSize = (fractionalPosition / (PAGES - 1)) * this.props.size;
@@ -90,7 +91,7 @@ var ProgressBar = React.createClass({
   }
 });
 
-var ViewPagerAndroidExample = React.createClass({
+var ViewPagerAndroidExample = createClass({
   statics: {
     title: '<ViewPagerAndroid>',
     description: 'Container that allows to flip left and right between child views.'

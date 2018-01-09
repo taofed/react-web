@@ -30,14 +30,9 @@ function appendSytle({
   `;
 
   styleEl.innerHTML = `
-  html {
-    font-size: ${rem}px!important;
-  }
-  body {
-    font-size: 14px;
-    margin: 0;
-  }
   .${rootClassName} {
+    font-size: 14px;
+    text-align: left;
     position: absolute;
     top: 0;
     left: 0;

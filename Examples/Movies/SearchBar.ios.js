@@ -17,6 +17,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   ActivityIndicatorIOS,
   TextInput,
@@ -24,7 +25,7 @@ var {
   View,
 } = React;
 
-var SearchBar = React.createClass({
+var SearchBar = createClass({
   render: function() {
     return (
       <View style={styles.searchBar}>

@@ -17,6 +17,8 @@
 'use strict';
 
 var React = require('react-native');
+var PropTypes = require('prop-types');
+var createClass = require('create-react-class');
 var {
   ScrollView,
   StyleSheet,
@@ -25,12 +27,12 @@ var {
 
 var UIExplorerTitle = require('./UIExplorerTitle');
 
-var UIExplorerPage = React.createClass({
+var UIExplorerPage = createClass({
 
   propTypes: {
-    keyboardShouldPersistTaps: React.PropTypes.bool,
-    noScroll: React.PropTypes.bool,
-    noSpacer: React.PropTypes.bool,
+    keyboardShouldPersistTaps: PropTypes.bool,
+    noScroll: PropTypes.bool,
+    noSpacer: PropTypes.bool,
   },
 
   render: function() {

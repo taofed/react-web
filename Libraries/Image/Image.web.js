@@ -24,6 +24,7 @@ class Image extends Component {
       }),
       // Opaque type returned by require('./image.jpg')
       PropTypes.number,
+      PropTypes.string,
       // Multiple sources
       PropTypes.arrayOf(
         PropTypes.shape({
@@ -32,6 +33,10 @@ class Image extends Component {
           height: PropTypes.number,
         }))
     ]),
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ])
   }
 
   static contextTypes = {
@@ -93,6 +98,9 @@ class Image extends Component {
         </View>
       );
     } else {
+      delete props.source;
+      delete props.resizeMode;
+
       return (
         <img {...props}/>
       );

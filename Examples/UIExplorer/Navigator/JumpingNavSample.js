@@ -14,6 +14,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Navigator,
   PixelRatio,
@@ -101,7 +102,7 @@ class JumpingNavBar extends React.Component {
   }
 }
 
-var JumpingNavSample = React.createClass({
+var JumpingNavSample = createClass({
   render: function() {
     return (
       <Navigator

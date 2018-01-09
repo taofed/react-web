@@ -16,6 +16,7 @@
 'use strict';
 
 var React = require('react-native');
+var createClass = require('create-react-class');
 var {
   Image,
   // LayoutAnimation,
@@ -35,7 +36,7 @@ var THUMB_URLS = ['https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-ash3/t39.1997/
 var NUM_SECTIONS = 100;
 var NUM_ROWS_PER_SECTION = 10;
 
-var Thumb = React.createClass({
+var Thumb = createClass({
   getInitialState: function() {
     return {thumbIndex: this._getThumbIdx(), dir: 'row'};
   },
@@ -74,7 +75,7 @@ var Thumb = React.createClass({
   }
 });
 
-var ListViewPagingExample = React.createClass({
+var ListViewPagingExample = createClass({
   statics: {
     title: '<ListView> - Paging',
     description: 'Floating headers & layout animations.'
