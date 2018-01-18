@@ -51,11 +51,11 @@ const configType = PropTypes.shape({
   delete: animType,
 });
 
-function checkConfig(config: Config, location: string, name: string) {
+function checkConfig(config, location, name) {
   checkPropTypes({config: configType}, {config}, location, name);
 }
 
-function configureNext(config: Config, onAnimationDidEnd?: Function) {
+function configureNext(config, onAnimationDidEnd) {
   // Noop
   // if (__DEV__) {
   //   checkConfig(config, 'config', 'LayoutAnimation.configureNext');
@@ -69,7 +69,7 @@ function configureNext(config: Config, onAnimationDidEnd?: Function) {
   // );
 }
 
-function create(duration: number, type, creationProp): Config {
+function create(duration, type, creationProp) {
   return {
     duration,
     create: {

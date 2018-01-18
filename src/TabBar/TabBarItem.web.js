@@ -62,13 +62,13 @@ class TabBarItem extends Component {
 
   render() {
 
-    var tabStyle = {...styles.tab, ...this.props.style || {}, color: (this.props.selectedColor && this.props.selected) ? this.props.selectedColor : null};
+    var tabStyle = {...styles.tab, ...this.props.style || {}, color: this.props.selectedColor && this.props.selected ? this.props.selectedColor : null};
 
     return (
       <li style={tabStyle}>
         <a onClick={this._onClick} style={styles.link}>
           {this.props.badge ? <em style={styles.badge}>{this.props.badge}</em> : ''}
-          <Image source={(this.props.selected && this.props.selectedIcon) ? this.props.selectedIcon : this.props.icon} style={styles.icon} />
+          <Image source={this.props.selected && this.props.selectedIcon ? this.props.selectedIcon : this.props.icon} style={styles.icon} />
           <View style={{marginTop: 4}}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>

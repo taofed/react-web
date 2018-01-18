@@ -22,18 +22,18 @@ function mapModule(state, module) {
   var platform = state.opts.platform;
   var filePath = state.opts.filePath;
 
-  try{
+  try {
     var mod = getModule(module, platform);
     if (mod && mod.path) {
       module = path.relative(path.dirname(filePath), mod.path);
       if (!module.startsWith('.'))
         module = './' + module;
-      module = module.replace('.js', '')
+      module = module.replace('.js', '');
     }
 
     return module;
-  }catch(e){
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
 }
 

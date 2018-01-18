@@ -2,7 +2,6 @@
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
  *
- * @providesModule ReactDrawerLayout
  */
 'use strict';
 
@@ -150,7 +149,7 @@ class DrawerLayout extends Component {
       let overlayArea = DEVICE_WIDTH - (DEVICE_WIDTH - this.props.drawerWidth);
 
       if (this._lastOpenValue === 1) {
-        if ((dx < 0 && (Math.abs(dx) > (Math.abs(dy) * 3))) || (moveX > overlayArea)) {
+        if (dx < 0 && Math.abs(dx) > Math.abs(dy) * 3 || moveX > overlayArea) {
           this._isClosing = true;
           this._closingAnchorValue = this._getOpenValueForX(moveX);
           return true;
@@ -167,7 +166,7 @@ class DrawerLayout extends Component {
       let overlayArea = DEVICE_WIDTH - this.props.drawerWidth;
 
       if (this._lastOpenValue === 1) {
-        if ((dx > 0 && (Math.abs(dx) > (Math.abs(dy) * 3))) || (moveX < overlayArea)) {
+        if (dx > 0 && Math.abs(dx) > Math.abs(dy) * 3 || moveX < overlayArea) {
           this._isClosing = true;
           this._closingAnchorValue = this._getOpenValueForX(moveX);
           return true;
@@ -210,9 +209,9 @@ class DrawerLayout extends Component {
     let isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 
     if (drawerPosition === 'left') {
-      if ((vx > 0 && moveX > THRESHOLD) || (vx >= VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX > THRESHOLD) {
+      if (vx > 0 && moveX > THRESHOLD || vx >= VX_MAX || isWithinVelocityThreshold && previouslyOpen && moveX > THRESHOLD) {
         this.open({velocity: vx});
-      } else if ((vx < 0 && moveX < THRESHOLD) || (vx < -VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
+      } else if (vx < 0 && moveX < THRESHOLD || vx < -VX_MAX || isWithinVelocityThreshold && !previouslyOpen) {
         this.close({velocity: vx});
       } else if (previouslyOpen) {
         this.open();
@@ -220,9 +219,9 @@ class DrawerLayout extends Component {
         this.close();
       }
     } else {
-      if ((vx < 0 && moveX < THRESHOLD) || (vx <= -VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD) {
+      if (vx < 0 && moveX < THRESHOLD || vx <= -VX_MAX || isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD) {
         this.open({velocity: -1 * vx});
-      } else if ((vx > 0 && moveX > THRESHOLD) || (vx > VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
+      } else if (vx > 0 && moveX > THRESHOLD || vx > VX_MAX || isWithinVelocityThreshold && !previouslyOpen) {
         this.close({velocity: -1 * vx});
       } else if (previouslyOpen) {
         this.open();

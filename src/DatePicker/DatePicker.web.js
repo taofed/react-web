@@ -1,14 +1,11 @@
 /**
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
+ *
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
- *
- * @providesModule ReactDatePicker
  */
 'use strict';
-
-import React, { Component } from 'react';
 
 /**
  * Convert a Date to a timestamp.

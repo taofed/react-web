@@ -4,14 +4,11 @@
  *
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
- *
- * @providesModule ReactPortal
- * @flow
  */
 'use strict';
 
 import React, {Component} from 'react';
-import {View, Platform, StyleSheet} from 'react-native-web';
+import {View, StyleSheet} from 'react-native-web';
 
 var _portalRef: any;
 
@@ -38,7 +35,7 @@ class Portal extends Component {
    * See `showModal` and `closeModal`.
    */
   static allocateTag(): string {
-    return '__modal_' + (++lastUsedTag);
+    return '__modal_' + ++lastUsedTag;
   }
 
   /**

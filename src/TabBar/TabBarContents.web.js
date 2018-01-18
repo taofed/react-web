@@ -52,7 +52,7 @@ class TabBarContents extends Component {
       </View>;
     }
 
-    return (tabContents);
+    return tabContents;
   }
 }
 

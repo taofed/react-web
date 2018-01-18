@@ -2,7 +2,6 @@
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
  *
- * @providesModule ReactTabBar
  */
 'use strict';
 
@@ -71,14 +70,14 @@ class TabBar extends Component {
     let styles = self.getStyles();
     let barStyle = {
       ...styles.bar,
-      ...(this.props.style || {}),
-      ...(this.props.barTintColor ? {backgroundColor: this.props.barTintColor} : {})
+      ...this.props.style || {},
+      ...this.props.barTintColor ? {backgroundColor: this.props.barTintColor} : {}
     };
 
     let tabContent = [];
 
     let tabs = React.Children.map(this.props.children, (tab,
-    index) => {
+      index) => {
       if (tab.type.displayName === 'TabBarItem') {
         if (tab.props.children) {
           tabContent.push(React.createElement(TabBarContents, {

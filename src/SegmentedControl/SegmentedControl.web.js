@@ -4,7 +4,6 @@
  *
  * Copyright (c) 2015, Facebook, Inc.  All rights reserved.
  *
- * @providesModule ReactSegmentedControl
  */
 'use strict';
 
@@ -104,19 +103,19 @@ class SegmentedControl extends Component {
         index === 0 ? styles.firstChild : styles.otherChild,
         index === props.values.length - 1 ? styles.lastChild : null
       ]}>
-          <Text style={[
-            styles.segmentedControlText,
-            props.tintColor ? {
-              color: props.tintColor
-            } : null, (this.state.selectedIndex === index) ? styles
+        <Text style={[
+          styles.segmentedControlText,
+          props.tintColor ? {
+            color: props.tintColor
+          } : null, (this.state.selectedIndex === index) ? styles
             .segmentedControlTextSelected : null
-          ]}
+        ]}
         onPress={props.enabled ? this._onChange.bind(this, value, index) : null}> {value} </Text></View>);
     });
 
     return (<View {...this.props} style={[styles.segmentedControl, props.enabled ? null : styles.disable, this.props.style]}>
-          {items}
-        </View>);
+      {items}
+    </View>);
   }
 };
 

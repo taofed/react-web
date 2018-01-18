@@ -1,6 +1,6 @@
 {
   "name": "react-web",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "A library for building web apps with React Native compatible API.",
   "license": "BSD-3-Clause",
   "repository": {
@@ -17,8 +17,9 @@
   ],
   "scripts": {
     "test": "jest",
-    "lint": "eslint --ext .js --ext .jsx ./",
-    "prepublish": "node scripts/publish",
+    "lint": "eslint --ext .js --ext .jsx ./ --fix",
+    "build": "node scripts/compile",
+    "prepublish": "npm run lint && npm run compile",
     "postpublish": "rm -rf ./lib"
   },
   "devDependencies": {
@@ -55,8 +56,9 @@
     "react-dom": "^16.0"
   },
   "dependencies": {
-    "react-native-web": "0.3.1",
+    "fbjs": "0.8.16",
     "prop-types": "15.6.0",
-    "fbjs": "0.8.16"
+    "react-native-web": "0.3.1",
+    "react-native-web-webview": "^0.2.5"
   }
 }

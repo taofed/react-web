@@ -8,15 +8,15 @@ var resolver = new HasteResolver({
   roots: [path.join(__dirname, '../src')]
 });
 
-resolver.getHasteMap().then(function(hasteMap){
+resolver.getHasteMap().then(function(hasteMap) {
 
-  var files = glob.sync("**/*.js", {
+  var files = glob.sync('**/*.js', {
     nodir: true,
     cwd: path.join(__dirname, '../src/'),
     realpath: true,
   });
 
-  files.forEach(function(filePath){
+  files.forEach(function(filePath) {
     try {
       var options = {
         presets: ['react-native', 'stage-0'],
@@ -38,5 +38,5 @@ resolver.getHasteMap().then(function(hasteMap){
     } catch (e) {
       console.error(e);
     }
-  })
+  });
 });

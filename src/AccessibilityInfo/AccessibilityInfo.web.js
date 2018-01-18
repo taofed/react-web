@@ -5,14 +5,13 @@
 'use strict';
 
 const AccessibilityInfo = {
-
   fetch: function() {
     return new Promise((resolve, reject) => {
       const isEnabled = false;
       resolve(isEnabled);
     });
   },
-  addEventListener: function () { },
+  addEventListener: function() { },
   removeEventListener: function() { },
 };
 

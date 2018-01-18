@@ -4,7 +4,7 @@
  */
 'use strict';
 
-function warn(){
+function warn() {
   console.warn('Settings is not yet supported on Web');
 }
 

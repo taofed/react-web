@@ -2,7 +2,6 @@
  * Copyright (c) 2015-present, Alibaba Group Holding Limited.
  * All rights reserved.
  *
- * @providesModule ReactPicker
  */
 'use strict';
 
@@ -42,7 +41,7 @@ class Picker extends Component {
           ...this.props.style}}
         onChange={this._onChange}
       >
-      {this.props.children}
+        {this.props.children}
       </select>
     );
   }

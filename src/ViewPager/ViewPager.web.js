@@ -78,13 +78,13 @@ class ViewPager extends React.Component {
     // let { offsetLeft, selectedPage } = this.state;
 
     // offsetLeft.addListener(({value}) => {
-      // bad performance
-      // this._onPageScroll({
-      //  nativeEvent: {
-      //    position: selectedPage,
-      //    offset: value - selectedPage
-      //  }
-      // });
+    // bad performance
+    // this._onPageScroll({
+    //  nativeEvent: {
+    //    position: selectedPage,
+    //    offset: value - selectedPage
+    //  }
+    // });
     // });
 
     this._panResponder = this.props.scrollEnabled && PanResponder.create({
