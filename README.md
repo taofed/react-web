@@ -119,6 +119,10 @@ if (Platform.OS === 'web') {
 * PointPropType
 * ViewPropTypes
 
+## Project Dependencies
+* [react-native-web](https://npmjs.org/react-native-web)
+* [react-native-web-webview](https://npmjs.org/rreact-native-web-webview)
+
 ## License
 
 React Web is [BSD licensed](./LICENSE).
