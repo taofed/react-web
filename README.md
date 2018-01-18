@@ -9,7 +9,7 @@
 ### Install
 
 ```sh
-npm install --save git+https://github.com/taobaofed/react-web.git
+npm install --save react-web
 ```
 
 ### Add Webpack configuration
