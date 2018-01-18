@@ -121,7 +121,7 @@ if (Platform.OS === 'web') {
 
 ## Project Dependencies
 * [react-native-web](https://npmjs.org/react-native-web)
-* [react-native-web-webview](https://npmjs.org/rreact-native-web-webview)
+* [react-native-web-webview](https://npmjs.org/react-native-web-webview)
 
 ## License
 
