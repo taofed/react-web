@@ -1,13 +1,13 @@
 {
   "name": "react-web",
-  "version": "0.4.6",
-  "description": "A framework for building web apps with React",
+  "version": "1.1.0",
+  "description": "A library for building web apps with React Native compatible API.",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
     "url": "git@github.com:taobaofed/react-web.git"
   },
-  "main": "./Libraries/index.js",
+  "main": "./lib/index.js",
   "keywords": [
     "react-native",
     "react-native-web",
@@ -18,54 +18,45 @@
   "scripts": {
     "test": "jest",
     "lint": "eslint --ext .js --ext .jsx ./",
-    "start": "node local-cli/cli.js start webpack.config.js",
-    "demo": "node local-cli/cli.js bundle webpack.config.js",
     "prepublish": "node scripts/publish",
     "postpublish": "rm -rf ./lib"
   },
   "devDependencies": {
-    "babel-eslint": "7.0.0",
-    "babel-loader": "6.2.5",
-    "babel-polyfill": "6.16.0",
-    "babel-preset-stage-1": "6.16.0",
-    "babel-preset-react-native": "1.9.0",
-    "eslint": "3.6.1",
-    "eslint-loader": "1.5.0",
-    "eslint-plugin-react": "6.3.0",
-    "file-loader": "0.8.4",
-    "glob": "7.0.3",
-    "haste-resolver": "0.2.2",
-    "haste-resolver-webpack-plugin": "0.2.2",
-    "jest-cli": "0.4.5",
-    "json-loader": "0.5.4",
-    "react-hot-loader": "1.3.1",
-    "url-loader": "0.5.6",
-    "webpack-html-plugin": "0.1.1",
-    "webpack-merge": "0.1.1"
-  },
-  "peerDependencies": {
-    "react": "^15.4",
-    "react-dom": "^15.4"
-  },
-  "dependencies": {
-    "animated": "0.1.3",
-    "autobind-decorator": "1.3.3",
-    "babel-core": "6.16.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react-native": "^4.0.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.15.0",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-react": "^7.5.1",
+    "file-loader": "^1.1.6",
+    "glob": "^7.1.2",
+    "haste-resolver": "^0.2.2",
+    "haste-resolver-webpack-plugin": "^0.2.2",
+    "jest-cli": "^22.1.1",
+    "json-loader": "^0.5.7",
+    "react-hot-loader": "^3.1.3",
+    "url-loader": "^0.6.2",
+    "webpack-html-plugin": "^0.1.1",
+    "webpack-merge": "^4.1.1",
     "chalk": "1.1.1",
     "core-js": "2.2.2",
     "cross-spawn": "4.0.2",
-    "domkit": "0.0.1",
     "easyfile": "0.1.0",
-    "fbjs": "0.8.3",
-    "graceful-fs": "4.1.2",
-    "history": "1.12.6",
-    "immutable": "3.7.6",
-    "object-assign": "3.0.0",
-    "promise": "7.0.4",
-    "react-mixin": "3.0.3",
-    "react-timer-mixin": "0.13.2",
-    "rebound": "0.0.13",
-    "webpack": "1.13.2",
-    "webpack-dev-server": "1.16.1"
+    "graceful-fs": "4.1.11",
+    "promise": "8.0.1",
+    "webpack": "3.10.0",
+    "webpack-dev-server": "2.11.0"
+  },
+  "peerDependencies": {
+    "react": "^16.0",
+    "react-dom": "^16.0"
+  },
+  "dependencies": {
+    "react-native-web": "0.3.1",
+    "prop-types": "15.6.0",
+    "fbjs": "0.8.16"
   }
 }
