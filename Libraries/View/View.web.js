@@ -225,6 +225,8 @@ class View extends Component {
     delete mergedProps.onRef;
     delete mergedProps.onPanAnimatedValueRef;
     delete mergedProps.swipeStartMinDistance;
+    delete mergedProps.ListEmptyComponent;
+    delete mergedProps.columnWrapperStyle;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
