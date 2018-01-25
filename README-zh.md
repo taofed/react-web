@@ -2,7 +2,7 @@
 
 # React Web [![npm version](https://badge.fury.io/js/react-web.svg)](http://badge.fury.io/js/react-web)
 
-> 通过 React Ntive 兼容的 API 构建无线 Web 应用
+> 通过 React Native 兼容的 API 构建无线 Web 应用
 
 ## 安装
 
