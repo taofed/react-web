@@ -227,6 +227,15 @@ class View extends Component {
     delete mergedProps.swipeStartMinDistance;
     delete mergedProps.ListEmptyComponent;
     delete mergedProps.columnWrapperStyle;
+    delete mergedProps.paddingBottom;
+    delete mergedProps.isItemSeparator;
+    delete mergedProps.isFoot;
+    delete mergedProps.fixedHeight;
+    delete mergedProps.itemCount;
+    delete mergedProps.isLoadMore;
+    delete mergedProps.isEmpty;
+    delete mergedProps.isAllLoaded;
+    delete mergedProps.itemSeparator;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
