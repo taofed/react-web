@@ -75,9 +75,45 @@ export default class extends Component {
   };
 
   componentDidMount() {
+    const {
+      onPress
+    } = this.props;
     if (this.props.onMessage) {
       window.addEventListener('message', this.onMessage, true);
     }
+    let IframeOnClick = {
+        resolution: 200,
+        iframes: [],
+        interval: null,
+        Iframe: function() {
+            this.element = arguments[0];
+            this.cb = arguments[1];
+            this.hasTracked = false;
+        },
+        track: function(element, cb) {
+            this.iframes.push(new this.Iframe(element, cb));
+            if (!this.interval) {
+                let _this = this;
+                this.interval = setInterval(function() { _this.checkClick(); }, this.resolution);
+            }
+        },
+        checkClick: function() {
+            if (document.activeElement) {
+                let activeElement = document.activeElement;
+                for (let i in this.iframes) {
+                    if (activeElement === this.iframes[i].element) { // user is in this Iframe
+                        if (this.iframes[i].hasTracked == false) {
+                            this.iframes[i].cb.apply(window, []);
+                            this.iframes[i].hasTracked = true;
+                        }
+                    } else {
+                        this.iframes[i].hasTracked = false;
+                    }
+                }
+            }
+        }
+    };
+    IframeOnClick.track(document.getElementById("iFrame"), function() { onPress && onPress() });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -122,6 +158,7 @@ export default class extends Component {
     const { title, source, onLoad, scrollEnabled } = this.props;
     const styleObj = StyleSheet.flatten(this.props.style);
     return React.createElement('iframe', {
+      id: 'iFrame',
       title,
       src: !source.method ? source.uri : undefined,
       srcDoc: this.handleInjectedJavaScript(this.state.html || source.html),
