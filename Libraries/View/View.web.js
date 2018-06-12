@@ -236,6 +236,13 @@ class View extends Component {
     delete mergedProps.isEmpty;
     delete mergedProps.isAllLoaded;
     delete mergedProps.itemSeparator;
+    delete mergedProps.renderToHardwareTextureAndroid;
+    delete mergedProps.thumbTouchSize;
+    delete mergedProps.animationType;
+    delete mergedProps.onValueChange;
+    delete mergedProps.onSlidingComplete;
+    delete mergedProps.onSyncPress;
+    delete mergedProps.onAsyncPress;
 
     return (
       <div className={StyleSheet.viewClassName} {...mergedProps}>
