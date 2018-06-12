@@ -12,8 +12,8 @@
  */
 'use strict';
 
-const NativeAnimatedModule = require('NativeModules').NativeAnimatedModule;
-const NativeEventEmitter = require('NativeEventEmitter');
+const NativeAnimatedModule = require('ReactNativeModules').NativeAnimatedModule;
+// const NativeEventEmitter = require('NativeEventEmitter');
 
 const invariant = require('fbjs/lib/invariant');
 
@@ -245,9 +245,9 @@ module.exports = {
   assertNativeAnimatedModule,
   shouldUseNativeDriver,
   get nativeEventEmitter() {
-    if (!nativeEventEmitter) {
-      nativeEventEmitter = new NativeEventEmitter(NativeAnimatedModule);
-    }
+    // if (!nativeEventEmitter) {
+    //   nativeEventEmitter = new NativeEventEmitter(NativeAnimatedModule);
+    // }
     return nativeEventEmitter;
   },
 };

@@ -14,7 +14,7 @@
 
 const AnimatedValue = require('./nodes/AnimatedValue');
 const NativeAnimatedHelper = require('./NativeAnimatedHelper');
-const ReactNative = require('ReactNative');
+import findNodeHandle from 'ReactfindNodeHandle';
 
 const invariant = require('fbjs/lib/invariant');
 const {shouldUseNativeDriver} = require('./NativeAnimatedHelper');
@@ -57,7 +57,7 @@ function attachNativeEvent(
   // Assume that the event containing `nativeEvent` is always the first argument.
   traverse(argMapping[0].nativeEvent, []);
 
-  const viewTag = ReactNative.findNodeHandle(viewRef);
+  const viewTag = findNodeHandle(viewRef);
 
   eventMappings.forEach(mapping => {
     NativeAnimatedHelper.API.addAnimatedEventToView(

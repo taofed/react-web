@@ -15,7 +15,7 @@
 const AnimatedInterpolation = require('./AnimatedInterpolation');
 const AnimatedNode = require('./AnimatedNode');
 const AnimatedWithChildren = require('./AnimatedWithChildren');
-const InteractionManager = require('InteractionManager');
+const InteractionManager = require('ReactInteractionManager');
 const NativeAnimatedHelper = require('../NativeAnimatedHelper');
 
 import type Animation, {EndCallback} from '../animations/Animation';

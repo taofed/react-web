@@ -6,16 +6,16 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule Animated
+ * @providesModule ReactAnimated
  * @flow
  */
 'use strict';
 
 
 var AnimatedImplementation = require('AnimatedImplementation');
-var Image = require('Image');
-var Text = require('Text');
-var View = require('View');
+import Image from 'ReactImage';
+import Text from 'ReactText';
+import View from 'ReactView';
 
 let AnimatedScrollView;
 
@@ -26,7 +26,7 @@ const Animated = {
   get ScrollView() {
     // Make this lazy to avoid circular reference.
     if (!AnimatedScrollView) {
-      AnimatedScrollView = AnimatedImplementation.createAnimatedComponent(require('ScrollView'));
+      AnimatedScrollView = AnimatedImplementation.createAnimatedComponent(require('ReactScrollView'));
     }
     return AnimatedScrollView;
   },

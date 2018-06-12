@@ -16,7 +16,7 @@ const {AnimatedEvent} = require('../AnimatedEvent');
 const AnimatedNode = require('./AnimatedNode');
 const AnimatedStyle = require('./AnimatedStyle');
 const NativeAnimatedHelper = require('../NativeAnimatedHelper');
-const ReactNative = require('ReactNative');
+import findNodeHandle from 'ReactfindNodeHandle';
 
 const invariant = require('fbjs/lib/invariant');
 
@@ -121,7 +121,7 @@ class AnimatedProps extends AnimatedNode {
 
   __connectAnimatedView(): void {
     invariant(this.__isNative, 'Expected node to be marked as "native"');
-    const nativeViewTag: ?number = ReactNative.findNodeHandle(
+    const nativeViewTag: ?number = findNodeHandle(
       this._animatedView,
     );
     invariant(
@@ -136,7 +136,7 @@ class AnimatedProps extends AnimatedNode {
 
   __disconnectAnimatedView(): void {
     invariant(this.__isNative, 'Expected node to be marked as "native"');
-    const nativeViewTag: ?number = ReactNative.findNodeHandle(
+    const nativeViewTag: ?number = findNodeHandle(
       this._animatedView,
     );
     invariant(

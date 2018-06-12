@@ -14,8 +14,8 @@
 
 const {AnimatedEvent} = require('./AnimatedEvent');
 const AnimatedProps = require('./nodes/AnimatedProps');
-const React = require('React');
-const ViewStylePropTypes = require('ViewStylePropTypes');
+const React = require('react');
+// const ViewStylePropTypes = require('ViewStylePropTypes');
 
 function createAnimatedComponent(Component: any): any {
   class AnimatedComponent extends React.Component<Object> {
@@ -171,19 +171,19 @@ function createAnimatedComponent(Component: any): any {
         return;
       }
 
-      for (const key in ViewStylePropTypes) {
-        if (!propTypes[key] && props[key] !== undefined) {
-          console.warn(
-            'You are setting the style `{ ' +
-              key +
-              ': ... }` as a prop. You ' +
-              'should nest it in a style object. ' +
-              'E.g. `{ style: { ' +
-              key +
-              ': ... } }`',
-          );
-        }
-      }
+      // for (const key in ViewStylePropTypes) {
+      //   if (!propTypes[key] && props[key] !== undefined) {
+      //     console.warn(
+      //       'You are setting the style `{ ' +
+      //         key +
+      //         ': ... }` as a prop. You ' +
+      //         'should nest it in a style object. ' +
+      //         'E.g. `{ style: { ' +
+      //         key +
+      //         ': ... } }`',
+      //     );
+      //   }
+      // }
     },
   };
 
