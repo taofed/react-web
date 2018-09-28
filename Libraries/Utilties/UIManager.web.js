@@ -5,9 +5,32 @@
  * @providesModule UIManager
  */
 
+const getRect = node => {
+  const height = node.offsetHeight;
+  const width = node.offsetWidth;
+  let left = node.offsetLeft;
+  let top = node.offsetTop;
+  node = node.offsetParent;
+
+  while (node && node.nodeType === 1 /* Node.ELEMENT_NODE */) {
+    left += node.offsetLeft - node.scrollLeft;
+    top += node.offsetTop - node.scrollTop;
+    node = node.offsetParent;
+  }
+  return { height, left, top, width };
+};
+
 const UIManager = {
   measure: (ref, callback) => {
     callback(0, 0, ref.scrollWidth, ref.scrollHeight, ref.scrollLeft, ref.scrollTop);
+  },
+  measureInWindow(node, callback) {
+    if (node) {
+      setTimeout(() => {
+        const { height, left, top, width } = getRect(node);
+        callback(left, top, width, height);
+      }, 0);
+    }
   },
   measureLayout: (ref, relativeTo, errorCallback, callback) => {
     const rect = ref.getBoundingClientRect();

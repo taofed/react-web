@@ -159,7 +159,11 @@ class ScrollView extends Component {
 
     let handleScroll = () => {};
     if (this.props.scrollEventThrottle && this.props.onScroll) {
-      handleScroll = throttle(this.handleScroll, this.props.scrollEventThrottle ? 1000 / this.props.scrollEventThrottle : 1000);
+      if (this.props.scrollEventThrottleDisable) {
+        handleScroll = this.handleScroll;
+      } else {
+        handleScroll = throttle(this.handleScroll, this.props.scrollEventThrottle ? 1000 / this.props.scrollEventThrottle : 1000);
+      }
     }
 
     let props = {

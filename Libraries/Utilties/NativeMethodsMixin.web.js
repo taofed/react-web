@@ -36,6 +36,13 @@ var NativeMethodsMixin = {
     );
   },
 
+  measureInWindow: function(callback) {
+    UIManager.measureInWindow(
+      ReactDOM.findDOMNode(this),
+      mountSafeCallback(this, callback)
+    );
+  },
+
   /**
    * Like [`measure()`](#measure), but measures the view relative an ancestor,
    * specified as `relativeToNativeNode`. This means that the returned x, y
