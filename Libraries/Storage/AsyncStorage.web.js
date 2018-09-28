@@ -124,9 +124,8 @@ AsyncStorage.getAllKeys = function() {
  *
  *   multiGet(['k1', 'k2'], cb) -> cb([['k1', 'val1'], ['k2', 'val2']])
  */
-AsyncStorage.multiGet = function() {
+AsyncStorage.multiGet = function(keys) {
 
-  var keys = [].splice.call(arguments);
   var results = null;
 
   return new Promise(function(resolve, reject) {
@@ -154,9 +153,8 @@ AsyncStorage.multiGet = function() {
  *
  *   multiSet([['k1', 'val1'], ['k2', 'val2']], cb);
  */
-AsyncStorage.multiSet = function() {
+AsyncStorage.multiSet = function(args) {
 
-  var args = [].splice.call(arguments);
 
   return new Promise(function(resolve, reject) {
 
@@ -179,9 +177,8 @@ AsyncStorage.multiSet = function() {
 /**
  * Delete all the keys in the `keys` array. Returns a `Promise` object.
  */
-AsyncStorage.multiRemove = function() {
+AsyncStorage.multiRemove = function(keys) {
 
-  var keys = [].splice.call(arguments);
 
   return new Promise(function(resolve, reject) {
 
@@ -206,10 +203,9 @@ AsyncStorage.multiRemove = function() {
  *
  * Not supported by all native implementations.
  */
-AsyncStorage.multiMerge = function() {
+AsyncStorage.multiMerge = function(args) {
 
   var self = this;
-  var args = [].splice.call(arguments);
 
   return new Promise(function(resolve, reject) {
     try {
