@@ -98,11 +98,16 @@ class Image extends Component {
         </View>
       );
     } else {
-      delete props.source;
-      delete props.resizeMode;
+      const {
+        /* eslint-disable */
+        resizeMode,
+        source,
+        /* eslint-enable */
+        ...noWarningProps
+      } = props;
 
       return (
-        <img {...props}/>
+        <img {...noWarningProps}/>
       );
     }
   }

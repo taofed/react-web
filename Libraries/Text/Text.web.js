@@ -210,7 +210,15 @@ class Text extends Component {
 
     let {
       numberOfLines,
-      style
+      style,
+      /* eslint-disable */
+      accessibilityLabel,
+      accessible,
+      allowFontScaling,
+      isHighlighted,
+      onPress,
+      /* eslint-enable */
+      ...noWarningProps
     } = props;
 
     style = {...props.style};
@@ -234,15 +242,8 @@ class Text extends Component {
       // TODO set a linebreak
     }
 
-    delete props.accessibilityLabel;
-    delete props.allowFontScaling;
-    delete props.accessible;
-    delete props.isHighlighted;
-    delete props.numberOfLines;
-    delete props.onPress;
-
     return (
-      <span {...props}
+      <span {...noWarningProps}
         style={{
           ...{
             display: this.context.isInAParentText ? 'inline' : 'inline-block',
