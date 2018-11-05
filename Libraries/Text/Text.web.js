@@ -216,6 +216,7 @@ class Text extends Component {
       accessible,
       allowFontScaling,
       isHighlighted,
+      textBreakStrategy,
       onPress,
       /* eslint-enable */
       ...noWarningProps
