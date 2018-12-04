@@ -166,6 +166,7 @@ class View extends Component {
       maxToRenderPerBatch,
       numColumns,
       onAsyncPress,
+      onComponentRef,
       onContentSizeChange,
       onEndReached,
       onEndReachedThreshold,
