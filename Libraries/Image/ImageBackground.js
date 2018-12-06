@@ -16,6 +16,7 @@ import Image from 'ReactImage';
 import React from 'react';
 import StyleSheet from 'ReactStyleSheet';
 import View from 'ReactView';
+import flattenStyle from 'ReactFlattenStyle';
 
 /**
  * Very simple drop-in replacement for <Image> which supports nesting views.
@@ -57,7 +58,8 @@ class ImageBackground extends React.Component<$FlowFixMeProps> {
   };
 
   render() {
-    const {children, style, imageStyle, imageRef, ...props} = this.props;
+    const {children, imageStyle, imageRef, ...props} = this.props;
+    const style = flattenStyle(this.props.style) || {};
 
     return (
       <View style={style} ref={this._captureRef}>
