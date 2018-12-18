@@ -31,6 +31,8 @@ const TimingAnimation = require('./animations/TimingAnimation');
 
 const createAnimatedComponent = require('./createAnimatedComponent');
 
+const {shouldUseNativeDriver} = require('./NativeAnimatedHelper');
+
 import type {
   AnimationConfig,
   EndCallback,
@@ -167,7 +169,7 @@ const spring = function(
       },
 
       _isUsingNativeDriver: function(): boolean {
-        return config.useNativeDriver || false;
+        return shouldUseNativeDriver(config);
       },
     }
   );
@@ -221,7 +223,7 @@ const timing = function(
       },
 
       _isUsingNativeDriver: function(): boolean {
-        return config.useNativeDriver || false;
+        return shouldUseNativeDriver(config);
       },
     }
   );
@@ -263,7 +265,7 @@ const decay = function(
       },
 
       _isUsingNativeDriver: function(): boolean {
-        return config.useNativeDriver || false;
+        return shouldUseNativeDriver(config);
       },
     }
   );
