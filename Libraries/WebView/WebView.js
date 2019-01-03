@@ -19,7 +19,7 @@ export default class extends Component {
   state = { html: null };
 
   constructor(props) {
-    super(props);console.log(StyleSheet)
+    super(props);
     this.handleSource(props.source, props.newWindow);
   }
 
