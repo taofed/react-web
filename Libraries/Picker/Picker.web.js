@@ -17,27 +17,23 @@ class Picker extends Component {
   }
 
   _onChange(event) {
-    // shim the native event
-    event.nativeEvent.newValue = this._ref.value;
-
     if (this.props.onChange) {
       this.props.onChange(event);
     }
 
     if (this.props.onValueChange) {
-      this.props.onValueChange(event.nativeEvent.newValue);
+      const {
+        selectedIndex,
+        value
+      } = event.target;
+      this.props.onValueChange(value, selectedIndex);
     }
-  }
-
-  _captureRef = ref => {
-    this._ref = ref;
   }
 
   render() {
     return (
       <select
         aria-label={this.props.accessibilityLabel}
-        ref={this._captureRef}
         value={this.props.selectedValue}
         style={{
           margin: 10,
