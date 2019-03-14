@@ -395,7 +395,7 @@ class ListView extends Component {
     });
   }
 
-  onRowHighlighted(sectionID: string, rowID: string) {
+  _onRowHighlighted(sectionID: string, rowID: string) {
     this.setState({highlightedRow: {sectionID, rowID}});
   }
 
