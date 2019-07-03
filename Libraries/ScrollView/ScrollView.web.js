@@ -166,13 +166,28 @@ class ScrollView extends Component {
       }
     }
 
+    let scrollIndicator = {
+      overflowX: 'hidden',
+      overflowY: 'hidden',
+    };
+    if (this.props.scrollEnabled) {
+      if (!(this.props.showsHorizontalScrollIndicator === false ||
+              this.props.showsVerticalScrollIndicator === false)) {
+        if (this.props.horizontal) {
+          scrollIndicator.overflowX = 'auto';
+        } else {
+          scrollIndicator.overflowY = 'auto';
+        }
+      }
+    }
+
     let props = {
       ...otherProps,
       alwaysBounceHorizontal,
       alwaysBounceVertical,
       style: ([
         styles.base,
-        (this.props.horizontal && this.props.scrollEnabled) ? styles.horizontal : null,
+        scrollIndicator,
         this.props.style,
       ]: ?Array<any>),
       onTouchStart: this.scrollResponderHandleTouchStart,
@@ -206,14 +221,8 @@ class ScrollView extends Component {
 
 let styles = StyleSheet.create({
   base: {
-    overflowX: 'hidden',
-    overflowY: 'scroll',
     WebkitOverflowScrolling: 'touch',
     flex: 1,
-  },
-  horizontal: {
-    overflowX: 'scroll',
-    overflowY: 'hidden',
   },
   contentContainer: {
     position: 'absolute',
