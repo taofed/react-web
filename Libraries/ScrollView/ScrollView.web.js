@@ -18,8 +18,6 @@ import throttle from 'domkit/throttle';
 import mixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
-const CONTENT_EXT_STYLE = ['padding', 'paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight'];
-
 /**
  * Component that wraps platform ScrollView while providing
  * integration with touch locking "responder" system.
@@ -106,26 +104,10 @@ class ScrollView extends Component {
   }
 
   render() {
-    let {
-      style,
-      ...otherProps
-    } = this.props;
-
-    let contentContainerExtStyle = {};
-
-    if (style) {
-      for (let i = 0; i < CONTENT_EXT_STYLE.length; i++) {
-        if (typeof style[CONTENT_EXT_STYLE[i]] === 'number') {
-          contentContainerExtStyle[CONTENT_EXT_STYLE[i]] = style[CONTENT_EXT_STYLE[i]];
-        }
-      }
-    }
-
     let contentContainerStyle = [
       styles.contentContainer,
       this.props.horizontal && styles.contentContainerHorizontal,
       this.props.contentContainerStyle,
-      contentContainerExtStyle,
     ];
     // if (__DEV__ && this.props.style) {
     //   let style = flattenStyle(this.props.style);
@@ -182,7 +164,7 @@ class ScrollView extends Component {
     }
 
     let props = {
-      ...otherProps,
+      ...this.props,
       alwaysBounceHorizontal,
       alwaysBounceVertical,
       style: ([
@@ -225,7 +207,6 @@ let styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    position: 'absolute',
     minWidth: '100%',
   },
   contentContainerHorizontal: {
