@@ -164,7 +164,7 @@ export default class extends Component {
       srcDoc: this.handleInjectedJavaScript(this.state.html || source.html),
       width: styleObj && styleObj.width,
       height: styleObj && styleObj.height,
-      style: [styles.iframe, scrollEnabled && styles.noScroll],
+      style: StyleSheet.flatten([styles.iframe, scrollEnabled && styles.noScroll]),
       allowFullScreen: true,
       allowpaymentrequest: 'true',
       frameBorder: '0',
