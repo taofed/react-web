@@ -5,13 +5,10 @@
  */
 'use strict';
 
-import ReactDOM from 'react-dom';
 import ReactDOMUnstableNativeDependencies from 'react-dom/unstable-native-dependencies';
 
 const {
-  EventPluginHub,
-} = ReactDOM.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-const {
+  injectEventPluginsByName,
   ResponderEventPlugin,
   ResponderTouchHistoryStore,
 } = ReactDOMUnstableNativeDependencies;
@@ -99,6 +96,6 @@ ResponderTouchHistoryStore.recordTouchTrack = (topLevelType, nativeEvent) => {
   });
 };
 
-EventPluginHub.injection.injectEventPluginsByName({
+injectEventPluginsByName({
   ResponderEventPlugin
 });
