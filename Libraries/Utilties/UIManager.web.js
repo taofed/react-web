@@ -22,6 +22,13 @@ const getRect = node => {
 
 const UIManager = {
   measure: (ref, callback) => {
+    // const rect = ref.getBoundingClientRect();
+    // callback(0, 0, rect.width, rect.height, rect.left, rect.top);
+
+    // above is origin, below is to "Let Text can measure() real height",
+    // but ref.scrollLeft and ref.scrollTop always be 0 , so
+    // maybe measureInWindow() is better than measure()
+
     callback(0, 0, ref.scrollWidth, ref.scrollHeight, ref.scrollLeft, ref.scrollTop);
   },
   measureInWindow(node, callback) {
